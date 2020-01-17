@@ -1,0 +1,13 @@
+diff --git a/core/lib/Drupal/Core/Datetime/Element/Datelist.php b/core/lib/Drupal/Core/Datetime/Element/Datelist.php
+index 6f110d395f..493b34fe0c 100644
+--- a/core/lib/Drupal/Core/Datetime/Element/Datelist.php
++++ b/core/lib/Drupal/Core/Datetime/Element/Datelist.php
+@@ -48,7 +48,7 @@ public static function valueCallback(&$element, $input, FormStateInterface $form
+     $increment = $element['#date_increment'];
+ 
+     $date = NULL;
+-    if ($input !== FALSE) {
++    if ($input && $input !== FALSE) {
+       $return = $input;
+       if (empty(static::checkEmptyInputs($input, $parts))) {
+         if (isset($input['ampm'])) {

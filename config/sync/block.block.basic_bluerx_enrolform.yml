@@ -1,0 +1,47 @@
+uuid: 1874ad0e-4cf2-450f-bd12-c53f44426ad4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:77ec40f8-674e-45b4-8a62-ba37aad67b7c'
+  module:
+    - block_class
+    - block_content
+    - system
+    - webform
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: 'plan-section p-5 white-color radius-4 text-center'
+id: basic_bluerx_enrolform
+theme: basic_bluerx
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'block_content:77ec40f8-674e-45b4-8a62-ba37aad67b7c'
+settings:
+  id: 'block_content:77ec40f8-674e-45b4-8a62-ba37aad67b7c'
+  label: 'Enrol Form'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "!/node/45\r\n!/node/46\r\n!/node/42\r\n!/node/7\r\n!/node/47\r\n!/node/48\r\n!/node/50\r\n!/node/51\r\n!/node/53\r\n!/search/node*\r\n/node/55\r\n/node/18\r\n/user*\r\n/node/*\r\n!/node/56\r\n!/basic-blue-rx-enroll-2020\r\n!/bbrx-change-2020\r\n!/node/54\r\n!/pharmacy-tools-landing"
+    negate: false
+    context_mapping: {  }
+  webform:
+    id: webform
+    webforms:
+      basic_blue_rx_change_2019: basic_blue_rx_change_2019
+      basic_blue_rx_enroll_2018: basic_blue_rx_enroll_2018
+      basic_blue_rx_enroll_2019: basic_blue_rx_enroll_2019
+      bbrx_change_payment_option: bbrx_change_payment_option
+      bbrx_update_contact_information: bbrx_update_contact_information
+    negate: true
+    context_mapping:
+      node: '@node.node_route_context:node'

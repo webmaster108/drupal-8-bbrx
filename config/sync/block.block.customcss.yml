@@ -1,0 +1,25 @@
+uuid: 5ac75268-9e30-480b-984b-f6a3d9db0bac
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:058ff7b6-0c8d-4cb3-97eb-127d7cccc7cd'
+  module:
+    - block_content
+  theme:
+    - basic_bluerx
+id: customcss
+theme: basic_bluerx
+region: html_head
+weight: -12
+provider: null
+plugin: 'block_content:058ff7b6-0c8d-4cb3-97eb-127d7cccc7cd'
+settings:
+  id: 'block_content:058ff7b6-0c8d-4cb3-97eb-127d7cccc7cd'
+  label: 'custom CSS'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

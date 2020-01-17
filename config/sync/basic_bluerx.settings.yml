@@ -1,0 +1,37 @@
+favicon:
+  mimetype: image/vnd.microsoft.icon
+  path: sites/default/files/favicons/favicon_0.ico
+  url: 'http://bbrx.connectrouting.com/themes/custom/basic_bluerx/favicon.ico'
+  use_default: 0
+schemas:
+  bootstrap: 8000
+  basic_bluerx: 8000
+logo:
+  path: themes/custom/basic_bluerx/bbrx-logo-unbranded.png
+  url: ''
+  use_default: 0
+cdn_jsdelivr_version: 3.4.0
+table_responsive: '-1'
+table: ''
+region_wells:
+  html_head: ''
+  navigation: ''
+  slider: ''
+  header_left: ''
+  header_right: ''
+  highlighted: ''
+  help: ''
+  contact: ''
+  content: ''
+  sidebar_first: ''
+  sidebar_second: ''
+  footer: ''
+  content_bottom: ''
+features:
+  comment_user_picture: 1
+  comment_user_verification: 1
+  favicon: 1
+  node_user_picture: 1
+cdn_provider: custom
+cdn_custom: "https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.css\nhttps://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css\nhttps://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.js\nhttps://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+cdn_provider_import_data: ''

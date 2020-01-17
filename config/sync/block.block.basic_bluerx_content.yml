@@ -1,0 +1,22 @@
+uuid: 6df6a513-e1d1-49de-b86b-fe72f1c7be2b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: hieHP2Kal6FuvKibKanY_-cGy7ibGFbqerMllvK8UBU
+id: basic_bluerx_content
+theme: basic_bluerx
+region: content
+weight: -6
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

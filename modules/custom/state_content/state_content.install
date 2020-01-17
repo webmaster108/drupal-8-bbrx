@@ -1,0 +1,210 @@
+<?php
+
+/**
+ * @file
+ * Creating table entry.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function state_content_schema() {
+  $schema['state_content'] = [
+    'description' => 'Allows zip based content to be used.',
+    'fields' => [
+      'entity_id' => [
+        'description' => 'Node ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'entity_type' => [
+        'description' => 'Type of Entity. Will always be Node.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'enable' => [
+        'description' => 'Whether or not zip based content is enabled.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'states' => [
+        'description' => 'States that the piece of content is tied to.',
+        'type' => 'varchar',
+        'length' => '5000',
+        'not null' => FALSE,
+      ],
+      'url' => [
+        'description' => 'URL ID that the piece of content is tied to.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'tag' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['entity_id'],
+  ];
+  $schema['state_content_urls'] = [
+    'description' => 'URLs for content to be tied to, controls which piece of content should be dislpayed.',
+    'fields' => [
+      'id' => [
+        'description' => 'ID of url.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'url' => [
+        'description' => 'URL',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+      'title' => [
+        'description' => 'The title of the page.',
+        'type' => 'varchar',
+        'length' => '500',
+        'not null' => FALSE,
+      ],
+      'region' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'domain' => [
+        'description' => 'Allow a Domain ID to be entered if domain module is enabled.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema['state_content_regions'] = [
+    'description' => 'State regions to tie to URLs.',
+    'fields' => [
+      'id' => [
+        'description' => 'ID of region.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'region' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'states' => [
+        'description' => '',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+      'favicon' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+      'logo' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema['state_content_custom_tags'] = [
+    'description' => '',
+    'fields' => [
+      'id' => [
+        'description' => 'ID of custom tag.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'tag' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'region' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'tag_default' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '0',
+      ],
+      'content' => [
+        'description' => '',
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema['webform_state_field_by_nid'] = [
+    'description' => 'Creates relation between components and webforms using the Node ID',
+    'fields' => [
+      'id' => [
+        'description' => 'ID',
+        'type' => 'serial',
+        'length' => '10',
+        'not null' => TRUE,
+      ],
+      'nid' => [
+        'description' => 'Form Component Node ID',
+        'type' => 'int',
+        'length' => 10,
+        'not null' => FALSE,
+      ],
+      'cid' => [
+        'description' => 'Form Component ID',
+        'type' => 'int',
+        'length' => 10,
+        'not null' => FALSE,
+      ],
+      'form_key' => [
+        'description' => 'Form Key',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+      'status' => [
+        'description' => 'Enabled(1) or Disabled(0)',
+        'type' => 'int',
+        'length' => 1,
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_update_n().
+ */
+function state_content_update_8005() {
+  $new_field = [
+    'description' => 'Confirmation for Planname field.',
+    'type' => 'int',
+    'not null' => TRUE,
+    'size' => 'tiny',
+    'default' => 0,
+  ];
+  db_add_field('state_content_regions', 'standard_plan', $new_field);
+}

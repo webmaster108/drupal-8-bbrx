@@ -1,0 +1,19 @@
+uuid: c11963fc-1bb4-49e4-918d-d6e4708fa51c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image_headline
+    - node.type.webform
+id: node.webform.field_header_image_headline
+field_name: field_header_image_headline
+entity_type: node
+bundle: webform
+label: 'Header Image Headline'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

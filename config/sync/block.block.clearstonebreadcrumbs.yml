@@ -1,0 +1,26 @@
+uuid: b93307f5-b6c7-4828-9b12-cbb912ae5ff8
+langcode: en
+status: true
+dependencies:
+  module:
+    - clearstone_updates
+    - system
+  theme:
+    - basic_bluerx
+id: clearstonebreadcrumbs
+theme: basic_bluerx
+region: content
+weight: -11
+provider: null
+plugin: clearstone_breadcrumbs_block
+settings:
+  id: clearstone_breadcrumbs_block
+  label: 'Clearstone: Breadcrumbs'
+  provider: clearstone_updates
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: true
+    context_mapping: {  }

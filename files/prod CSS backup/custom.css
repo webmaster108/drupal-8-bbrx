@@ -1,0 +1,311 @@
+/* ********** begin PDF list style ************ */
+ul.pdflist li, li.pdflist, .pdficon
+{
+padding:0 0 5px 20px;
+background-image: url(/files/icon-pdf.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+list-style: none;
+}
+.newicon
+{
+padding-right:50px;
+background-image: url(/files/new-icon.gif);
+background-repeat: no-repeat;
+background-position: right center;
+}
+ul.pdflist li.noicon{ /* for items in PDF icon list where icon is NOT wanted */
+	background-image: none;
+}
+.outdent{
+	margin-left:-22px;
+}
+.leftalign{
+  text-align: left;
+}
+.rightalign{
+  text-align: right;
+}
+/* ********** end PDF list style ************ */
+/* ---------- nav jump links style -------------- */
+a.totop,a.goback,a.gobackregular{ /* anchor link to page top */
+	margin-left:1.5em;
+	font-size:80%;
+	font-weight:normal;
+    vertical-align: middle;
+    padding:0 0 5px 20px;
+background-image: url(/files/pagetop.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+}
+a.goback,a.gobackregular{
+background-image: url(/files/back14x14.png);
+margin-left: 1px
+}
+a.gobackregular{
+  font-size: 100%;
+  background-position: 0 0.3em;
+}
+a.jumpdown{ /* anchor link to page top */
+	font-size:100%;
+	margin-left:2.5em;
+	font-weight:normal;
+	 vertical-align: baseline;
+    padding:0 20px 5px 0px;
+background-image: url(/files/downarrow.png);
+background-repeat: no-repeat;
+background-position: right center;
+}
+.bluepipe{
+  color: #0078B9
+}
+
+h2>a.jumpdown{ /* anchor link to page top */
+	font-size: 80%;
+}
+/* ---------- nav jump links style -------------- */
+
+em.green{
+	color:#060;
+	font-style:normal;
+}
+.alert{
+  color:#CC0000;
+  font-weight:bold;
+}
+
+/* begin custom heading styles */
+h2.large{ /* used for increasing section heading size and adding a border on forms pages */
+    border-top: 1px solid #32a4da;
+    font-size: 120%;
+    padding-top: 10px;
+	}
+
+/* end custom heading styles */
+
+/* begin heading borders */
+h2.bordertop, h3.bordertop, h4.bordertop{
+    border-top: 1px solid #32a4da;
+    padding-top: 10px;
+}
+.field-name-field-table-title h2 {
+  font-size: 19px;
+}
+.borderbox{
+  border:1px solid #66CBEA;
+  padding:6px 6px 0 16px;
+  background: #F8FEF0
+}
+
+.headingback{
+border-bottom: 1px solid #B8DADA;
+padding: 0 0 3px 0;
+background-image: -webkit-linear-gradient(#ffffff, #aaddaa);
+background-image: -moz-linear-gradient(#aaddaa, #ffffff);
+background-image: -o-linear-gradient(#aaddaa, #ffffff);
+background-image: linear-gradient(#ffffff, #E3F0F0);
+}
+.headingunderline{ 
+  border-bottom: linear-gradient(to right, rgba(48,48,48,1) 0%, rgba(10,10,10,0.38) 80%, rgba(10,10,10,0.27) 94%, rgba(10,10,10,0.27) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303030', endColorstr='#0a0a0a', GradientType=1 )
+}
+#navigation .region-navigation>.block>ul>li>ul>li { /* move submenu up 1px for better connection to main nav */
+margin: -1px 0 0;
+}
+.extravertpadbottom{/* add extra padding to the bottom of an element */
+  padding-bottom: 10px;
+}
+.extravertpadtop{ /* add extra padding to the top of an element */
+  padding-top: 10px;
+}
+footer div h2{ /* removes title of the footer menu on azbluemedicare.com */
+  display:none
+  }
+/* modify style for glossary */
+.panel-heading{
+  padding: 1px 1px 1px 10px;
+}
+div.panel-heading > h4 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 125%;
+}
+.panel{
+  margin-bottom: 10px;
+}
+h2+p, h3+p, h4+p, h2+p+p, h3+p+p, h4+p+p, h2+p+p+p, h3+p+p+p, h4+p+p+p, h2+p+p+p+p, h3+p+p+p+p, h4+p+p+p+p, h2+p+p+p+p+p, h3+p+p+p+p+p, h4+p+p+p+p+p{
+  margin-top:-8px;
+  margin-left:3%;
+}
+h2+p.normal, h3+p.normal, h4+p.normal{
+  margin-top:0;
+  margin-left:0;
+}
+h4{
+  font-size:17px;
+}
+h2, h3{
+  font-size: 18px;
+}
+/* end modify style for glossary */
+
+/* ----------------- begin CSS tooltips -------------------------*/
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -110px;
+  padding: 7px;
+  width: 220px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.2;
+}
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* ----------------- end CSS tooltips -------------------------*/
+ /**************** begin custom table style ****************/
+ table.t1 {
+    margin: 1em auto;
+    border-collapse: collapse;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+  }
+  .t1 th, .t1 td {
+    padding: 4px 8px;
+    text-align: left;
+  }
+  .t1 thead th {
+    background: #4f81bd;
+    text-align: left;
+    /*font-size: 15px;*/
+    color: #fff;
+  }
+  .t1 tr {
+    border-right: 1px solid #95b3d7;
+    border-left: 1px solid #95b3d7;
+  }
+  .t2 tr {/* t2 gray style */
+    border-right: 1px solid #878787;
+    border-left: 1px solid #878787;
+  }
+  .t1 tbody tr {
+    border-bottom: 1px solid #95b3d7;
+  }
+  .t2 tbody tr {/* t2 gray style */
+    border-bottom: 1px solid #878787;
+  }
+
+  .t1 tbody tr:nth-child(odd) {
+    background: #dbe5f0;
+  }
+  .t2 tbody tr:nth-child(odd){/* t2 gray style */
+    background:#E4E4E4
+  }
+  .t1 tbody th, .t1 tbody  td {
+    border-right: 1px solid #95b3d7;
+  }
+   .t2 tbody th, .t2 tbody  td {/* t2 gray style */
+    border-right: 1px solid #878787;
+  }
+  .t1 tfoot th {
+    background: #4f81bd;
+    text-align: left;
+    font-weight: normal;
+    font-size: small;
+    color: #fff;
+  }
+  .t1 tr *:nth-child(3), .t1 tr *:nth-child(4) {
+    text-align: left;
+  }
+  .t1 th.smaller{
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: center;
+}
+table.t1 caption{
+  font-weight: bold;
+  background: #CDCDCD
+}
+  /**************** end custom table style ******************/
+.leftarrowheading{
+  text-shadow: 0px .2px .2px #ccc;
+   background: url(bullet-orange-arrow.gif) no-repeat top left;
+  padding-left: 25px;
+  padding-top: 3px;
+  }
+ .tipicon{/* info icon to the right of link with tooltip */
+  background: url(infoicon.png) no-repeat bottom right;
+  padding-right: 25px;
+ }
+ .nestedul, .nestedol{
+    margin-bottom: 5px;
+    margin-top: -5px;
+  }
+  cite{
+    font-style: italic;
+    font-size:90%
+  }
+  /* alternate rows in lists */
+  ul.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ul.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ul.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  ol.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ol.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ol.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  span.greenlight{
+    background: #BEE9D4;
+    padding: 2px 4px;
+    }
+  span.greenlightQ{
+    padding: 2px 4px;
+    background: url(icon_question20x20.gif) no-repeat bottom right #BEE9D4;;
+  padding-right: 25px
+    }
+ /* green background for 2016 */
+

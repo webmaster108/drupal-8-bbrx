@@ -1,0 +1,27 @@
+uuid: 3a442914-d27e-4d64-93c2-2b098e641107
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: ktkN6LwacyZC65DBsFSd7nm6NBJUhl7Miney8n4GsDY
+id: basic_bluerx_page_title
+theme: basic_bluerx
+region: content
+weight: -10
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: "/contact-us/contact-form/confirmation*\r\n<front>"
+    negate: true
+    context_mapping: {  }

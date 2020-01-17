@@ -1,0 +1,531 @@
+/* ********** begin PDF list style ************ */
+ul.pdflist li, li.pdflist, .pdficon
+{
+padding:0 0 5px 20px;
+background-image: url(/files/icon-pdf.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+list-style: none;
+}
+.newicon
+{
+padding-right:50px;
+background-image: url(/files/new-icon.gif);
+background-repeat: no-repeat;
+background-position: right center;
+}
+ul.pdflist li.noicon{ /* for items in PDF icon list where icon is NOT wanted */
+	background-image: none;
+}
+ul li.nobullet{
+  list-style-type: none;
+}
+.outdent{
+	margin-left:-22px;
+}
+.leftalign{
+  text-align: left;
+}
+.rightalign{
+  text-align: right;
+}
+.centeralign{
+  text-align: center;
+}
+/* ********** end PDF list style ************ */
+
+/* ---------- nav jump links style -------------- */
+a.totop,a.goback,a.gobackregular{ /* anchor link to page top */
+	margin-left:1.5em;
+	font-size:80%;
+	font-weight:normal;
+    vertical-align: middle;
+    padding:0 0 5px 20px;
+background-image: url(/files/pagetop.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+}
+a.goback,a.gobackregular{
+background-image: url(/files/back14x14.png);
+margin-left: 1px
+}
+a.gobackregular{
+  font-size: 100%;
+  background-position: 0 0.3em;
+}
+a.jumpdown{ /* anchor link to page top */
+	font-size:100%;
+	margin-left:2.5em;
+	font-weight:normal;
+	 vertical-align: baseline;
+    padding:0 20px 5px 0px;
+background-image: url(/files/downarrow.png);
+background-repeat: no-repeat;
+background-position: right center;
+}
+.bluepipe{
+  color: #0078B9
+}
+
+h2>a.jumpdown{ /* anchor link to page top */
+	font-size: 80%;
+}
+/* ---------- nav jump links style -------------- */
+
+em.green{
+	color:#060;
+	font-style:normal;
+}
+.greentext{
+  color: #457207
+}
+.textshadow{
+  text-shadow: 1px 1px 1px #ccc;
+}
+.highlight{
+  background: yellow;
+}
+.alert{
+  color:#CC0000;
+  font-weight:bold;
+}
+.providersearchtitle{
+  color:#336633;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+/* begin custom heading styles */
+h2.large{ /* used for increasing section heading size and adding a border on forms pages */
+    border-top: 1px solid #32a4da;
+    font-size: 120%;
+    padding-top: 10px;
+	}
+
+/* end custom heading styles */
+
+/* begin heading borders */
+h2.bordertop, h3.bordertop, h4.bordertop{
+    border-top: 1px solid #32a4da;
+    padding-top: 10px;
+}
+.field-name-field-table-title h2 {
+  font-size: 19px;
+}
+.borderbox{
+  border:1px solid #66CBEA;
+  padding:6px 6px 0 16px;
+  background: #F8FEF0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.borderboxplus{
+  border:4px double #55AF55;
+  padding:8px;
+  background: #F8FEF0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.greenbox{
+  border:none;
+  padding:6px 6px 6px 16px;
+  margin-bottom: 1em;
+  background: #EEF4EC;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color:#000;
+}
+
+.headingback{
+border-bottom: 1px solid #B8DADA;
+padding: 0 0 3px 0;
+background-image: -webkit-linear-gradient(#ffffff, #aaddaa);
+background-image: -moz-linear-gradient(#aaddaa, #ffffff);
+background-image: -o-linear-gradient(#aaddaa, #ffffff);
+background-image: linear-gradient(#ffffff, #E3F0F0);
+}
+.headingunderline{
+  border-bottom: linear-gradient(to right, rgba(48,48,48,1) 0%, rgba(10,10,10,0.38) 80%, rgba(10,10,10,0.27) 94%, rgba(10,10,10,0.27) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303030', endColorstr='#0a0a0a', GradientType=1 )
+}
+#navigation .region-navigation>.block>ul>li>ul>li { /* move submenu up 1px for better connection to main nav */
+margin: -1px 0 0;
+}
+.extravertpadbottom{/* add extra padding to the bottom of an element */
+  padding-bottom: 10px;
+}
+.extravertpadtop{ /* add extra padding to the top of an element */
+  padding-top: 10px;
+}
+.zeromargintop{
+  margin-top: 0;
+}
+.zeromarginbottom{
+  margin-bottom: 0;
+}
+footer div h2{ /* removes title of the footer menu on azbluemedicare.com */
+  display:none
+  }
+/* begin highlight of sidebar active menu item */
+.sidebars .block-menu .menu > li > .menu > li > a.active, .sidebars .block-menu-block .menu > li > .menu > li > a.active {
+    background: #fff none repeat scroll 0 0;
+    color: #666;}
+.sidebars .block-menu-block .menu > li > .menu > li > a:hover,.sidebars .block-menu .menu > li > .menu > li > a:hover{
+    color: #666;}
+.sidebars .block-menu .menu > li > .menu > li > a, .sidebars .block-menu-block .menu > li > .menu > li > a {
+    color: #00749f;} /* preceding rule darkens 3rd level menu on sidebar */
+/* end highlight of sidebar active menu item */
+
+/* darken man nav main menu links and add shadow to active black link */
+#navigation .region-navigation > .block > ul > li > a, #navigation .region-navigation > .block > ul > li > a.active:hover, #navigation .region-navigation > .block > ul > li.active-trail > a.active-trail:hover {color: #1f81ae;}
+#navigation .region-navigation > .block > ul > li > a:hover, #navigation .region-navigation > .block > ul > li > a.active, #navigation .region-navigation > .block > ul > li.active-trail > a.active-trail {text-shadow: 0.3px 0.3px #0082c8; /* new */}
+/* end darken man nav main menu links */
+
+/* modify style for glossary */
+.panel-heading{
+  padding: 1px 1px 1px 10px;
+}
+div.panel-heading > h4 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 125%;
+}
+.panel{
+  margin-bottom: 10px;
+}
+h2+p, h3+p, h4+p, h2+p+p, h3+p+p, h4+p+p, h2+p+p+p, h3+p+p+p, h4+p+p+p, h2+p+p+p+p, h3+p+p+p+p, h4+p+p+p+p, h2+p+p+p+p+p, h3+p+p+p+p+p, h4+p+p+p+p+p{
+  margin-top:-8px;
+  margin-left:3%;
+}
+h2+p.normal, h3+p.normal, h4+p+p.normal,h2+p+p.normalagain, h3+p+p.normalagain, h4+p+p.normalagain{
+  margin-top:0;
+  margin-left:0;
+}
+h4{
+  font-size:17px;
+}
+h2, h3{
+  font-size: 18px;
+}
+/* end modify style for glossary */
+p.hanging{/* hanging indent paragraph */
+text-indent:-20px;
+padding-left:20px;
+}
+p.indent{
+  margin-left: 20px
+}
+/* ----------------- begin CSS tooltips -------------------------*/
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -110px;
+  padding: 7px;
+  width: 220px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.2;
+}
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* ----------------- end CSS tooltips -------------------------*/
+ /**************** begin custom table style ****************/
+ table.t1 {
+    margin: 1em auto;
+    border-collapse: collapse;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+  }
+  .t1 th, .t1 td {
+    padding: 4px 8px;
+    text-align: left;
+  }
+  .t1 thead th {
+    background: #4f81bd;
+    text-align: left;
+    /*font-size: 15px;*/
+    color: #fff;
+  }
+  .t1 tr {
+    border-right: 1px solid #95b3d7;
+    border-left: 1px solid #95b3d7;
+  }
+  .t2 tr {/* t2 gray style */
+    border-right: 1px solid #878787;
+    border-left: 1px solid #878787;
+  }
+  .t1 tbody tr {
+    border-bottom: 1px solid #95b3d7;
+  }
+  .t2 tbody tr {/* t2 gray style */
+    border-bottom: 1px solid #878787;
+  }
+
+  .t1 tbody tr:nth-child(odd) {
+    background: #dbe5f0;
+  }
+  .t2 tbody tr:nth-child(odd){/* t2 gray style */
+    background:#E4E4E4
+  }
+  .t1 tbody th, .t1 tbody  td {
+    border-right: 1px solid #95b3d7;
+  }
+   .t2 tbody th, .t2 tbody  td {/* t2 gray style */
+    border-right: 1px solid #878787;
+  }
+  .t1 tfoot th {
+    background: #4f81bd;
+    text-align: left;
+    font-weight: normal;
+    font-size: 60%;
+    color: #fff;
+  }
+  .t1 tr *:nth-child(3), .t1 tr *:nth-child(4) {
+    text-align: left;
+  }
+  .t1 th.smaller{
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: center;
+}
+table.t1 caption{
+  font-weight: bold;
+  background: #CDCDCD
+}
+table.t3{border-top:solid 1px #DD610F;
+    border-bottom:solid 1px #DD610F} /* modified standard table for pricing tool */
+table.t3 tr td{color:black;
+    text-shadow: .5px .5px .5px #ccc;
+    padding: 5px}
+
+table.t4{border-top:solid 1px #3258BB;
+    border-bottom:solid 1px #3258BB} /* modified standard table for pricing tool */
+table.t4 tr td{color:black;
+    text-shadow: .5px .5px .5px #ccc;
+    padding: 5px}
+table.t4 th{background: #D0ECF4}
+table.t4 {
+  width: 100%
+}
+
+  /**************** end custom table style ******************/
+.leftarrowheading{
+  text-shadow: 0px .2px .2px #ccc;
+   background: url(bullet-orange-arrow.gif) no-repeat top left;
+  padding-left: 25px;
+  padding-top: 3px;
+  }
+ .tipicon{/* info icon to the right of link with tooltip */
+  background: url(infoicon.png) no-repeat right;
+  padding-right: 25px;
+ }
+ .nestedul, .nestedol{
+    margin-bottom: 5px;
+    margin-top: -5px;
+  }
+  cite{
+    font-style: italic;
+    font-size:90%
+  }
+  /* alternate colored list rows with no bullets */
+  ul.alternatenb li:nth-child(even) { background-color:#F3F3F3;}
+  ul.alternatenb li:nth-child(odd) { background-color:#EEF3F9;}
+  ul.alternatenb li {background-color:#FEFEFE; padding:8px;list-style-type:none;border-bottom:4px double #55AF55}
+  ul.alternatenb li:nth-last-child(1){border-bottom:none;border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+  ul.alternatenb li:nth-child(1){border-top-left-radius:8px;border-top-right-radius:8px}
+  ul.alternatenb {padding:0}
+
+  /* alternate rows in lists */
+  ul.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ul.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ul.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  ol.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ol.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ol.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  span.greenlight{
+    background: #BEE9D4;
+    padding: 2px 4px;
+    }
+  span.greenlightQ{
+    padding: 2px 4px;
+    background: url(icon_question20x20.gif) no-repeat bottom right #BEE9D4;
+  padding-right: 25px
+    }
+ /* green background for 2017 */
+.invisible{
+  display:none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+.visible{
+display: inline;
+}
+/* default link color for page body */
+.pageBody a{
+color: #0000EE;
+}
+/* dynamic video resize */
+.video-container {
+	position:relative;
+	padding-bottom:56.25%;
+	padding-top:30px;
+	height:0;
+	overflow:hidden;
+}
+.video-container iframe, .video-container object, .video-container embed {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+/************************** 2017 Webform CSS ***********************************/
+
+fieldset#webform-component-medicare-insurance-info legend{ /* form headings */
+  font-weight:bold;
+  border-bottom: 6px double #336633;
+  padding: 4px;
+  text-shadow: 1px 1px 1px #ccc;
+}
+fieldset#webform-component-personal-information legend{
+  font-weight:bold;
+  border-bottom: 6px double #336633;
+  padding: 4px;
+  text-shadow: 1px 1px 1px #ccc;
+}
+fieldset#webform-component-enroll-in-plan legend{
+  font-weight:bold;
+  border-bottom: 6px double #336633;
+  padding: 4px;
+  text-shadow: 1px 1px 1px #ccc;
+}
+a.agentbutton {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-box-shadow: #6E7849 0 0 3px;
+  background-color: #527808;
+  background-image: -moz-linear-gradient(180deg, #669900, #527808);
+  background-image: -ms-linear-gradient(180deg, #669900, #527808);
+  background-image: -o-linear-gradient(180deg, #669900, #527808);
+  background-image: -webkit-linear-gradient(180deg, #669900, #527808);
+  background-image: linear-gradient(180deg, #669900, #527808);
+  border-radius: 4px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 15px;
+  margin: 15px 0 0 -100px;
+  padding: 4px 15px;
+  text-decoration: none;
+ float:left;
+}
+a.agentbutton:hover {
+  background-color: #71a607;
+  background-image: -moz-linear-gradient(180deg, #5b8703, #71a607);
+  background-image: -ms-linear-gradient(180deg, #5b8703, #71a607);
+  background-image: -o-linear-gradient(180deg, #5b8703, #71a607);
+  background-image: -webkit-linear-gradient(180deg, #5b8703, #71a607);
+  background-image: linear-gradient(180deg, #5b8703, #71a607);
+  text-decoration: underline;
+}
+
+/************************** end 2017 Webform CSS ***********************************/
+
+a[href^="tel:"]{
+  color: #165C7E;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hide site search block and other elements for dev purposes */
+/*.section-home-basic-blue-rx-pdp input#edit-search-block-form--2-0{
+  display:none !important;
+}
+.section-home-basic-blue-rx-pdp .region-search .form-submit {
+    background-image: none !important;
+}
+.section-home-basic-blue-rx-pdp input#edit-submit-0{
+ display:none !important;
+}
+.section-home-basic-blue-rx-pdp .header__logo-image{
+  margin-bottom:25px !important;
+}
+.section-home-basic-blue-rx-pdp div.footerContainer{
+  display:none !important;
+}
+.section-home-basic-blue-rx-pdp div.pageBody{
+  margin-bottom: 25px !important;
+}
+.section-home-basic-blue-rx-pdp a.menu__link{
+  visibility:hidden !important;
+}
+.section-home-basic-blue-rx-pdp a[href^="/home-basic-blue-rx-pdp"]{
+  visibility:visible !important;
+}
+a.agentbutton{
+  display: none;
+}
+#block-block-92{
+  display: none;
+}
+aside.sidebars.col-sm-3.hidden-xs{
+  display: none;}
+li.menu__item .first{
+  visibility:visible !important;
+}
+
+a.menu__link is-active-trail active-trail active{
+  visibility:visible !important;
+}
+*/
+/* END - Hide site search block and other elements for dev purposes */

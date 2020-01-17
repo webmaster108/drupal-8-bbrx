@@ -1,0 +1,26 @@
+uuid: 62d50c0d-426a-45f4-8672-a26a13287563
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: 5hDyCIfezi5fpsO4rmXOwl2zQm7BXyUfu1L5SwIhAlM
+id: basic_bluerx_main_menu
+theme: basic_bluerx
+region: navigation
+weight: -8
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

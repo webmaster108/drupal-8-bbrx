@@ -1,0 +1,22 @@
+uuid: 91dfde43-6275-4b7e-bdf3-54bdf5e6cf9e
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: oI3jFrV_Dlk8B7Y-BgMAX25FbpdnFzNDyhCBnywKxpE
+id: basic_bluerx_help
+theme: basic_bluerx
+region: help
+weight: -10
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

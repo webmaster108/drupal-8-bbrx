@@ -1,0 +1,21 @@
+uuid: b323deb8-cff5-46d2-92b4-095202431805
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_description
+    - paragraphs.paragraphs_type.file_or_link
+  module:
+    - text
+id: paragraph.file_or_link.field_description
+field_name: field_description
+entity_type: paragraph
+bundle: file_or_link
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

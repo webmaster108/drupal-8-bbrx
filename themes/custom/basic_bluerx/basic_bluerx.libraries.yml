@@ -1,0 +1,18 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+  js:
+    js/main.js: {}
+    js/bbrx.js: {}
+    
+
+jquery-custom:
+  remote: https://github.com/jquery/jquery
+  version: "3.3.1"
+  license:
+    name: MIT
+    url: https://github.com/jquery/jquery/blob/3.3.1/LICENSE.txt
+    gpl-compatible: true
+  js:
+    js/jquery.min.js: { minified: true, weight: -20 }

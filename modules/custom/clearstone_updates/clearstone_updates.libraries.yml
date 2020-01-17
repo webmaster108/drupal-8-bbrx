@@ -1,0 +1,4 @@
+clearstone_updates.fix-datepicker:
+  version: 1.x
+  js:
+    js/updates.js: {}

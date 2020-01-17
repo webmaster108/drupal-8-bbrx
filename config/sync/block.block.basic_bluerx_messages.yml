@@ -1,0 +1,27 @@
+uuid: 3eb04532-d4ae-4397-aa3c-330e0acd7be2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: Nd5oJjDeQceVCObZXd_DviDiApWFVs3GUaOl4pBlVUA
+id: basic_bluerx_messages
+theme: basic_bluerx
+region: content
+weight: -7
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '/node/*/webform/confirmation'
+    negate: true
+    context_mapping: {  }

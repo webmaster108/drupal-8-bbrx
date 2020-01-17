@@ -1,0 +1,154 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+use Drupal\file\Entity\File;
+use \Drupal\block_content\BlockContentInterface;
+use Drupal\block\Entity\Block;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+
+function basic_bluerx_preprocess_html(&$vars) {
+  /**
+   * moves region before_body into before_body var inside basic html
+   */
+  if (isset($vars['page']['html_head'])) {
+    $vars['html_head'] = $vars['page']['html_head'];
+  }
+}
+
+function basic_bluerx_preprocess_region(&$vars){
+  /**
+   * Cleans before_body from standard html markup
+   */
+    $blocks = \Drupal::entityManager()->getStorage('block')->loadByProperties(array('theme' =>  \Drupal::config('system.theme')->get('default'),'region'=>'html_head'));
+    $field_value = '';
+    foreach($blocks as $block => $v){
+      //kint();
+      if(!empty($v->id())){
+      $block = \Drupal\block\Entity\Block::load($v->id());
+      $uuid = $block->getPlugin()->getDerivativeId();
+      $access = $block->access('view', NULL, TRUE);
+
+      $block_content = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+      if ($block_content && $access->isAllowed()) {
+        $field_value .= $block_content->body->value;
+        }
+      }
+    }
+    
+  if ($vars['region'] == 'html_head') {
+    $vars['content'] = bbrx_clean_special_content($field_value);
+    }
+  }
+function bbrx_clean_special_content($content) {
+  /** @var \Drupal\Core\Render\Markup $content */
+  $content = preg_replace('~<\/?section.*?>|<h\d?.*?>.*<\/h\d?>|<\/?div.*?>~', '', $content);
+  $content = preg_replace('/(?=<!-- (THEME DEBUG|BEGIN OUTPUT|THEME HOOK|FILE NAME SUGGESTIONS|END OUTPUT))([\s\S]*?)-->/i', '', $content);
+  $content = preg_replace('/((\r\n|\n|\r)$)|(^(\r\n|\n|\r))$/m', '', $content);
+  return \Drupal\Core\Render\Markup::create(trim($content));
+}
+/**
+ * Implements hook_preprocess_block().
+ */
+function basic_bluerx_preprocess_block(&$variables) {
+
+  global $base_url, $base_path;
+
+  switch ($variables['base_plugin_id']) {
+    case 'system_branding_block':
+      // Default logo.
+      $variables['#cache']['max-age'] = 0;
+      $variables['site_logo'] = $base_url . $base_path . drupal_get_path('theme','basic_bluerx') . '/images/logo.jpg';
+
+      $session = \Drupal::request()->getSession();
+      $selected_state = $session->get('selected_state');
+      if (!empty($selected_state)) {
+        $logo_fid = bbrx_get_logo_from_state($selected_state);
+        $logo_file = File::load($logo_fid);
+        if ($logo_file) {
+          $logo_file_uri = $logo_file->getFileUri();
+          $image_path = file_url_transform_relative(file_create_url($logo_file_uri));
+          $variables['site_logo'] = $base_url . $base_path . $image_path;
+        }
+      }
+      break;
+  }
+
+  //Change page title with display_title field
+  if ($variables['plugin_id'] == 'page_title_block') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      $nid = $node->id();
+      $load_node = Node::load($nid);
+      if(!empty($load_node->field_display_title->value)){
+        $variables['content']['#title'] = $load_node->field_display_title->value;
+      }
+    } 
+  }
+}
+
+/**
+ * Get logo file id.
+ */
+function bbrx_get_logo_from_state($state) {
+  $db = \Drupal::database()->select('state_content_regions', 'r')
+    ->fields('r', ['logo'])
+    ->condition('states', '%' . db_like($state) . '%', 'LIKE')
+    ->execute()->fetchCol();
+  $logo = array_shift($db);
+  return $logo;
+}
+
+function bbrx_get_favicon_from_state($state) {
+  $db = \Drupal::database()->select('state_content_regions', 'r')
+    ->fields('r', ['favicon'])
+    ->condition('states', '%' . db_like($state) . '%', 'LIKE')
+    ->execute()->fetchCol();
+  $favicon = array_shift($db);
+  return $favicon;
+}
+
+
+function basic_bluerx_page_attachments_alter(array &$page) {
+
+  global $base_url, $base_path;
+
+  $session = \Drupal::request()->getSession();
+      $selected_state = $session->get('selected_state');
+      if (!empty($selected_state)) {
+        $fav_fid = bbrx_get_favicon_from_state($selected_state);
+        $fav_file = File::load($fav_fid);
+        if ($fav_file) {
+          $fav_file_uri = $fav_file->getFileUri();
+          $image_path = file_url_transform_relative(file_create_url($fav_file_uri));
+          if(isset($page['#attached']['html_head_link'][0][0]['href'])){
+          $page['#attached']['html_head_link'][0][0]['href'] = $base_url . $base_path . $image_path;
+          }
+        }
+      }
+}
+
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function basic_bluerx_preprocess_page(&$variables) {
+  // Set the node ID if we're on a node page.
+  $nid = isset($variables['node']) ? $variables['node']->id() : '';
+  if(is_numeric($nid) && !empty($nid)){
+    $result = views_get_view_result('content_views', 'block_1', $nid);
+    //kint($result);exit;
+    if(empty($result)){
+      $variables['is_empty'] = TRUE;
+    }else{
+      $variables['is_empty'] = FALSE;
+    }
+  }
+}

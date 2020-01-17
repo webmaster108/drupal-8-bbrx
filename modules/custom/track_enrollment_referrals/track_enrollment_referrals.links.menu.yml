@@ -1,0 +1,5 @@
+track_enrollment_referrals.trackenrollment_referrals:
+  title: Track Enrollment Referrals
+  description: 'Track enrollment referrals settings'
+  route_name: track_enrollment_referrals.trackenrollment_referrals
+  parent: system.admin

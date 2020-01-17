@@ -1,0 +1,9 @@
+uuid: 3d0147c6-4273-48c4-8a29-42b99c61b1d7
+langcode: en
+status: true
+dependencies: {  }
+id: standard_page_accordion
+label: 'Standard Page Accordion'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

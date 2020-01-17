@@ -1,0 +1,10 @@
+services:
+  track_enrollment_referrals.path_processor_enrollment_referrals:
+    class: Drupal\track_enrollment_referrals\PathProcessor\EnrollmentReferralsOutboundPathProcessor
+    tags:
+      - { name: path_processor_outbound }
+
+  track_enrollment_referrals.event_subscriber:
+    class: Drupal\track_enrollment_referrals\EventSubscriber\EnrollmentReferralsSubscriber
+    tags:
+      - {name: event_subscriber}

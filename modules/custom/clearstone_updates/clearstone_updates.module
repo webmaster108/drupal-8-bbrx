@@ -1,0 +1,870 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Entity\WebformSubmission;
+use Drupal\Core\Render\Markup;
+
+
+/**
+ * Implements hook_preprocess_input().
+ */
+function clearstone_updates_preprocess_input(&$variables) {
+  if($variables['element']['#type'] == 'date'){
+    $variables['element']['#attributes']['placeholder'] = 'MM/DD/YYYY';
+  }
+}
+
+// Function to get the client IP address
+function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function clearstone_updates_webform_submission_presave(WebformSubmission $submission) { 
+    $submitted_data = $submission->getData();
+    $w_id = $submission->getWebform()->id();
+    $cus_ip = get_client_ip();
+    if (strpos($w_id, 'basic_blue_rx_enroll') !== false) {
+  //if ($submission->getWebform()->id() == 'basic_blue_rx_change_2019') {
+      //update callcenter field
+      if (!empty($submitted_data['preparer'])) {
+        if($submitted_data['preparer'] == 'callcenter'){
+          $submitted_data['callcenter'] = 'Y';
+          $submission->setData($submitted_data);
+        }
+    }
+
+    if (!empty($submitted_data['homephone'])) {
+      $homephone = str_replace('(', '', $submitted_data['homephone']);
+      $updated_homephone = str_replace(') ', '-', $homephone);
+      $submitted_data['homephone'] = $updated_homephone;
+      $submission->setData($submitted_data);
+    }
+    if (!empty($submitted_data['altphone'])) {
+      $altphone = str_replace('(', '', $submitted_data['altphone']);
+      $submitted_data['altphone'] = str_replace(') ', '-', $altphone);
+      $submission->setData($submitted_data);
+    }
+    if (!empty($submitted_data['instphone'])) {
+      $instphone = str_replace('(', '', $submitted_data['instphone']);
+      $submitted_data['instphone'] = str_replace(') ', '-', $instphone);
+      $submission->setData($submitted_data);
+    }
+    if (!empty($submitted_data['agentphone'])) {
+      $agentphone = str_replace('(', '', $submitted_data['agentphone']);
+      $submitted_data['agentphone'] = str_replace(') ', '-', $agentphone);
+      $submission->setData($submitted_data);
+    }
+    if (!empty($submitted_data['authrepphone'])) {
+      $authrepphone = str_replace('(', '', $submitted_data['authrepphone']);
+      $submitted_data['authrepphone'] = str_replace(') ', '-', $authrepphone);
+      $submission->setData($submitted_data);
+    }
+    //kint($submitted_data['different_mailing_address']);exit;
+
+    if(empty($submitted_data['dst1'])){
+      $submitted_data['mailst1'] = isset($submitted_data['permst1']) ? $submitted_data['permst1'] : NULL;
+      $submitted_data['mailst2'] = isset($submitted_data['permst2']) ? $submitted_data['permst2'] : NULL;
+      $submitted_data['mailcity'] = isset($submitted_data['permcity']) ? $submitted_data['permcity'] : NULL;
+      $submitted_data['mailst'] = isset($submitted_data['permstate']) ? $submitted_data['permstate'] : NULL;
+      $submitted_data['mailzip4'] = isset($submitted_data['permzip4']) ? $submitted_data['permzip4']: NULL;
+      $submitted_data['mailzip5'] = isset($submitted_data['permzip5']) ? $submitted_data['permzip5'] : NULL;
+      $submission->setData($submitted_data);
+    }else{
+      $submitted_data['mailst1'] = isset($submitted_data['dst1']) ? $submitted_data['dst1'] : NULL;
+      $submitted_data['mailst2'] = isset($submitted_data['dst2']) ? $submitted_data['dst2'] : NULL;
+      $submitted_data['mailcity'] = isset($submitted_data['dcity']) ? $submitted_data['dcity'] : NULL;
+      $submitted_data['mailst'] = isset($submitted_data['dst']) ? $submitted_data['dst'] : NULL;
+      $submitted_data['mailzip4'] = isset($submitted_data['dzip4']) ? $submitted_data['dzip4']: NULL;
+      $submitted_data['mailzip5'] = isset($submitted_data['dzip5']) ? $submitted_data['dzip5'] : NULL;
+      $submission->setData($submitted_data);
+    }
+  }
+
+  if (strpos($w_id, 'basic_blue_rx_change') !== false) {
+  //if ($submission->getWebform()->id() == 'basic_blue_rx_change_2019') {
+    //update callcenter field
+    if (!empty($submitted_data['preparer'])) {
+      if($submitted_data['preparer'] == 'callcenter'){
+        $submitted_data['callcenter'] = 'Y';
+        $submission->setData($submitted_data);
+      }
+    }
+
+    if (!empty($submitted_data['homephone'])) {
+      $homephone = str_replace('(', '', $submitted_data['homephone']);
+      $updated_homephone = str_replace(') ', '-', $homephone);
+      $submitted_data['homephone'] = $updated_homephone;
+      $submission->setData($submitted_data);
+    }
+    if (!empty($submitted_data['altphone'])) {
+      $altphone = str_replace('(', '', $submitted_data['altphone']);
+      $submitted_data['altphone'] = str_replace(') ', '-', $altphone);
+      $submission->setData($submitted_data);
+    }
+
+    if (!empty($submitted_data['agentphone'])) {
+      $agentphone = str_replace('(', '', $submitted_data['agentphone']);
+      $submitted_data['agentphone'] = str_replace(') ', '-', $agentphone);
+      $submission->setData($submitted_data);
+    }
+
+    if (!empty($submitted_data['authrepphone'])) {
+      $authrepphone = str_replace('(', '', $submitted_data['authrepphone']);
+      $submitted_data['authrepphone'] = str_replace(') ', '-', $authrepphone);
+      $submission->setData($submitted_data);
+    }
+  }
+
+  if ($submission->getWebform()->id() == 'bbrx_change_payment_option') {
+    if (!empty($submitted_data['homephone'])) {
+      $homephone = str_replace('(', '', $submitted_data['homephone']);
+      $updated_homephone = str_replace(') ', '-', $homephone);
+      $submitted_data['homephone'] = $updated_homephone;
+      $submission->setData($submitted_data);
+    }
+  }
+
+
+  if ($submission->getWebform()->id() == 'bbrx_update_contact_information') {
+    if (!empty($submitted_data['homephone'])) {
+      $homephone = str_replace('(', '', $submitted_data['homephone']);
+      $updated_homephone = str_replace(') ', '-', $homephone);
+      $submitted_data['homephone'] = $updated_homephone;
+      $submission->setData($submitted_data);
+    }
+
+    if (!empty($submitted_data['altphone'])) {
+      $altphone = str_replace('(', '', $submitted_data['altphone']);
+      $submitted_data['altphone'] = str_replace(') ', '-', $altphone);
+      $submission->setData($submitted_data);
+    }
+  }
+
+    if (!empty($submitted_data['ipaddress'])) {
+        $submitted_data['ipaddress'] = $cus_ip;
+        $submission->setData($submitted_data);
+    }
+    
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function clearstone_updates_form_alter(array &$form, FormStateInterface $form_state, $form_id){
+
+  if($form_id == 'redirect_redirect_form'){
+  //  kint($form);
+    if(!empty($form['redirect_source']['widget']['0']['path']['#field_prefix'])){
+      $prefix = $form['redirect_source']['widget']['0']['path']['#field_prefix'];
+      $exp_prefix = explode('?', $prefix);
+    //  kint($exp_prefix);
+      if(!empty($exp_prefix[0])){
+        $form['redirect_source']['widget']['0']['path']['#field_prefix'] = $exp_prefix[0];
+      }
+    }
+  }
+ //    $form['actions']['skeep'] = array(
+ //    '#type' => 'select',
+ //    '#options' => array( 0 => '- Select -'),
+ //    );    
+ //    $pages = $form_state->get('pages');
+ //    $page_keys = [];    
+ //    foreach ($pages as $key => $page) {
+ //     $page_keys[] = $page['#title'];
+ //    }   
+
+ //    foreach ($page_keys as $key => $label) {    
+ //    $page_num = $key + 1;
+ //    $form['actions']['skeep']['#options'][$page_num] = $label;
+ //    } 
+ 
+ //    $form['actions']['#submit'][] = 'webform_skip_client_form_submit';  
+ // }
+  
+
+  //Change payment webform
+  if (strpos($form_id, 'webform_submission_bbrx_change_payment_option') !== false) {
+
+
+    if($form['progress']['#current_page'] == 'step_2_page'){
+        $form['elements']['step_2_page']['review_1_row']['review_perso_wrap']['personal_information_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_1',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_1',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_1_row']['medicare_wrap']['medicare_information_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_2',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_2',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_2_row']['wrap_premium_container']['premium_payment_option_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_3',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_3',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_2_row']['wrap_enroll_container']['enrollment_authorization_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_4',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_4',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+    }
+  }
+  
+
+  //Enroll Webform
+  if (strpos($form_id, 'webform_submission_basic_blue_rx_enroll') !== false) {
+    //kint($form['elements']['step_2']);
+    $form['elements']['step_1']['please_provide_your_medicare_insurance_information']['beneficiary']['is_entitled_to']['partadate']['#after_build'][] = 'first_day_after_build';
+    $form['elements']['step_1']['please_provide_your_medicare_insurance_information']['beneficiary']['is_entitled_to']['partbdate']['#after_build'][] = 'first_day_after_build';
+
+    $form['elements']['step_2']['new_to_plan']['part_a_b']['effectivedate']['#after_build'][] = 'first_day_after_build';
+    $form['elements']['step_2']['new_to_plan']['part_a_b']['sepnewpartbdate']['#after_build'][] = 'first_day_after_build';
+
+    $form['elements']['step_2']['moving_or_have_moved']['sepotherdate']['#after_build'][] = 'first_day_after_build';
+    $form['elements']['step_2']['lost_losing_coverage']['sepotherdate3']['#after_build'][] = 'first_day_after_build';
+    $form['elements']['step_2']['lost_losing_coverage']['sepotherdate2']['#after_build'][] = 'first_day_after_build';
+    // Set months option to only next 3 months on step 2.
+    $form['elements']['step_2']['moving_or_have_moved']['sepotherdate']['#after_build'][] = 'clearstone_updates_get_next_three_months';
+    $form['elements']['step_2']['lost_losing_coverage']['sepotherdate3']['#after_build'][] = 'clearstone_updates_get_next_three_months';
+    $form['elements']['step_2']['lost_losing_coverage']['sepotherdate2']['#after_build'][] = 'clearstone_updates_get_next_three_months';
+    
+    //$form['#attached']['library'][] = 'clearstone_updates/clearstone_updates.fix-datepicker';
+    if(@$form['progress']['#current_page'] == 'step_2'){
+      $form['#validate'][] = 'enroll_form_validate';
+    }
+
+    if ($form_state->get('current_page') === 'step_6') {
+      $form['elements']['step_6']['row_1_container']['review_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+               '#name' => 'step_1_1',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_1',
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+      $form['elements']['step_6']['row_1_container']['review_personal_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_1_2',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_2',
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+
+      $form['elements']['step_6']['row_2_container']['medicare_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_1_3',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_3'
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+      $form['elements']['step_6']['row_2_container']['additional_questions_wrap']['edit_wizard_page_step_4'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_4_1',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_4',
+                'id' => 'edit-wizard-page-' . 'step_4_1'
+              ],
+              '#webform_wizard_page' => 'step_4',
+            ];
+        $form['elements']['step_6']['row_3_container']['enrollment_period_determination_wrap']['edit_wizard_page_step_2'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_2_1',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_2',
+                'id' => 'edit-wizard-page-' . 'step_2_1'
+              ],
+              '#webform_wizard_page' => 'step_2',
+            ];
+
+        $form['elements']['step_6']['row_3_container']['premium_payment_option_wrap']['edit_wizard_page_step_3'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_3_1',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_3',
+                'id' => 'edit-wizard-page-' . 'step_3_1'
+              ],
+              '#webform_wizard_page' => 'step_3',
+            ];
+
+        $form['elements']['step_6']['row_4_container']['enrollment_authorization_wrap']['edit_wizard_page_step_5'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_2_2',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_2',
+                'id' => 'edit-wizard-page-' . 'step_2_2'
+              ],
+              '#webform_wizard_page' => 'step_5',
+            ];
+
+        $form['elements']['step_6']['row_4_container']['applicant_or_authorized_representative_signature_wrap']['edit_wizard_page_step_5'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#name' => 'step_5_2',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_5',
+                'id' => 'edit-wizard-page-' . 'step_5'
+              ],
+              '#webform_wizard_page' => 'step_5',
+            ];
+        }
+      }
+
+  //2019 Change weborm
+  if (strpos($form_id, 'webform_submission_basic_blue_rx_change') !== false) {
+      //$form['#attached']['library'][] = 'clearstone_updates/clearstone_updates.fix-datepicker';
+      if($form['progress']['#current_page'] == 'step_2'){
+        $form['#validate'][] = 'enroll_change_form_validate';
+      }
+
+      if ($form_state->get('current_page') === 'step_6') {
+          $form['elements']['step_6']['row_1_container']['review_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_1_1',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_1'
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+
+
+          $form['elements']['step_6']['row_1_container']['review_personal_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_1_2',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_2'
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+
+          $form['elements']['step_6']['row_2_container']['medicare_information']['edit_wizard_page_step_1'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_1_3',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_1',
+                'id' => 'edit-wizard-page-' . 'step_1_3'
+              ],
+              '#webform_wizard_page' => 'step_1',
+            ];
+
+
+          $form['elements']['step_6']['row_2_container']['enrollment_period_determination_wrap']['edit_wizard_page_step_2'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_2_1',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_2',
+                'id' => 'edit-wizard-page-' . 'step_2_1'
+              ],
+              '#webform_wizard_page' => 'step_2',
+            ];
+
+          $form['elements']['step_6']['row_3_container']['premium_payment_option_wrap']['edit_wizard_page_step_2'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_3_1',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_3',
+                'id' => 'edit-wizard-page-' . 'step_3_1'
+              ],
+              '#webform_wizard_page' => 'step_3',
+            ];
+
+
+          $form['elements']['step_6']['row_3_container']['enrollment_authorization_wrap']['edit_wizard_page_step_2'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_2_2',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_2',
+                'id' => 'edit-wizard-page-' . 'step_2_2'
+              ],
+              '#webform_wizard_page' => 'step_2',
+            ];
+
+
+          $form['elements']['step_6']['row_4_container']['applicant_or_authorized_representative_signature_wrap']['edit_wizard_page_step_2'][] = [
+              '#type' => 'submit',
+              '#value' => 'Edit',
+              '#submit' => ['clearstone_updates_go_to_page'],
+              '#name' => 'step_5_1',
+              '#attributes' => [
+                'class' => ['js-webform-novalidate'],
+                'data-webform-wizard-page' => 'step_5',
+                'id' => 'edit-wizard-page-' . 'step_5_1'
+              ],
+              '#webform_wizard_page' => 'step_5',
+            ];
+    }
+
+  }
+
+  //Update Contact information
+  if (strpos($form_id, 'webform_submission_bbrx_update_contact_information') !== false) {
+    //$form['#attached']['library'][] = 'clearstone_updates/clearstone_updates.fix-datepicker';
+      if($form['progress']['#current_page'] == 'step_1_page'){
+        $form['#validate'][] = 'update_contact_info_form_validate';
+      }
+
+      if($form['progress']['#current_page'] == 'step_2_page'){
+
+        $form['elements']['step_2_page']['review_row1_container']['member_info_container']['member_information_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_1',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_1',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_row1_container']['phone_email_container']['phone_mail_changes_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_2',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_2',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_row2_container']['permanent_addr_container']['permanent_residence_address_change_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_3',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_3',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_row2_container']['mailing_addr_container']['mailing_address_change_val']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_4',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_4',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+        $form['elements']['step_2_page']['review_row3_container']['auth_sign_container']['authorized_sign_wrap']['edit_wizard_page_step_1'][] = [
+          '#type' => 'submit',
+          '#value' => 'Edit',
+          '#submit' => ['clearstone_updates_go_to_page'],
+           '#name' => 'step_1_4',
+          '#attributes' => [
+            'class' => ['js-webform-novalidate'],
+            'data-webform-wizard-page' => 'step_1_page',
+            'id' => 'edit-wizard-page-' . 'step_1_4',
+          ],
+          '#webform_wizard_page' => 'step_1_page',
+        ];
+
+
+      }
+  }
+}
+
+/**
+ * Function to alter month values on datelist field on step 2.
+ */
+function clearstone_updates_get_next_three_months($form, &$form_state) {
+  unset($form['month']['#options']);
+  unset($form['year']['#options']);
+  $options = [
+    '' => 'Month',
+    intval(date('m', strtotime('+1 month'))) => date('M', strtotime('+1 month')),
+    intval(date('m', strtotime('+2 month'))) => date('M', strtotime('+2 month')),
+    intval(date('m', strtotime('+3 month'))) => date('M', strtotime('+3 month')),
+  ];
+
+  $yearoptions = [
+    '' => 'Year',
+    date('Y', strtotime('+1 month')) => date('Y', strtotime('+1 month')),
+    date('Y', strtotime('+2 month')) => date('Y', strtotime('+2 month')),
+    date('Y', strtotime('+3 month')) => date('Y', strtotime('+3 month')),
+  ];
+
+  $form['month']['#options'] = $options;
+  $form['year']['#options'] = $yearoptions;
+  $form['year']['#default_value'] = date('Y', strtotime('now'));
+  return $form;
+}
+
+function first_day_after_build($form, &$form_state) {
+  unset($form['day']['#options']);
+  $form['day']['#options'] = array('' => 'Day', '1' => 1);
+  return $form;
+}
+function clearstone_updates_preprocess_webform_container_base_html(&$variables) {
+  if ($variables['element']['#type'] == 'webform_wizard_page') {
+    $variables['value']['#children']['edit_wizard_page'] = [
+      '#type' => 'submit',
+      '#value' => t('edit'),
+      '#attributes' => [
+        'class' => ['webform-edit-preview-button'],
+        'onclick' => 'jQuery("#edit-wizard-page-' . $variables['element']['#webform_key'] . '").click();',
+      ],
+    ];
+  }
+}
+
+
+function clearstone_updates_go_to_page(array &$form, FormStateInterface $form_state) {
+  $submission_form = $form_state->getFormObject();
+  $current_page = $form_state->get('current_page');
+
+  if ($current_page == 'webform_preview') {
+    $form_state->set('add_preview_button', TRUE);
+  }
+
+  $trigger = $form_state->getTriggeringElement();
+  $wizard_page_id = $trigger['#webform_wizard_page'];
+
+
+  $form_state->set('current_page', $wizard_page_id);
+  //$form_state->setValue('edit_app', 1);
+
+  //kint($form_state->get('edit_app'));exit;
+  $submission_form->submitForm($form, $form_state);
+  $form_state->setRebuild();
+}
+
+
+function clearstone_updates_tokens_alter(array &$replacements, array $context, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+    if ($context['type'] == 'webform_submission' && !empty($context['data']['webform_submission'])) {
+      $sub = $context['data']['webform_submission'];
+      $web = $context['data']['webform'];
+      $data = $sub->getdata();
+      // Alter the [node:title] token, and replace it with the rendered content
+      // of a field (field_title).
+      $current_path = \Drupal::service('path.current')->getPath();
+    if (strpos($current_path, 'webform/confirmation') !== false){
+      //Change form fields
+
+      if(!empty($data['permst1'])){
+        $replacements[@$context['tokens']['values:permst1']] =  Markup::create(trim('<div class="row confrow"><div class="col-sm-6"><p class="confTitle"><label>Permanent Mailing Address: </label></p></div><div class="col-sm-6"><p>'.$data['permst1'].' '.$data['permst2'].'<br />'.$data['permcity'].' '.$data['permstate'].', '.$data['permzip5'].(!empty($data['permzip4']) ? '-'.$data['permzip4'] : '').'</p></div></div>'));
+      }
+
+      if(!empty($data['mailst1'])){
+        $replacements[@$context['tokens']['values:mailst1']] =  Markup::create(trim('<div class="row confrow"><div class="col-sm-6"><p class="confTitle"><label>Mailing Address</label></p></div><div class="col-sm-6"><p>'.$data['mailst1'].' '.$data['mailst2'].'<br />'.$data['mailcity'].' '.(!empty($data['mailst']) ? $data['mailst'].', ' : '').$data['mailzip5'].(!empty($data['mailzip4']) ? '-'.$data['mailzip4'] : '').'</p></div></div>'));
+      }
+
+      if(isset($data['adddrugcov']) && $data['adddrugcov'] == NULL){
+        $label = $web->getElementInitialized('adddrugcov')['#title'];
+        $replacements[$context['tokens']['values:adddrugcov']] =  Markup::create(trim('<label>'.$label. ': </label> No'));
+      }
+
+      if(isset($data['longtermcare']) && $data['longtermcare'] == NULL){
+        $label2 = $web->getElementInitialized('longtermcare')['#title'];
+        $replacements[$context['tokens']['values:longtermcare']] =  Markup::create(trim('<label>'.$label2. ': </label> No'));
+      }
+
+      if (isset($data['aep']) && $data['aep'] == NULL) {
+        $replacements[$context['tokens']['values:aep']] = '';
+      }
+
+      if (isset($data['sepltc']) && $data['sepltc'] == '') {
+        $replacements[$context['tokens']['values:sepltc']] = '';
+      }
+
+      if (isset($data['sepextrahelp']) && $data['sepextrahelp'] == NULL) {
+        $replacements[$context['tokens']['values:sepextrahelp']] = '';
+      }
+
+      if (isset($data['sepmedicaid']) && $data['sepmedicaid'] == NULL) {
+        $replacements[$context['tokens']['values:sepmedicaid']] = '';
+      }
+
+      if (isset($data['sepmedicarepremcoverage']) && $data['sepmedicarepremcoverage'] == NULL) {
+        $replacements[$context['tokens']['values:sepmedicarepremcoverage']] = '';
+      }
+
+      if (isset($data['sepemergency']) && $data['sepemergency'] == NULL) {
+        $replacements[$context['tokens']['values:sepemergency']] = '';
+      }
+
+      if (isset($data['sepother']) && $data['sepother'] == NULL) {
+        $replacements[$context['tokens']['values:sepother']] = '';
+      }
+
+      //With more Enrol Fields
+      if (isset($data['sepnewtomedicare']) && $data['sepnewtomedicare'] == NULL) {
+          $replacements[$context['tokens']['values:sepnewtomedicare']] = '';
+      }
+      
+      if (isset($data['sepserviceareamove']) && $data['sepserviceareamove'] == NULL) {
+        $replacements[$context['tokens']['values:sepserviceareamove']] = '';
+      }
+
+      if (isset($data['sepreturn2us']) && $data['sepreturn2us'] == NULL) {
+        $replacements[$context['tokens']['values:sepreturn2us']] = '';
+      }
+
+      if (isset($data['seplostcoverage']) && $data['seplostcoverage'] == NULL) {
+        $replacements[$context['tokens']['values:seplostcoverage']] = '';
+      }
+
+      if (isset($data['sepdisenrlsnp']) && $data['sepdisenrlsnp'] == NULL) {
+        $replacements[$context['tokens']['values:sepdisenrlsnp']] = '';
+      }
+
+      if (isset($data['sepnonrenewal']) && $data['sepnonrenewal'] == NULL) {
+        $replacements[$context['tokens']['values:sepnonrenewal']] = '';
+      }
+
+      if (isset($data['seplostpdppartb']) && $data['seplostpdppartb'] == NULL) {
+        $replacements[$context['tokens']['values:seplostpdppartb']] = '';
+      }
+
+      if (isset($data['sepmaoep']) && $data['sepmaoep'] == NULL) {
+        $replacements[$context['tokens']['values:sepmaoep']] = '';
+      }
+
+      if (isset($data['sepleavingempcoverage']) && $data['sepleavingempcoverage'] == NULL) {
+        $replacements[$context['tokens']['values:sepleavingempcoverage']] = '';
+      }
+
+      if (isset($data['sepleavingma']) && $data['sepleavingma'] == NULL) {
+        $replacements[$context['tokens']['values:sepleavingma']] = '';
+      }
+
+      if (isset($data['sepextrahelp']) && $data['sepextrahelp'] == NULL) {
+        $replacements[$context['tokens']['values:sepextrahelp']] = '';
+      }
+
+      if (isset($data['seplawfulpresence']) && $data['seplawfulpresence'] == NULL) {
+        $replacements[$context['tokens']['values:seplawfulpresence']] = '';
+      }
+
+      if (isset($data['sepchoosedifferent']) && $data['sepchoosedifferent'] == NULL) {
+        $replacements[$context['tokens']['values:sepchoosedifferent']] = '';
+      }
+
+      if (isset($data['sepincarceration']) && $data['sepincarceration'] == NULL) {
+        $replacements[$context['tokens']['values:sepincarceration']] = '';
+      }
+
+    }
+  }
+}
+
+function update_contact_info_form_validate(array &$form, FormStateInterface $form_state){
+  //kint($form);exit;
+    $values = $form_state->getValues();
+    if($values['select_changes'] == 0 && $values['select_changes_2'] == 0 && $values['select_changes_3'] == 0){
+      $form_state->setErrorByName('', t('
+        <div>You must complete at least 1 of these items:</div>
+<div class="item-list"><ul><li class="first">Phone and/or email</li>
+<li>Permanent residence address </li><li>Mailing address</li></ul></div>'));
+    }
+}
+
+function enroll_form_validate(array &$form, FormStateInterface $form_state){
+    $values = $form_state->getValues();
+    //kint($values);exit;
+    if($values['aep'] == 0 && $values['sepnewtomedicare'] == 0 && $values['sepserviceareamove'] == 0 && $values['sepltc'] == 0 && $values['sepreturn2us'] == 0 && $values['seplostcoverage'] == 0 &&  $values['sepdisenrlsnp'] == 0 && $values['sepnonrenewal'] == 0 && $values['seplostpdppartb'] == 0 && $values['sepmaoep'] == 0 && $values['sepleavingempcoverage'] == 0 && $values['sepleavingma'] == 0 && $values['sepextrahelp'] == 0 && $values['sepmedicarepremcoverage']== 0 && $values['sepmedicaid'] == 0  && $values['seplawfulpresence'] == 0 && $values['sepincarceration'] == 0 && $values['sepchoosedifferent'] == 0 && $values['sepemergency'] == 0 && $values['sepother'] == 0){
+      $form_state->setErrorByName('aep', t('<div>You must complete at least 1 of these items:</div>
+        <div class="item-list">
+          <ul>
+            <li>Enrolling during Annual Enrollment Period</li>
+            <li>New to Medicare</li>
+            <li>I recently moved outside of the service area</li>
+            <li>I live in or recently moved out of a Long-Term Care</li>
+            <li>I recently returned to the United States</li>
+            <li>I recently had a change in my Medicaid (newly got Medicaid, had a change in level of Medicaid assistance, or lost Medicaid) </li>
+            <li>I recently involuntarily lost my creditable prescription drug coverage</li>
+            <li>I am being disenrolled from a special needs plan</li>
+            <li>I am being disenrolled from my existing plan due to its non-renewal</li>
+            <li>I have been disenrolled from a Medicare Advantage-Prescription Drug plan</li>
+            <li>I am making this enrollment request between January 1 and February 14, and I recently ended my enrollment in a Medicare Advantage plan.</li>
+            <li>I have both Medicare and Medicaid (or my state helps pay</li>
+            <li>I recently had a change in my Extra Help paying for Medicare</li>
+            <li>I am leaving employer or union coverage</li>
+            <li>I am leaving my Medicare Advantage plan</li>
+            <li>I recently obtained lawful presence in the United States</li>
+            <li>I was recently released from incarceration</li>
+            <li>Other Special Enrollment Period</li>
+            <li>I was enrolled in a plan by Medicare (or my state) and I want to choose a different plan</li>
+            <li>Weather-related emergency</li>
+          </ul>
+      </div>'));
+    }
+
+    if($values['sepnewtomedicare'] == 1 && empty($values['effectivedate']) && empty($values['sepnewpartbdate'])){
+        $form_state->setErrorByName('sepnewtomedicare', t('You must complete at least <em class="placeholder">1</em> of these items based on your selection:<div class="item-list"><ul><li class="first">PART A</li>
+<li class="last">PART B</li>
+</ul></div></div>'));
+    }
+}
+
+function enroll_change_form_validate(array &$form, FormStateInterface $form_state){
+  $values = $form_state->getValues();
+      if($values['aep'] == 0 && $values['sepltc'] == 0 && $values['sepextrahelp'] == 0 && $values['sepmedicaid'] == 0 && $values['sepmedicarepremcoverage'] == 0 && $values['sepemergency'] == 0 && $values['sepother'] == 0){
+        $form_state->setErrorByName('aep', t('<div>You must complete at least 1 of these items:</div>
+          <div class="item-list">
+            <ul>
+              <li class="first">Enrolling during Annual Enrollment Period</li>
+              <li>I live in or recently moved out of a Long-Term Care Facility</li>
+              <li>I recently had a change in my Medicaid</li>
+              <li>I have both Medicare and Medicaid</li>
+              <li>I recently had a change in my Extra Help paying for Medicare</li>
+              <li>Other Special Enrollment Period</li>
+              <li class="last">Weather-related emergency</li>
+            </ul>
+          </div>'));
+      }
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function clearstone_updates_js_alter(&$javascript, \Drupal\Core\Asset\AttachedAssetsInterface $assets){
+  //kint($javascript);exit;
+  if(isset($javascript['libraries/jqueryvalidate/dist/jquery.validate.js'])){
+    @$javascript['libraries/jqueryvalidate/dist/jquery.validate.js']['weight'] = -15.998;
+  }
+  if(isset($javascript['core/assets/vendor/jquery.ui/ui/widgets/datepicker-min.js'])){
+    @$javascript['core/assets/vendor/jquery.ui/ui/widgets/datepicker-min.js']['weight'] = -13.998;
+  }
+  if(isset($javascript['libraries/jqueryvalidate/dist/additional-methods.js'])){
+    @$javascript['libraries/jqueryvalidate/dist/additional-methods.js']['weight'] = -13.988;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function clearstone_updates_theme(){
+  return [
+    'clearstone_breadcrumbs' => [
+      'variables' => ['breadcrumbs' => NULL],
+    ],
+  ];
+}
+
+
+/**
+ * Submit function added to webform client form.
+ *
+ * If someone clicked on the progress bar, skip to that page
+ */
+function webform_skip_client_form_submit($form, &$form_state) { 
+  $skeep = $form_state->getValue('skeep');
+   
+  if ($skeep != 0) {
+    $form['progress']['#current_page'] = 'step_2';
+    $form_state->set('skeep', 0);
+    // set the webform element that controls which page we're on to the value set in the skip form element
+    //$form_state['storage']['page_num'] = $form_state['webform']['page_num'] = (int) $form_state['values']['skip'];
+
+    // set the hidden skip form element to zero to return to webform's default behavior of "Previous" / "Next"
+   // $form_state['input']['skip'] = $form_state['values']['skip'] = 0;
+  }
+}

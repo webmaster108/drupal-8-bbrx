@@ -1,0 +1,49 @@
+uuid: 5fd1430b-87f7-43b3-a959-a4ae76dd1138
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_slider_content
+    - node.type.slider
+    - paragraphs.paragraphs_type.slider_column_content
+  module:
+    - entity_reference_revisions
+id: node.slider.field_slider_content
+field_name: field_slider_content
+entity_type: node
+bundle: slider
+label: 'Slider Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      slider_column_content: slider_column_content
+    target_bundles_drag_drop:
+      content_section:
+        weight: 8
+        enabled: false
+      faqs:
+        weight: 9
+        enabled: false
+      file_or_link:
+        weight: 10
+        enabled: false
+      forms:
+        weight: 11
+        enabled: false
+      slider_column_content:
+        enabled: true
+        weight: 12
+      table_menu:
+        weight: 13
+        enabled: false
+      table_menu_content:
+        weight: 14
+        enabled: false
+field_type: entity_reference_revisions

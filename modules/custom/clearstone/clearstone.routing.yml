@@ -1,0 +1,63 @@
+clearstone.form_export:
+  path: '/admin/forms'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormExportForm'
+    _title: 'Form Export'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.form_merges:
+  path: '/admin/forms/merges'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormMergesForm'
+    _title: 'Form Export'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.form_merges_edit:
+  path: '/admin/forms/merges/{mid}/edit'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormMergesEditForm'
+    _title: 'Form Merges Edit'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.form_merges_delete:
+  path: '/admin/forms/merges/{mid}/delete'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormMergesDeleteForm'
+    _title: 'Form Merges Delete'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.form_export_edit:
+  path: '/admin/forms/export/{eid}/edit'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormExportEditForm'
+    _title: 'Form Update'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.form_export_delete:
+  path: '/admin/forms/export/{eid}/delete'
+  defaults:
+    _form: '\Drupal\clearstone\Form\ClearstoneFormExportDeleteForm'
+    _title: 'Form Delete'
+  requirements:
+    _permission: 'administer site configuration'
+
+clearstone.send_confirmation_email:
+  path: '/confirmation-email/sid'
+  defaults:
+    _controller: 'Drupal\clearstone\Controller\SendConfirmationEmail::confirmation'
+    _title: 'Confirmtaion Email'
+  requirements:
+    _permission: 'access content'
+
+clearstone.settings:
+  path: '/admin/config/clearstone/settings/form'
+  defaults:
+    _form: 'Drupal\clearstone\Form\ConfirmtaionNumberSettings'
+    _title: 'Clearstone settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,460 @@
+<!DOCTYPE html><html><head><title>Preview</title>
+<style type="text/css"><!--
+/* ********** begin PDF list style ************ */
+ul.pdflist li, li.pdflist, .pdficon
+{
+padding:0 0 5px 20px;
+background-image: url(/files/icon-pdf.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+list-style: none;
+}
+.newicon
+{
+padding-right:50px;
+background-image: url(/files/new-icon.gif);
+background-repeat: no-repeat;
+background-position: right center;
+}
+ul.pdflist li.noicon{ /* for items in PDF icon list where icon is NOT wanted */
+	background-image: none;
+}
+.outdent{
+	margin-left:-22px;
+}
+.leftalign{
+  text-align: left;
+}
+.rightalign{
+  text-align: right;
+}
+/* ********** end PDF list style ************ */
+
+/* ---------- nav jump links style -------------- */
+a.totop,a.goback,a.gobackregular{ /* anchor link to page top */
+	margin-left:1.5em;
+	font-size:80%;
+	font-weight:normal;
+    vertical-align: middle;
+    padding:0 0 5px 20px;
+background-image: url(/files/pagetop.png);
+background-repeat: no-repeat;
+background-position: 0 .1em;
+}
+a.goback,a.gobackregular{
+background-image: url(/files/back14x14.png);
+margin-left: 1px
+}
+a.gobackregular{
+  font-size: 100%;
+  background-position: 0 0.3em;
+}
+a.jumpdown{ /* anchor link to page top */
+	font-size:100%;
+	margin-left:2.5em;
+	font-weight:normal;
+	 vertical-align: baseline;
+    padding:0 20px 5px 0px;
+background-image: url(/files/downarrow.png);
+background-repeat: no-repeat;
+background-position: right center;
+}
+.bluepipe{
+  color: #0078B9
+}
+
+h2>a.jumpdown{ /* anchor link to page top */
+	font-size: 80%;
+}
+/* ---------- nav jump links style -------------- */
+
+em.green{
+	color:#060;
+	font-style:normal;
+}
+.alert{
+  color:#CC0000;
+  font-weight:bold;
+}
+
+/* begin custom heading styles */
+h2.large{ /* used for increasing section heading size and adding a border on forms pages */
+    border-top: 1px solid #32a4da;
+    font-size: 120%;
+    padding-top: 10px;
+	}
+
+/* end custom heading styles */
+
+/* begin heading borders */
+h2.bordertop, h3.bordertop, h4.bordertop{
+    border-top: 1px solid #32a4da;
+    padding-top: 10px;
+}
+.field-name-field-table-title h2 {
+  font-size: 19px;
+}
+.borderbox{
+  border:1px solid #66CBEA;
+  padding:6px 6px 0 16px;
+  background: #F8FEF0
+}
+
+.headingback{
+border-bottom: 1px solid #B8DADA;
+padding: 0 0 3px 0;
+background-image: -webkit-linear-gradient(#ffffff, #aaddaa);
+background-image: -moz-linear-gradient(#aaddaa, #ffffff);
+background-image: -o-linear-gradient(#aaddaa, #ffffff);
+background-image: linear-gradient(#ffffff, #E3F0F0);
+}
+.headingunderline{ 
+  border-bottom: linear-gradient(to right, rgba(48,48,48,1) 0%, rgba(10,10,10,0.38) 80%, rgba(10,10,10,0.27) 94%, rgba(10,10,10,0.27) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303030', endColorstr='#0a0a0a', GradientType=1 )
+}
+#navigation .region-navigation>.block>ul>li>ul>li { /* move submenu up 1px for better connection to main nav */
+margin: -1px 0 0;
+}
+.extravertpadbottom{/* add extra padding to the bottom of an element */
+  padding-bottom: 10px;
+}
+.extravertpadtop{ /* add extra padding to the top of an element */
+  padding-top: 10px;
+}
+footer div h2{ /* removes title of the footer menu on azbluemedicare.com */
+  display:none
+  }
+/* modify style for glossary */
+.panel-heading{
+  padding: 1px 1px 1px 10px;
+}
+div.panel-heading > h4 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 125%;
+}
+.panel{
+  margin-bottom: 10px;
+}
+h2+p, h3+p, h4+p, h2+p+p, h3+p+p, h4+p+p, h2+p+p+p, h3+p+p+p, h4+p+p+p, h2+p+p+p+p, h3+p+p+p+p, h4+p+p+p+p, h2+p+p+p+p+p, h3+p+p+p+p+p, h4+p+p+p+p+p{
+  margin-top:-8px;
+  margin-left:3%;
+}
+h2+p.normal, h3+p.normal, h4+p.normal{
+  margin-top:0;
+  margin-left:0;
+}
+h4{
+  font-size:17px;
+}
+h2, h3{
+  font-size: 18px;
+}
+/* end modify style for glossary */
+
+/* ----------------- begin CSS tooltips -------------------------*/
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -110px;
+  padding: 7px;
+  width: 220px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.2;
+}
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* ----------------- end CSS tooltips -------------------------*/
+ /**************** begin custom table style ****************/
+ table.t1 {
+    margin: 1em auto;
+    border-collapse: collapse;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+  }
+  .t1 th, .t1 td {
+    padding: 4px 8px;
+    text-align: left;
+  }
+  .t1 thead th {
+    background: #4f81bd;
+    text-align: left;
+    /*font-size: 15px;*/
+    color: #fff;
+  }
+  .t1 tr {
+    border-right: 1px solid #95b3d7;
+    border-left: 1px solid #95b3d7;
+  }
+  .t2 tr {/* t2 gray style */
+    border-right: 1px solid #878787;
+    border-left: 1px solid #878787;
+  }
+  .t1 tbody tr {
+    border-bottom: 1px solid #95b3d7;
+  }
+  .t2 tbody tr {/* t2 gray style */
+    border-bottom: 1px solid #878787;
+  }
+
+  .t1 tbody tr:nth-child(odd) {
+    background: #dbe5f0;
+  }
+  .t2 tbody tr:nth-child(odd){/* t2 gray style */
+    background:#E4E4E4
+  }
+  .t1 tbody th, .t1 tbody  td {
+    border-right: 1px solid #95b3d7;
+  }
+   .t2 tbody th, .t2 tbody  td {/* t2 gray style */
+    border-right: 1px solid #878787;
+  }
+  .t1 tfoot th {
+    background: #4f81bd;
+    text-align: left;
+    font-weight: normal;
+    font-size: small;
+    color: #fff;
+  }
+  .t1 tr *:nth-child(3), .t1 tr *:nth-child(4) {
+    text-align: left;
+  }
+  .t1 th.smaller{
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: center;
+}
+table.t1 caption{
+  font-weight: bold;
+  background: #CDCDCD
+}
+  /**************** end custom table style ******************/
+.leftarrowheading{
+  text-shadow: 0px .2px .2px #ccc;
+   background: url(bullet-orange-arrow.gif) no-repeat top left;
+  padding-left: 25px;
+  padding-top: 3px;
+  }
+ .tipicon{/* info icon to the right of link with tooltip */
+  background: url(infoicon.png) no-repeat bottom right;
+  padding-right: 25px;
+ }
+ .nestedul, .nestedol{
+    margin-bottom: 5px;
+    margin-top: -5px;
+  }
+  cite{
+    font-style: italic;
+    font-size:90%
+  }
+  /* alternate rows in lists */
+  ul.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ul.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ul.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  ol.alternate li:nth-child(even) { background-color:#F3F3F3 }
+  ol.alternate li:nth-child(odd) { background-color:#E2EBF3 }
+  ol.alternate li { background-color:#FEFEFE; padding:5px;list-style-position:inside}
+  span.greenlight{
+    background: #BEE9D4;
+    padding: 2px 4px;
+    }
+  span.greenlightQ{
+    padding: 2px 4px;
+    background: url(icon_question20x20.gif) no-repeat bottom right #BEE9D4;;
+  padding-right: 25px
+    }
+ /* green background for 2016 */
+
+/* begin link color */
+a, a:hover{
+ color: #006D97;
+ text-shadow: .5px .5px 0px #666666;
+/* color: #0000EE; standard link blue */
+}
+
+/* end link color */
+
+--></style>
+</head>
+<body>
+<a name="0"></a><ul class="pdflist li"><li>Unordered List, Class pdflist li</li></ul><br>
+<a name="1"></a><ul><li class="pdflist">List Item, Class pdflist</li></ul><br>
+<a name="2"></a><div class="pdficon">Class pdficon</div>
+<br>
+<a name="3"></a><div class="newicon">Class newicon</div>
+<br>
+<a name="4"></a><ul class="pdflist li.noicon"><li>Unordered List, Class pdflist li.noicon</li></ul><br>
+<a name="5"></a><div class="outdent">Class outdent</div>
+<br>
+<a name="6"></a><div class="leftalign">Class leftalign</div>
+<br>
+<a name="7"></a><div class="rightalign">Class rightalign</div>
+<br>
+<a name="8"></a><a href="http://www.blumentals.net" target="_blank" class="totop">Link, Class totop</a><br>
+<a name="9"></a><a href="http://www.blumentals.net" target="_blank" class="goback">Link, Class goback</a><br>
+<a name="10"></a><a href="http://www.blumentals.net" target="_blank" class="gobackregular">Link, Class gobackregular</a><br>
+<a name="11"></a><a href="http://www.blumentals.net" target="_blank" class="goback">Link, Class goback</a><br>
+<a name="12"></a><a href="http://www.blumentals.net" target="_blank" class="gobackregular">Link, Class gobackregular</a><br>
+<a name="13"></a><a href="http://www.blumentals.net" target="_blank" class="gobackregular">Link, Class gobackregular</a><br>
+<a name="14"></a><a href="http://www.blumentals.net" target="_blank" class="jumpdown">Link, Class jumpdown</a><br>
+<a name="15"></a><div class="bluepipe">Class bluepipe</div>
+<br>
+<a name="16"></a><h2>a class="jumpdown">Element h2>a, Class jumpdown</h2>a><br>
+<a name="17"></a><em class="green">Element em, Class green</em><br>
+<a name="18"></a><div class="alert">Class alert</div>
+<br>
+<a name="19"></a><h2 class="large">Element h2, Class large</h2><br>
+<a name="20"></a><h2 class="bordertop">Element h2, Class bordertop</h2><br>
+<a name="21"></a><h3 class="bordertop">Element h3, Class bordertop</h3><br>
+<a name="22"></a><h4 class="bordertop">Element h4, Class bordertop</h4><br>
+<a name="23"></a><div class="field-name-field-table-title h2">Class field-name-field-table-title h2</div>
+<br>
+<a name="24"></a><div class="borderbox">Class borderbox</div>
+<br>
+<a name="25"></a><div class="headingback">Class headingback</div>
+<br>
+<a name="26"></a><div class="headingunderline">Class headingunderline</div>
+<br>
+<a name="27"></a><div id="navigation .region-navigation>.block>ul>li>ul>li">ID navigation .region-navigation>.block>ul>li>ul>li</div>
+<a name="28"></a><div class="extravertpadbottom">Class extravertpadbottom</div>
+<br>
+<a name="29"></a><div class="extravertpadtop">Class extravertpadtop</div>
+<br>
+<a name="30"></a><footer div h2>Element footer div h2</footer div h2><br>
+<a name="31"></a><div class="panel-heading">Class panel-heading</div>
+<br>
+<a name="32"></a><div class="panel-heading > h4">Element div, Class panel-heading > h4</div><br>
+<a name="33"></a><div class="panel">Class panel</div>
+<br>
+<a name="34"></a><h2+p>Element h2+p</h2+p><br>
+<a name="35"></a><h3+p>Element h3+p</h3+p><br>
+<a name="36"></a><h4+p>Element h4+p</h4+p><br>
+<a name="37"></a><h2+p+p>Element h2+p+p</h2+p+p><br>
+<a name="38"></a><h3+p+p>Element h3+p+p</h3+p+p><br>
+<a name="39"></a><h4+p+p>Element h4+p+p</h4+p+p><br>
+<a name="40"></a><h2+p+p+p>Element h2+p+p+p</h2+p+p+p><br>
+<a name="41"></a><h3+p+p+p>Element h3+p+p+p</h3+p+p+p><br>
+<a name="42"></a><h4+p+p+p>Element h4+p+p+p</h4+p+p+p><br>
+<a name="43"></a><h2+p+p+p+p>Element h2+p+p+p+p</h2+p+p+p+p><br>
+<a name="44"></a><h3+p+p+p+p>Element h3+p+p+p+p</h3+p+p+p+p><br>
+<a name="45"></a><h4+p+p+p+p>Element h4+p+p+p+p</h4+p+p+p+p><br>
+<a name="46"></a><h2+p+p+p+p+p>Element h2+p+p+p+p+p</h2+p+p+p+p+p><br>
+<a name="47"></a><h3+p+p+p+p+p>Element h3+p+p+p+p+p</h3+p+p+p+p+p><br>
+<a name="48"></a><h4+p+p+p+p+p>Element h4+p+p+p+p+p</h4+p+p+p+p+p><br>
+<a name="49"></a><h2+p class="normal">Element h2+p, Class normal</h2+p><br>
+<a name="50"></a><h3+p class="normal">Element h3+p, Class normal</h3+p><br>
+<a name="51"></a><h4+p class="normal">Element h4+p, Class normal</h4+p><br>
+<a name="52"></a><h4>Element h4</h4><br>
+<a name="53"></a><h2>Element h2</h2><br>
+<a name="54"></a><h3>Element h3</h3><br>
+<a name="55"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="56"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="57"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="58"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="59"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="60"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="61"></a><[data-tooltip]>Element [data-tooltip]</[data-tooltip]><br>
+<a name="62"></a><table class="t1"><tr><td>Table, Class t1</td></tr></table><br>
+<a name="63"></a><div class="t1 th">Class t1 th</div>
+<br>
+<a name="64"></a><div class="t1 td">Class t1 td</div>
+<br>
+<a name="65"></a><div class="t1 thead th">Class t1 thead th</div>
+<br>
+<a name="66"></a><div class="t1 tr">Class t1 tr</div>
+<br>
+<a name="67"></a><div class="t2 tr">Class t2 tr</div>
+<br>
+<a name="68"></a><div class="t1 tbody tr">Class t1 tbody tr</div>
+<br>
+<a name="69"></a><div class="t2 tbody tr">Class t2 tbody tr</div>
+<br>
+<a name="70"></a><div class="t1 tbody tr">Class t1 tbody tr</div>
+<br>
+<a name="71"></a><div class="t2 tbody tr">Class t2 tbody tr</div>
+<br>
+<a name="72"></a><div class="t1 tbody th">Class t1 tbody th</div>
+<br>
+<a name="73"></a><div class="t1 tbody td">Class t1 tbody td</div>
+<br>
+<a name="74"></a><div class="t2 tbody th">Class t2 tbody th</div>
+<br>
+<a name="75"></a><div class="t2 tbody td">Class t2 tbody td</div>
+<br>
+<a name="76"></a><div class="t1 tfoot th">Class t1 tfoot th</div>
+<br>
+<a name="77"></a><div class="t1 tr *">Class t1 tr *</div>
+<br>
+<a name="78"></a><div class="t1 tr *">Class t1 tr *</div>
+<br>
+<a name="79"></a><div class="t1 th.smaller">Class t1 th.smaller</div>
+<br>
+<a name="80"></a><table class="t1 caption"><tr><td>Table, Class t1 caption</td></tr></table><br>
+<a name="81"></a><div class="leftarrowheading">Class leftarrowheading</div>
+<br>
+<a name="82"></a><div class="tipicon">Class tipicon</div>
+<br>
+<a name="83"></a><div class="nestedul">Class nestedul</div>
+<br>
+<a name="84"></a><div class="nestedol">Class nestedol</div>
+<br>
+<a name="85"></a><cite>Element cite</cite><br>
+<a name="86"></a><ul class="alternate li"><li>Unordered List, Class alternate li</li></ul><br>
+<a name="87"></a><ul class="alternate li"><li>Unordered List, Class alternate li</li></ul><br>
+<a name="88"></a><ul class="alternate li"><li>Unordered List, Class alternate li</li></ul><br>
+<a name="89"></a><ol class="alternate li"><li>Ordered List, Class alternate li</li></ol><br>
+<a name="90"></a><ol class="alternate li"><li>Ordered List, Class alternate li</li></ol><br>
+<a name="91"></a><ol class="alternate li"><li>Ordered List, Class alternate li</li></ol><br>
+<a name="92"></a><span class="greenlight">Element span, Class greenlight</span><br>
+<a name="93"></a><span class="greenlightQ">Element span, Class greenlightQ</span><br>
+<a name="94"></a><a href="http://www.blumentals.net" target="_blank">Link</a><br>
+<a name="95"></a><a href="http://www.blumentals.net" target="_blank">Link</a><br>
+
+</body></html>

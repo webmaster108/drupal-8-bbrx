@@ -1,0 +1,29 @@
+uuid: a811153f-9fd4-4b87-895b-e19f191c3def
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:35e8f21a-809b-4411-97b1-1c1dc28c9015'
+  module:
+    - block_class
+    - block_content
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: m-icon
+id: mobilesearch
+theme: basic_bluerx
+region: header_left
+weight: 0
+provider: null
+plugin: 'block_content:35e8f21a-809b-4411-97b1-1c1dc28c9015'
+settings:
+  id: 'block_content:35e8f21a-809b-4411-97b1-1c1dc28c9015'
+  label: mobile-search
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

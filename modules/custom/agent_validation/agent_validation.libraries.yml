@@ -1,0 +1,5 @@
+agent_validation_assets:
+  version: 1.x
+  js:
+    js/script.js: { }
+    js/agent_ajax.js: { }

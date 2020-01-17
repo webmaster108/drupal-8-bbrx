@@ -1,0 +1,29 @@
+uuid: 3420eba5-c979-4857-9cef-9b49ca803566
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_table_position
+    - paragraphs.paragraphs_type.table_menu
+    - taxonomy.vocabulary.table_position
+id: paragraph.table_menu.field_table_position
+field_name: field_table_position
+entity_type: paragraph
+bundle: table_menu
+label: 'Table Position'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      table_position: table_position
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

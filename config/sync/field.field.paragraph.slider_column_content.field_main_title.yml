@@ -1,0 +1,19 @@
+uuid: b14ab1f1-cad7-4406-b96d-707769c6062f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_main_title
+    - paragraphs.paragraphs_type.slider_column_content
+id: paragraph.slider_column_content.field_main_title
+field_name: field_main_title
+entity_type: paragraph
+bundle: slider_column_content
+label: 'Main Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

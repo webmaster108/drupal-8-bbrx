@@ -1,0 +1,96 @@
+state_content.settings:
+  path: '/admin/state-content'
+  defaults:
+    _form: '\Drupal\state_content\Form\SettingsForm'
+    _title: 'State Content Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.urls_edit_form:
+  path: '/admin/state-content/urls/{url_id}/edit'
+  defaults:
+    _form: '\Drupal\state_content\Form\UrlsEditForm'
+    _title: 'Edit URL Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.urls_delete_form:
+  path: '/admin/state-content/urls/{url_id}/delete'
+  defaults:
+    _form: '\Drupal\state_content\Form\UrlsDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.regions_form:
+  path: '/admin/state-content/regions'
+  defaults:
+    _form: '\Drupal\state_content\Form\RegionsForm'
+    _title: 'Region Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.regions_edit_form:
+  path: '/admin/state-content/regions/{region_id}/edit'
+  defaults:
+    _form: '\Drupal\state_content\Form\RegionsEditForm'
+    _title: 'Edit Region Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.regions_delete_form:
+  path: '/admin/state-content/regions/{region_id}/delete'
+  defaults:
+    _form: '\Drupal\state_content\Form\RegionsDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.customtag_form:
+  path: '/admin/state-content/custom-tags'
+  defaults:
+    _form: '\Drupal\state_content\Form\CustomtagForm'
+    _title: 'Custom Tag Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.customtag_edit_form:
+  path: '/admin/state-content/tags/{tag_id}/edit'
+  defaults:
+    _form: '\Drupal\state_content\Form\CustomtagEditForm'
+    _title: 'Edit Tag Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+state_content.customtag_delete_form:
+  path: '/admin/state-content/tags/{tag_id}/delete'
+  defaults:
+    _form: '\Drupal\state_content\Form\CustomtagDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.webform_component_form:
+  path: '/admin/state-content/webform-components'
+  defaults:
+    _form: '\Drupal\state_content\Form\WebformComponentForm'
+    _title: 'Webform Component Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.webform_component_edit_form:
+  path: '/admin/state-content/webform-components/{cid}/edit'
+  defaults:
+    _form: '\Drupal\state_content\Form\WebformComponentEditForm'
+    _title: 'Edit Webform Component Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+state_content.webform_component_delete_form:
+  path: '/admin/state-content/webform-components/{cid}/delete'
+  defaults:
+    _form: '\Drupal\state_content\Form\WebformComponentDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements:
+    _permission: 'administer site configuration'

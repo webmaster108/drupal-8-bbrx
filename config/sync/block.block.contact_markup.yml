@@ -1,0 +1,25 @@
+uuid: 8d7f6dcf-4ff4-498c-bd96-95918caa556d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:81b27d3f-bc32-40c3-8fe3-58f4ed049a36'
+  module:
+    - block_content
+  theme:
+    - basic_bluerx
+id: contact_markup
+theme: basic_bluerx
+region: contact
+weight: -11
+provider: null
+plugin: 'block_content:81b27d3f-bc32-40c3-8fe3-58f4ed049a36'
+settings:
+  id: 'block_content:81b27d3f-bc32-40c3-8fe3-58f4ed049a36'
+  label: contact_markup
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

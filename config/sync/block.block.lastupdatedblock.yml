@@ -1,0 +1,20 @@
+uuid: 054def07-3261-4633-ac01-e94226e6e2da
+langcode: en
+status: true
+dependencies:
+  module:
+    - clearstone
+  theme:
+    - basic_bluerx
+id: lastupdatedblock
+theme: basic_bluerx
+region: content_bottom
+weight: -11
+provider: null
+plugin: last_updated_block
+settings:
+  id: last_updated_block
+  label: 'Last Updated Block'
+  provider: clearstone
+  label_display: '0'
+visibility: {  }

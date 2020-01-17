@@ -1,0 +1,193 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: bbrx_change_payment_option
+title: 'BBRx change payment option'
+description: ''
+category: ''
+elements: "step_1_page:\n  '#type': webform_wizard_page\n  '#title': 'Step 1'\n  '#prev_button_label': 'Previous Page'\n  '#next_button_label': 'Continue to Step 2'\n  step_1_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"padding:8px;background:#445465;color:#fff;font-size:20px\\\">Sign up for automatic payments</h1>\\r\\n\\r\\n<p>Never worry about having stamps or late payment fees when you set up automatic payments for your monthly premium. Choose an option that fits your needs and enroll online today in minutes.</p>\\r\\n\"\n    '#format': full_html\n  personal_information:\n    '#type': fieldset\n    '#title': 'Provide your member information'\n    row_1:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      firstname:\n        '#type': textfield\n        '#title': 'Member first name'\n        '#maxlength': '25'\n        '#required': true\n        '#required_error': 'Enter Member First Name.'\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Member First name: </label> {{ value }}'\n      lastname:\n        '#type': textfield\n        '#title': 'Member last name'\n        '#format': custom\n        '#format_text': '<label>Member Last name: </label> {{ value }}'\n        '#maxlength': '25'\n        '#required': true\n        '#required_error': 'Enter Member last name.'\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n    row_2:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      dob:\n        '#type': date\n        '#title': Birthdate\n        '#field_prefix': '<div class=\"date_wrap_div\">'\n        '#field_suffix': '</div>'\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-4 col-md-4'\n        '#format': custom\n        '#format_text': '<label>Birth Date: </label> {{ item.short }}'\n        '#date_date_min': '-110 years'\n        '#date_date_max': '+0 years'\n        '#datepicker': true\n        '#datepicker_button': true\n        '#date_date_format': m/d/Y\n      memberidnumber:\n        '#type': textfield\n        '#title': 'Member ID'\n        '#maxlength': '9'\n        '#required': true\n        '#pattern': '^[0-9]*$'\n        '#pattern_error': 'Valid Member ID is required'\n        '#default_value': '204'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-4 col-md-4'\n      homephone:\n        '#type': textfield\n        '#title': 'Home phone'\n        '#maxlength': '17'\n        '#format': custom\n        '#format_text': '<label>Home Phone: </label> {{ value }}'\n        '#input_mask': '(999) 999-9999'\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-4 col-md-4'\n        '#international': true\n        '#international_initial_country': US\n    email_row:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      email:\n        '#type': textfield\n        '#title': 'Email address'\n        '#wrapper_attributes':\n          class:\n            - 'col-md-6 col-sm-6'\n        '#format': custom\n        '#format_text': '<label>Email Address: </label> {{ value }}'\n        '#confirm__title': 'Confirm email address'\n      confirm_email:\n        '#type': textfield\n        '#title': 'Confirm email address'\n        '#wrapper_attributes':\n          class:\n            - 'col-md-6 col-sm-6'\n  select_payment_options:\n    '#type': fieldset\n    '#title': 'Choose your preferred payment method'\n    '#description': 'There are three options available that can help protect you from late payments.'\n    paymentoption:\n      '#type': radios\n      '#title': 'Preferred payment method'\n      '#options':\n        EFT: 'Electronic Funds Transfer (EFT)'\n        SSA: 'Social Security deduction'\n        RRB: 'Railroad Retirement Board (RRB) deduction'\n      '#required': true\n      '#format': custom\n      '#format_text': '<label>Preferred payment method: </label> {{ item.value }}'\n  rrb_payment_description:\n    '#type': processed_text\n    '#states':\n      visible:\n        ':input[name=\"paymentoption\"]':\n          value: RRB\n    '#wrapper_attributes':\n      class:\n        - 'pl-5 pr-5'\n    '#text': \"<h2>Railroad Retirement Board (RRB) deduction option</h2>\\r\\n\\r\\n<p>You can choose automatic deduction from your RRB benefit checks to pay for your monthly premium, including late enrollment penalties you may owe.</p>\\r\\n\\r\\n<p>If the RRB does not initially approve your automatic deduction request, we will send you paper bills and resubmit your request.</p>\\r\\n\\r\\n<ul>\\r\\n\\t<li>Once approved, it can take two or more months for the deduction to begin</li>\\r\\n\\t<li>Your current payment option will remain in place until this change is processed</li>\\r\\n\\t<li>If you pay your premiums by mail, please continue to do so until the deduction begins</li>\\r\\n\\t<li>If you do not pay your premium for the months before the deduction takes effect, you may be disenrolled from the plan</li>\\r\\n\\t<li>The RRB does not allow retroactive withholding requests</li>\\r\\n</ul>\\r\\n\\r\\n<p>If you are assessed a Part D income-related monthly adjustment amount (IRMAA), the Social Security Administration will notify you. You will be responsible for paying this extra amount. You will either have the amount withheld from your RRB check or be billed directly by Medicare. Do not pay Basic Blue Rx the Part D-IRMAA.</p>\\r\\n\"\n    '#format': full_html\n  ss_payment_description:\n    '#type': processed_text\n    '#states':\n      visible:\n        ':input[name=\"paymentoption\"]':\n          value: SSA\n    '#wrapper_attributes':\n      class:\n        - 'pl-5 pr-5'\n    '#text': \"<h2>Social Security deduction option</h2>\\r\\n\\r\\n<p>You can choose automatic deduction from your Social Security benefit checks to pay for your monthly premium, including late enrollment penalties you may owe.</p>\\r\\n\\r\\n<p>If the Social Security Administration does not initially approve your automatic deduction request, we will send you paper bills and resubmit your request.</p>\\r\\n\\r\\n<ul>\\r\\n\\t<li>Once approved, it can take two or more months for the deduction to begin</li>\\r\\n\\t<li>Your current payment option will remain in place until this change is processed</li>\\r\\n\\t<li>If you pay your premiums by mail, please continue to do so until the deduction begins</li>\\r\\n\\t<li>If you do not pay your premium for the months before the deduction takes effect, you may be disenrolled from the plan</li>\\r\\n\\t<li>Social Security does not allow retroactive withholding requests</li>\\r\\n</ul>\\r\\n\\r\\n<p>If you are assessed a Part D income-related monthly adjustment amount (IRMAA), the Social Security Administration will notify you. You will be responsible for paying this extra amount. You will either have the amount withheld from your Social Security check or be billed directly by Medicare. Do not pay Basic Blue Rx the Part D-IRMAA.</p>\\r\\n\"\n    '#format': full_html\n  eft_info:\n    '#type': fieldset\n    '#title': 'Electronic funds transfer (EFT) from your bank account'\n    '#description': \"EFT is a secure process that allows Basic Blue Rx to automatically withdraw funds from your checking or savings account to pay your monthly premium.\\r\\n<ul>\\r\\n</ul>\"\n    '#description_display': before\n    '#states':\n      visible:\n        ':input[name=\"paymentoption\"]':\n          value: EFT\n    eft_process_description:\n      '#type': processed_text\n      '#wrapper_attributes':\n        class:\n          - p-4\n      '#text': \"<ul>\\r\\n\\t<li>It may take up to two months to process your request&nbsp;</li>\\r\\n\\t<li>Continue to pay your premiums by mail until your initial EFT withdrawal has occurred to avoid disenrollment</li>\\r\\n\\t<li>Unpaid premiums due when EFT takes effect will be deducted from your account</li>\\r\\n</ul>\\r\\n\"\n      '#format': full_html\n    row_4:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      accountholdername:\n        '#type': textfield\n        '#title': 'Account holder name'\n        '#maxlength': '90'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - col-md-12\n        '#format': custom\n        '#format_text': '<label>Account holder name: </label> {{ value }}'\n    row_5:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      bankname:\n        '#type': textfield\n        '#title': 'Financial institution'\n        '#maxlength': '50'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Financial institution: </label> {{ value }}'\n      accttype:\n        '#type': radios\n        '#title': 'Account type'\n        '#options':\n          Checking: Checking\n          Savings: Savings\n        '#required': true\n        '#required_error': 'Account type field is required.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Account Type: </label> {{ value }}'\n    row_6:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      bankroutingnumber:\n        '#type': textfield\n        '#title': 'Bank routing number'\n        '#maxlength': '9'\n        '#required': true\n        '#pattern': \\d+\n        '#pattern_error': 'Please enter Numeric Values only.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Bank routing number: </label> {{ value }}'\n      confirm_bankroutingnumber:\n        '#type': textfield\n        '#title': 'Confirm bank routing number'\n        '#maxlength': '9'\n        '#required': true\n        '#pattern': \\d+\n        '#pattern_error': 'Please enter Numeric Values only'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Bank routing number: </label> {{ value }}'\n    row_7:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      bankacctnumber:\n        '#type': textfield\n        '#title': 'Bank account number'\n        '#maxlength': '17'\n        '#required': true\n        '#pattern': \\d+\n        '#pattern_error': 'Please Enter Numeric Values Only.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Bank account number: </label> {{ value }}'\n      confirm_bankacctnumber:\n        '#type': textfield\n        '#title': 'Confirm bank account number'\n        '#maxlength': '17'\n        '#required': true\n        '#pattern': \\d+\n        '#pattern_error': 'Please Enter Numeric Values Only.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Bank account number: </label> {{ value }}'\n    check_image:\n      '#type': processed_text\n      '#text': \"<p><img alt=\\\"bank info\\\" data-entity-type=\\\"file\\\" data-entity-uuid=\\\"f6717008-cc45-48a0-ada3-687d6fe1cac5\\\" src=\\\"/themes/custom/basic_bluerx/images/bank-info.png\\\" /></p>\\r\\n\"\n      '#format': full_html\n  auth_rep_sig:\n    '#type': fieldset\n    '#title': 'Applicant or authorized representative signature'\n    '#states':\n      visible:\n        ':input[name=\"paymentoption\"]':\n          checked: true\n    eft_signature_text:\n      '#type': processed_text\n      '#states':\n        visible:\n          ':input[name=\"paymentoption\"]':\n            value: EFT\n      '#text': \"<p>I understand that by typing my name below:\\r\\n<ul>\\r\\n  <li>I authorize the bank or savings institution to make payments to Basic Blue Rx from the account entered</li>\\r\\n  <li>I understand that I may discontinue automatic payments at any time by calling Customer Service</li>\\r\\n  <li>I agree to maintain sufficient funds in the account to permit EFT deductions. If payment is returned for insufficient funds or any other reason, the EFT account will be cancelled, and I will receive a paper bill for the next billing cycle. The institution will have no financial liability, except due to an error by the institution or by the plan and may charge a fee for non-sufficient funds.</li>\\r\\n</ul></p>\"\n      '#format': code\n    signature_text_rrb:\n      '#type': processed_text\n      '#states':\n        visible:\n          ':input[name=\"paymentoption\"]':\n            value: RRB\n      '#wrapper_attributes':\n        class:\n          - 'pl-4 pr-4'\n      '#text': \"<p>I understand by providing my electronic signature, I am authorizing Basic Blue Rx to change my premium payment method to an RRB deduction.</p>\\r\\n\"\n      '#format': full_html\n    signature_text_for_ssa:\n      '#type': processed_text\n      '#states':\n        visible:\n          ':input[name=\"paymentoption\"]':\n            value: SSB\n      '#text': '<p>I understand by providing my electronic signature, I am authorizing Basic Blue Rx to change my premium payment method to a Social Security deduction.</p>'\n      '#format': code\n    contact_customer_service:\n      '#type': processed_text\n      '#text': \"<h2>Change your billing preference</h2>\\r\\n\\r\\n<p>You can change your method of payment at any time. Contact customer service for more information:<br />\\r\\nCall <a href=\\\"tel:1-877-376-2185\\\" title=\\\"click to call\\\">1-877-376-2185</a>,&nbsp;8 a.m. to 8 p.m., daily, local time (TTY users call&nbsp;<a href=\\\"tel:711\\\" title=\\\"click to call\\\">711</a>).</p>\\r\\n\"\n      '#format': full_html\n    datesigned:\n      '#type': date\n      '#title': 'Today''s Date'\n      '#disabled': true\n      '#default_value': now\n      '#format': custom\n      '#format_text': '<label>Today''s Date: </label> {{ item.fallback }}'\n      '#datepicker': true\n      '#date_date_format': m/d/Y\n    signature:\n      '#type': hidden\n      '#title': 'signature confirm'\n      '#default_value': 'Y'\n  row_8:\n    '#type': container\n    '#states':\n      visible:\n        ':input[name=\"paymentoption\"]':\n          checked: true\n    '#attributes':\n      class:\n        - row\n    signaturefirst:\n      '#type': textfield\n      '#title': 'First Name'\n      '#maxlength': '25'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      '#format': custom\n      '#format_text': '<label>First Name: </label> {{ value }}'\n      '#required': true\n    signaturelast:\n      '#type': textfield\n      '#title': 'Last Name'\n      '#maxlength': '25'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      '#format': custom\n      '#format_text': '<label>Last Name: </label> {{ value }}'\n      '#required': true\nstep_2_page:\n  '#type': webform_wizard_page\n  '#title': 'Step 2'\n  '#prev_button_label': 'Previous Page'\n  '#next_button_label': 'Continue to Step 2'\n  review_text:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"padding:8px;background:#445465;color:#fff;font-size:20px\\\">Review</h1>\\r\\n\"\n    '#format': full_html\n  review_1_row:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    review_perso_wrap:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      personal_information_wrap:\n        '#type': fieldset\n        '#title': 'Personal information'\n        member_first_name_val:\n          '#type': webform_computed_token\n          '#title': 'Member first name: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:firstname]'\n        member_last_name_val:\n          '#type': webform_computed_token\n          '#title': 'Member last name:'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:lastname]'\n        date_of_birth_val:\n          '#type': webform_computed_token\n          '#title': 'Date of birth'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:dob]'\n        home_phone_val:\n          '#type': webform_computed_token\n          '#title': 'Home Phone'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:homephone]'\n        email_address_val:\n          '#type': webform_computed_token\n          '#title': 'Email Address'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:email]'\n    medicare_wrap:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      medicare_information_wrap:\n        '#type': fieldset\n        '#title': 'Medicare information'\n        memberidnumber_val:\n          '#type': webform_computed_token\n          '#title': 'Member ID: '\n          '#title_display': inline\n          '#template': '[webform_submission:values:memberidnumber]'\n  review_2_row:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    wrap_premium_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      premium_payment_option_wrap:\n        '#type': fieldset\n        '#title': 'Premium payment option'\n        preferred_payment_method_val:\n          '#type': webform_computed_token\n          '#title': 'Preferred payment method'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:paymentoption]'\n        eta_container:\n          '#type': container\n          '#states':\n            visible:\n              ':input[name=\"paymentoption\"]':\n                value: EFT\n          account_holder_name_val:\n            '#type': webform_computed_token\n            '#title': 'Account holder name'\n            '#title_display': invisible\n            '#template': '[webform_submission:values:accountholdername]'\n            '#hide_empty': true\n          bankname_val:\n            '#type': webform_computed_token\n            '#title': 'Account holder name'\n            '#title_display': invisible\n            '#template': '[webform_submission:values:bankname]'\n            '#hide_empty': true\n          accttype_val:\n            '#type': webform_computed_token\n            '#title': 'Account holder name'\n            '#title_display': invisible\n            '#template': '[webform_submission:values:accttype]'\n            '#hide_empty': true\n          bankroutingnumber_val:\n            '#type': webform_computed_token\n            '#title': 'Account holder name'\n            '#title_display': invisible\n            '#template': '[webform_submission:values:confirm_bankroutingnumber]'\n            '#hide_empty': true\n          bankacctnumber_val:\n            '#type': webform_computed_token\n            '#title': 'Account holder name'\n            '#title_display': invisible\n            '#template': '[webform_submission:values:confirm_bankacctnumber]'\n            '#hide_empty': true\n    wrap_enroll_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      enrollment_authorization_wrap:\n        '#type': fieldset\n        '#title': 'Enrollment authorization'\n        today_s_date_val:\n          '#type': webform_computed_token\n          '#title': 'Today Date'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:datesigned]'\n        first_name_val:\n          '#type': webform_computed_token\n          '#title': 'First Name'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:signaturefirst]'\n          '#hide_empty': true\n        last_name_val:\n          '#type': webform_computed_token\n          '#title': 'Last Name'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:signaturelast]'\n        signature_val:\n          '#type': webform_computed_token\n          '#title': 'Signature: '\n          '#title_display': inline\n          '#template': '[webform_submission:values:signature]'\nipaddress:\n  '#type': hidden\n  '#title': 'IP Address'\n  '#default_value': UNKNOWN\nrecversion:\n  '#type': hidden\n  '#title': 'Received Version'\n  '#default_value': 2019-01\ntransactiontype:\n  '#type': hidden\n  '#title': 'Transaction Type'\n  '#default_value': PAYMT\ndor:\n  '#type': hidden\n  '#title': dor\n  '#default_value': '[current-date:short]'\ntimestamp:\n  '#type': hidden\n  '#title': timestamp\n  '#default_value': '[current-date:html_time]'\nconf_number:\n  '#type': hidden\n  '#title': conf_number\n  '#default_value': no_confirmation"
+css: ''
+javascript: "  // @see http://api.jqueryui.com/datepicker/\r\n  Drupal.webform = Drupal.webform || {};\r\n  Drupal.webform.datePicker = Drupal.webform.datePicker || {};\r\n  Drupal.webform.datePicker.options = Drupal.webform.datePicker.options || {\r\n          changeYear: true,\r\n          changeMonth: true\r\n  };\r\n\r\n\r\n//Just to overrise default date of DOB to 65 year before\r\nif(jQuery && jQuery.fn.datepicker){\r\n  jQuery.datepicker._getDefaultDate = function( inst ) {\r\n\t\tvar defaultDate = this._get( inst, \"defaultDate\" );\r\n\t\tif( jQuery(inst).attr(\"id\") == \"edit-dob\"){\r\n\t\t\tdefaultDate = defaultDate == null? \"-23725\" : defaultDate;\r\n\t\t}\t\t\r\n\t\treturn this._restrictMinMax( inst,\r\n\t\t\tthis._determineDate( inst, defaultDate, new Date() ) );\r\n\t};\r\n}\r\n\r\njQuery.extend(jQuery.validator.messages, { \r\n  minlength: jQuery.validator.format(\"Please enter {0} characters.\"),\r\n});\r\n\r\n      jQuery(\"form.webform-submission-form\").validate({\r\n          rules: {\r\n            bankroutingnumber: \"required\",\r\n            confirm_bankroutingnumber: {\r\n              equalTo: \"#edit-bankroutingnumber\"\r\n            },\r\n            bankacctnumber: \"required\",\r\n            confirm_bankacctnumber: {\r\n              equalTo: \"#edit-bankacctnumber\"\r\n            },\r\n            memberidnumber: {\r\n              minlength: 9,\r\n              digits: true\r\n            },\r\n            email: {\r\n              validate_email: true\r\n            },\r\n            confirm_email: {\r\n              validate_email: true,\r\n              xconfirm_email: \"#edit-email\"\r\n            },\r\n            homephone: {\r\n              phoneUS: true\r\n            }\r\n          },\r\n          messages: {\r\n            accttype: {\r\n              required: 'Please select any Account Type.'\r\n            },\r\n            paymentoption: {\r\n              required: 'Please select any Payment Option.'\r\n            }\r\n          }\r\n        });"
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: "<!-- BEGIN BBRx change payment form confirmation message -->\r\n<div class=\"row\">\r\n<div class=\"col-sm-12\">\r\n<?php if($_SESSION['conf_no']){ echo \"<h3>Confirmation Number: \". $_SESSION['conf_no'] . \"</h3>\"; }  ?>\r\n<p>You have completed enrollment for Basic Blue Rx automatic premium payment.</p>\r\n\r\n<ul>\r\n\t<li>If you have any questions or concerns about your premium payment election <a data-tooltip=\"You will not lose your place on this confirmation page by clicking this link.\" href=\"/basic-blue-rx-contact-us\" target=\"_blank\">contact Customer Service</a>.</li>\r\n</ul>\r\n\r\n<p class=\"leftarrowheading\">Please write down the confirmation number above.</p>\r\n\r\n<ul>\r\n\t<li>You can also send it by email (other information on this page will not be included in the email).</li>\r\n\t<li>You can print this page for your records.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n<div class=\"col-sm-6\">\r\n<form id =\"confirmation-form\" class=\"email-confirmation form-inline\">\r\n<div><input type=\"hidden\" name=\"planname\" value=\"2\"></div>\r\n<div class=\"form-group\">\r\n<input type=\"email\" name=\"email\"  class=\"form-control\" id=\"uemail\" value=\" [webform_submission:values:confirm_email] \">\r\n<input type=\"hidden\" value=\"[webform_submission:node:nid]\" name=\"webnid\" />\r\n</div>\r\n<div class=\"send-confirmation\">\r\n<button type=\"submit\" class=\"btn btn-default\">Send</button>\r\n</div>\r\n<div class=\"response\"></div>\r\n</form>\r\n\r\n</div>\r\n\r\n<div class=\"col-sm-6\"><a class=\"btn btn-default print-page\" href=\"#\">Print this Page for Your Records</a></div>\r\n</div>\r\n\r\n<h2 style=\"border-bottom:1px #CC3300 solid\">Your Information</h2>\r\n\r\n<div class=\"row\">\r\n<div class=\"col-sm-6\">\r\n<h2>BCBSAZ member number</h2>\r\n[webform_submission:values:memberidnumber]\r\n\r\n<h2>Member information</h2>\r\n\r\n<div>[webform_submission:values:firstname]</div>\r\n\r\n<div>[webform_submission:values:lastname]</div>\r\n\r\n<div>[webform_submission:values:dob]</div>\r\n\r\n<div>[webform_submission:values:email]</div>\r\n\r\n<div>[webform_submission:values:homephone]</div>\r\n</div>\r\n\r\n<div class=\"col-sm-6\">\r\n<h2>Premium payment option</h2>\r\n\r\n<div>[webform_submission:values:paymentoption]</div>\r\n\r\n<div>[webform_submission:values:accountholdername]</div>\r\n\r\n<div>[webform_submission:values:bankname]</div>\r\n\r\n<div>[webform_submission:values:bankroutingnumber]</div>\r\n\r\n<div>[webform_submission:values:bankacctnumber]</div>\r\n\r\n<h2>Authorization signature</h2>\r\n\r\n<p>I agreed to and accepted the terms as described in the payment method authorization.</p>\r\n\r\n<div>[webform_submission:values:signaturefirst]</div>\r\n\r\n<div>[webform_submission:values:signaturelast]</div>\r\n\r\n<div>[webform_submission:values:datesigned]</div>\r\n</div>\r\n</div>\r\n<!-- END BBRx change payment form confirmation message -->"
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  action:
+    id: action
+    label: Action
+    handler_id: action
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      notes: '[webform_submission:ip-address]'
+      sticky: null
+      locked: null
+      data: ''
+      message: '[webform_submission:ip-address]'
+      message_type: status
+      debug: false
+uuid: 33d9437c-bc7b-4359-a28c-3e873c63da1c

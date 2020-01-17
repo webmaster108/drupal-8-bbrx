@@ -1,0 +1,9 @@
+uuid: 67acb79d-79f0-4f7d-b59b-37d81049c000
+langcode: en
+status: true
+dependencies: {  }
+id: table_menu
+label: 'Table Menu'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

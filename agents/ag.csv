@@ -1,0 +1,13 @@
+State,NPN,AgentFirst,AgentLast,AgentPhone,FMO
+MI,1,Agent                 One,Agt                  Last,111-111-1111,
+MI,12,AgentTwo,AgentLast,222-222-2222,FMO
+MI,123,AgentThree,agentlast,333-333-3333,fmo
+MI,1234,agentfour,LastAgent,444-444-4444,
+MI,12345,AGENTFIVE,lastagent,555-555-5555,
+MI,123456,agentsix,LASTAGT,666-666-6666,Fmo
+MI,1234567,AgentSeven,LastName,777-777-7777,
+MI,12345678,AGENTEIGHT,lastname,888-888-8888,
+MI,123456789,Agentnine,LASTNAME,999-999-9999,
+MI,1234567890,Agent ten,Second Name,101-101-1010,
+NY,rv,ruth,volk,000-000-0000,
+NC,hc,holly,christopherson,000-000-0000,

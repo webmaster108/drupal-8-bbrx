@@ -1,0 +1,84 @@
+uuid: 09a55f1c-5e0b-4d37-be69-c303aa81e7ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq.body
+    - field.field.node.faq.field_display_title
+    - field.field.node.faq.field_faqs
+    - field.field.node.faq.field_header_image
+    - field.field.node.faq.field_header_image_headline
+    - field.field.node.faq.field_header_image_sub_headline
+    - field.field.node.faq.field_meta_tags
+    - node.type.faq
+  module:
+    - bg_image_formatter
+    - metatag
+    - paragraphs_jquery_ui_accordion
+    - text
+    - user
+id: node.faq.default
+targetEntityType: node
+bundle: faq
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_faqs:
+    type: paragraphs_jquery_ui_accordion_formatter
+    weight: 2
+    label: hidden
+    settings:
+      bundle: faqs
+      title: field_question
+      content: field_answer
+      view_mode: default
+      active: '1'
+      autoscroll_offset: ''
+      simple_id: 0
+      autoscroll: 0
+      autoscroll_offset_toolbar: 0
+    third_party_settings: {  }
+    region: content
+  field_header_image:
+    type: bg_image_formatter
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      css_settings:
+        bg_image_selector: .slide__bg
+        bg_image_z_index: auto
+        bg_image_color: '#FFFFFF'
+        bg_image_x: left
+        bg_image_y: top
+        bg_image_attachment: scroll
+        bg_image_repeat: no-repeat
+        bg_image_background_size: cover
+        bg_image_media_query: all
+        bg_image_important: '1'
+        bg_image_path_format: absolute
+        bg_image_background_size_ie8: 0
+    third_party_settings: {  }
+  field_meta_tags:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_display_title: true
+  field_header_image_headline: true
+  field_header_image_sub_headline: true

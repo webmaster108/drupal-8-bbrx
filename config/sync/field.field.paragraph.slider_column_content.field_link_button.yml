@@ -1,0 +1,23 @@
+uuid: 00e9f45c-2264-488b-a976-b9f59f850a4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_link_button
+    - paragraphs.paragraphs_type.slider_column_content
+  module:
+    - link
+id: paragraph.slider_column_content.field_link_button
+field_name: field_link_button
+entity_type: paragraph
+bundle: slider_column_content
+label: 'Link Button '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

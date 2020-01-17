@@ -1,0 +1,19 @@
+uuid: 985416d1-28c5-4651-91fd-1c888a20c77d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image_headline
+    - node.type.resources
+id: node.resources.field_header_image_headline
+field_name: field_header_image_headline
+entity_type: node
+bundle: resources
+label: 'Header Image Headline'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

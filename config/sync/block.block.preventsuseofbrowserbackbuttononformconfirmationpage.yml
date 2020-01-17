@@ -1,0 +1,31 @@
+uuid: 3f59d41d-56c0-4e37-ac5a-907080f592a1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:564c8e49-e665-4be7-88dc-68a6aaf6fda5'
+  module:
+    - block_content
+    - system
+  theme:
+    - basic_bluerx
+id: preventsuseofbrowserbackbuttononformconfirmationpage
+theme: basic_bluerx
+region: html_head
+weight: -10
+provider: null
+plugin: 'block_content:564c8e49-e665-4be7-88dc-68a6aaf6fda5'
+settings:
+  id: 'block_content:564c8e49-e665-4be7-88dc-68a6aaf6fda5'
+  label: 'prevents use of browser back button on form confirmation page'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/node/45/webform/confirm*\r\n/node/46/webform/confirm*\r\n/node/47/webform/confirm*\r\n/node/48/webform/confirm*"
+    negate: false
+    context_mapping: {  }

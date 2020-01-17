@@ -1,0 +1,31 @@
+uuid: b54c679a-478c-48b1-9708-fba072dacc22
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:6d2d9f74-e929-4139-848d-019397d81cba'
+  module:
+    - block_content
+    - system
+  theme:
+    - basic_bluerx
+id: basic_bluerx_bbrxheader
+theme: basic_bluerx
+region: navigation
+weight: -7
+provider: null
+plugin: 'block_content:6d2d9f74-e929-4139-848d-019397d81cba'
+settings:
+  id: 'block_content:6d2d9f74-e929-4139-848d-019397d81cba'
+  label: 'BBRX Header'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

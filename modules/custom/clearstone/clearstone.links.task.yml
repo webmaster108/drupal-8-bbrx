@@ -1,0 +1,11 @@
+clearstone.tab_1:
+  route_name : clearstone.form_export
+  title: Forms Configure
+  base_route: clearstone.form_export
+  weight: 10
+
+clearstone.tab_2:
+  route_name : clearstone.form_merges
+  title: Forms Merges
+  base_route: clearstone.form_export
+  weight: 20

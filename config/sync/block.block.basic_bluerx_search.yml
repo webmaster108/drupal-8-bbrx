@@ -1,0 +1,26 @@
+uuid: 2d2a94df-d62d-45ab-b580-0fdf5c9e3c52
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - search
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: search-section
+_core:
+  default_config_hash: UupCNJYjyt8HqyaXlcJ21KDCF736Qrtwf738tXaUmYs
+id: basic_bluerx_search
+theme: basic_bluerx
+region: header_right
+weight: -8
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: '0'
+visibility: {  }

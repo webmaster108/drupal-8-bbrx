@@ -1,0 +1,9 @@
+select:
+  version: 1.x
+  js:
+    js/select.js: {}
+
+radios:
+  version: 1.x
+  js:
+    js/radio.js: {}

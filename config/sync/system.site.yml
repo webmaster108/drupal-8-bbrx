@@ -1,0 +1,14 @@
+uuid: c7cb1c16-5249-4c15-bbf3-94395c490943
+name: BBRX
+mail: testingdev122@gmail.com
+slogan: ''
+page:
+  403: /user/login
+  404: ''
+  front: /node/5
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI

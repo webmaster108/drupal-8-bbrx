@@ -1,0 +1,6 @@
+name: 'Clearstone updates'
+type: module
+description: 'Allows user to add Custom updates'
+package: Custom
+core: '8.x'
+project: 'Custom'

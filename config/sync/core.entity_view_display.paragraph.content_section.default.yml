@@ -1,0 +1,42 @@
+uuid: babf33aa-bdfd-46f8-b11c-feb2033d5b71
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_section.field_description
+    - field.field.paragraph.content_section.field_file_or_link
+    - field.field.paragraph.content_section.field_section_title
+    - paragraphs.paragraphs_type.content_section
+  module:
+    - entity_reference_revisions
+    - text
+id: paragraph.content_section.default
+targetEntityType: paragraph
+bundle: content_section
+mode: default
+content:
+  field_description:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_file_or_link:
+    weight: 2
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_section_title:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

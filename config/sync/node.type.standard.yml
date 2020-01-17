@@ -1,0 +1,18 @@
+uuid: e9f2779d-1e67-42a0-9742-f5fdc76e54fe
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Standard Page'
+type: standard
+description: 'Use <em>Standard Pages</em> for all landing and sub-page content. Landing pages are all top-level pages such as "Plans". Sub-pages are within main sections such as "Compare Drug Plans".'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,17 @@
+uuid: 7b2e1e01-1e43-41c6-9308-6c63231a349b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Blog
+type: blog
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

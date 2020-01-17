@@ -1,0 +1,196 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: bbrx_update_contact_information
+title: 'BBRx update contact information'
+description: ''
+category: ''
+elements: "step_1_page:\n  '#type': webform_wizard_page\n  '#title': 'Step 1'\n  '#prev_button_label': Back\n  '#next_button_label': 'Continue to step 2'\n  step_1_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"padding:8px;background:#445465;color:#fff;font-size:20px\\\">Update your contact information</h1>\\r\\n\"\n    '#format': full_html\n  form_description:\n    '#type': processed_text\n    '#text': '</p>Quickly and easily update your contact information online. Please allow up to 7 days for changes to take effect. Contact customer service if you need assistance or have questions.</p>'\n    '#format': full_html\n  personal_information:\n    '#type': fieldset\n    '#title': 'Provide your member information'\n    row_1:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      firstname:\n        '#type': textfield\n        '#title': 'Member first name'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Member First name: </label> {{ value }}'\n      lastname:\n        '#type': textfield\n        '#title': 'Member last name'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Member last name: </label> {{ value }}'\n    row_2:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      dob:\n        '#type': date\n        '#title': 'Member birthdate'\n        '#field_prefix': '<div class=\"date_wrap_div\">'\n        '#field_suffix': '</div>'\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-md-6 col-sm-6'\n        '#format': custom\n        '#format_text': '<label>Member birthdate: </label> {{ item.short }}'\n        '#date_date_min': '-110 years'\n        '#date_date_max': '+0 years'\n        '#datepicker': true\n        '#datepicker_button': true\n        '#date_date_format': m/d/Y\n      memberidnumber:\n        '#type': textfield\n        '#title': 'Member ID'\n        '#maxlength': '9'\n        '#pattern': '^[0-9]*$'\n        '#pattern_error': 'Valid Member ID is required'\n        '#required': true\n        '#default_value': '204'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n  request_changes:\n    '#type': fieldset\n    '#title': 'Request changes'\n    select_changes_3:\n      '#type': checkbox\n      '#title': 'Phone and/or email'\n      '#format': custom\n      '#format_text': '<label>Phone and/or email: </label> {{ item.value }}'\n      '#attributes':\n        class:\n          - chk-required\n    select_changes:\n      '#type': checkbox\n      '#title': 'Permanent residence address'\n      '#format': custom\n      '#format_text': '<label>Permanent residence address: </label> {{ item.value }}'\n      '#attributes':\n        class:\n          - chk-required\n    select_changes_2:\n      '#type': checkbox\n      '#title': 'Mailing address'\n      '#format': custom\n      '#format_text': '<label>Mailing Address: </label> {{ item.value }}'\n      '#attributes':\n        class:\n          - chk-required\n  change_phone_and_or_email:\n    '#type': fieldset\n    '#title': 'Change phone and/or email'\n    '#states':\n      visible:\n        ':input[name=\"select_changes_3\"]':\n          checked: true\n    row_ph_mail_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      homephone:\n        '#type': textfield\n        '#title': 'Home phone'\n        '#maxlength': '17'\n        '#input_mask': '(999) 999-9999'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Home phone: </label> {{ value }}'\n        '#international': true\n        '#international_initial_country': US\n      altphone:\n        '#type': textfield\n        '#title': 'Alternate phone'\n        '#input_mask': '(999) 999-9999'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Alternate phone: </label> {{ value }}'\n        '#international': true\n        '#international_initial_country': US\n    row_email_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      email:\n        '#type': textfield\n        '#title': 'Email address'\n        '#wrapper_attributes':\n          class:\n            - 'col-md-6 col-sm-6'\n        '#format': custom\n        '#format_text': '<label>Email Address: </label> {{ value }}'\n      confirm_email:\n        '#type': textfield\n        '#title': 'Confirm email address'\n        '#wrapper_attributes':\n          class:\n            - 'col-md-6 col-sm-6'\n  change_permanent_resident_address:\n    '#type': fieldset\n    '#title': 'Change permanent resident address'\n    '#description': \"<p><strong>Your current coverage area includes [state_name]</strong>.</p>\\r\\n\\r\\n<p><strong>If your new address is outside of your current coverage area or if you are moving out of the country, do not proceed. </strong> Please contact customer service at <a href=\\\"tel:1-877-376-2185\\\">1-877-376-2185</a>, 8 a.m. to 8 p.m., daily, local time. TTY hearing impaired users call <a href=\\\"tel:711\\\" title=\\\"click to call\\\">711</a>.</p>\"\n    '#description_display': after\n    '#states':\n      visible:\n        ':input[name=\"select_changes\"]':\n          checked: true\n    row_address1_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      permst1:\n        '#type': textfield\n        '#title': 'Street Address'\n        '#description': '(P.O. Box not allowed)'\n        '#description_display': after\n        '#maxlength': '30'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Street Address: </label> {{ value }}'\n      permst2:\n        '#type': textfield\n        '#title': 'Address 2'\n        '#format': custom\n        '#format_text': '<label>Address 2: </label> {{ value }}'\n        '#maxlength': '30'\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n    row_addr2_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      permcity:\n        '#type': textfield\n        '#title': City\n        '#format': custom\n        '#format_text': '<label>City: </label> {{ value }}'\n        '#maxlength': '25'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      permstate:\n        '#type': select\n        '#title': State\n        '#format': custom\n        '#format_text': '<label>State: </label> {{ value }}'\n        '#options':\n          AL: Alabama\n          AK: Alaska\n          AZ: Arizona\n          AR: Arkansas\n          CA: California\n          CO: Colorado\n          CT: Connecticut\n          DE: Delaware\n          DC: 'District of Columbia'\n          FL: Florida\n          GA: Georgia\n          HI: Hawaii\n          ID: Idaho\n          IL: Illinois\n          IN: Indiana\n          IA: Iowa\n          KS: Kansas\n          KY: Kentucky\n          LA: Louisiana\n          ME: Maine\n          MD: Maryland\n          MA: Massachusetts\n          MI: Michigan\n          MN: Minnesota\n          MS: Mississippi\n          MO: Missouri\n          MT: Montana\n          NE: Nebraska\n          NV: Nevada\n          NH: 'New Hampshire'\n          NJ: 'New Jersey'\n          NM: 'New Mexico'\n          NY: 'New York'\n          NC: 'North Carolina'\n          ND: 'North Dakota'\n          OH: Ohio\n          OK: Oklahoma\n          OR: Oregon\n          PA: Pennsylvania\n          RI: 'Rhode Island'\n          SC: 'South Carolina'\n          SD: 'South Dakota'\n          TN: Tennessee\n          TX: Texas\n          UT: Utah\n          VT: Vermont\n          VA: Virginia\n          WA: Washington\n          WV: 'West Virginia'\n          WI: Wisconsin\n          WY: Wyoming\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      permzip5:\n        '#type': textfield\n        '#title': 'Zip code (xxxxx)'\n        '#format': custom\n        '#format_text': '<label>Zip code (xxxxx): </label> {{ value }}'\n        '#maxlength': '5'\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      permzip4:\n        '#type': textfield\n        '#title': 'Zip+4 (xxxx)'\n        '#format': custom\n        '#format_text': '<label>Zip+4 (xxxx): </label> {{ value }}'\n        '#maxlength': '4'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n  change_mailing_address_only_if_different_from_your_permanent_res:\n    '#type': fieldset\n    '#title': 'Change mailing address (only if DIFFERENT from your permanent residence address)'\n    '#states':\n      visible:\n        ':input[name=\"select_changes_2\"]':\n          checked: true\n    mailing_row1_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      mailst1:\n        '#type': textfield\n        '#title': 'Mailing address'\n        '#format': custom\n        '#format_text': '<label>Mailing Address: </label> {{ value }}'\n        '#maxlength': '30'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n      mailst2:\n        '#type': textfield\n        '#title': 'Mailing address 2'\n        '#format': custom\n        '#format_text': '<label>Mailing Address 2: </label> {{ value }}'\n        '#maxlength': '30'\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n    mailing_row2_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      mailcity:\n        '#type': textfield\n        '#title': 'Mailing city'\n        '#format': custom\n        '#format_text': '<label>Mailing City: </label> {{ value }}'\n        '#maxlength': '25'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      mailst:\n        '#type': select\n        '#title': 'Mailing state'\n        '#format': custom\n        '#format_text': '<label>Mailing State: </label> {{ value }}'\n        '#options':\n          AL: Alabama\n          AK: Alaska\n          AZ: Arizona\n          AR: Arkansas\n          CA: California\n          CO: Colorado\n          CT: Connecticut\n          DE: Delaware\n          DC: 'District of Columbia'\n          FL: Florida\n          GA: Georgia\n          HI: Hawaii\n          ID: Idaho\n          IL: Illinois\n          IN: Indiana\n          IA: Iowa\n          KS: Kansas\n          KY: Kentucky\n          LA: Louisiana\n          ME: Maine\n          MD: Maryland\n          MA: Massachusetts\n          MI: Michigan\n          MN: Minnesota\n          MS: Mississippi\n          MO: Missouri\n          MT: Montana\n          NE: Nebraska\n          NV: Nevada\n          NH: 'New Hampshire'\n          NJ: 'New Jersey'\n          NM: 'New Mexico'\n          NY: 'New York'\n          NC: 'North Carolina'\n          ND: 'North Dakota'\n          OH: Ohio\n          OK: Oklahoma\n          OR: Oregon\n          PA: Pennsylvania\n          RI: 'Rhode Island'\n          SC: 'South Carolina'\n          SD: 'South Dakota'\n          TN: Tennessee\n          TX: Texas\n          UT: Utah\n          VT: Vermont\n          VA: Virginia\n          WA: Washington\n          WV: 'West Virginia'\n          WI: Wisconsin\n          WY: Wyoming\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      mailzip5:\n        '#type': textfield\n        '#title': 'Mailing zip code (xxxxx)'\n        '#format': custom\n        '#format_text': '<label>Mailing zip code (xxxxx): </label> {{ value }}'\n        '#maxlength': '5'\n        '#required': true\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n      mailzip4:\n        '#type': textfield\n        '#title': 'Mailing zip+4 (xxxx)'\n        '#maxlength': '4'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-3 col-md-3'\n        '#format': custom\n        '#format_text': '<label>Mailing zip+4 (xxxx): </label> {{ value }}'\n  applicant_or_authorized_representative_signature:\n    '#type': fieldset\n    '#title': 'Applicant or Authorized Representative Signature'\n    applicant_authorized_rep_sig_description:\n      '#type': processed_text\n      '#text': \"<p><strong>I understand</strong> that typing my name below means I have read and understand the contents of this form.</p>\\r\\n\\r\\n<p>If this is submitted by an individual who is the authorized representative of the member and authorized to act on his/her behalf under the laws of the state where the enrollee lives, then this signature certifies that this person is authorized under state law to complete this form.</p>\\r\\n\"\n      '#format': full_html\n    applicant_container:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      datesigned:\n        '#type': date\n        '#title': 'Today''s Date'\n        '#title_display': before\n        '#disabled': true\n        '#default_value': now\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Today''s Date: </label> {{ item.short }}'\n        '#datepicker': true\n        '#date_date_format': m/d/Y\n      demographicseffectivedate:\n        '#type': date\n        '#title': 'Request effective date for changes to take effect'\n        '#default_value': now\n        '#field_prefix': '<div class=\"date_wrap_div\">'\n        '#field_suffix': '</div>'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Request effective date for changes to take effect: </label> {{ item.short }}'\n        '#date_date_min': '0 years'\n        '#date_date_max': '+1 years'\n        '#datepicker': true\n        '#date_date_format': m/d/Y\n    row_applicant_2:\n      '#type': container\n      '#attributes':\n        class:\n          - row\n      signaturefirst:\n        '#type': textfield\n        '#title': 'First name'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>First name: </label> {{ value }}'\n      signaturelast:\n        '#type': textfield\n        '#title': 'Last Name'\n        '#required': true\n        '#pattern': '^[-a-zA-Z0-9 ]*$'\n        '#pattern_error': 'Special characters are not allowed.'\n        '#wrapper_attributes':\n          class:\n            - 'col-sm-6 col-md-6'\n        '#format': custom\n        '#format_text': '<label>Last name: </label> {{ value }}'\n    signature:\n      '#type': hidden\n      '#title': 'signature confirm'\n      '#default_value': 'Y'\nstep_2_page:\n  '#type': webform_wizard_page\n  '#title': 'Step 2'\n  '#prev_button_label': 'Previous Page'\n  '#next_button_label': 'Continue to Step 2'\n  step_2_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"padding:8px;background:#445465;color:#fff;font-size:20px\\\">Enrollment Details</h1>\\r\\n\\r\\n<h4>Review your Information</h4>\\r\\n\\r\\n<p>The information on this enrollment form, summarized below, is correct to the best of my knowledge. I understand that if I intentionally provide false information on this form, I will be disenrolled from the plan.</p>\\r\\n\"\n    '#format': full_html\n  review_row1_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    member_info_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      member_information_wrap:\n        '#type': fieldset\n        '#title': 'Member Information'\n        member_first_name_val:\n          '#type': webform_computed_token\n          '#title': 'Member first name: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:firstname]'\n        member_last_name_val:\n          '#type': webform_computed_token\n          '#title': 'Member Last Name: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:lastname]'\n        member_birthdate_val:\n          '#type': webform_computed_token\n          '#title': 'Member birthdate: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:dob]'\n        journey_rx_member_number_val:\n          '#type': webform_computed_token\n          '#title': 'Member ID: '\n          '#title_display': inline\n          '#template': '[webform_submission:values:memberidnumber]'\n    phone_email_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      phone_mail_changes_wrap:\n        '#type': fieldset\n        '#title': 'Phone Email Changes'\n        home_phone_val:\n          '#type': webform_computed_token\n          '#title': 'Home phone: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_3\"]':\n                checked: true\n          '#template': '[webform_submission:values:homephone]'\n        alternate_phone_val:\n          '#type': webform_computed_token\n          '#title': 'Alternate phone: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_3\"]':\n                checked: true\n          '#template': '[webform_submission:values:altphone]'\n          '#hide_empty': true\n        email_address_val:\n          '#type': webform_computed_token\n          '#title': 'Email Address'\n          '#states':\n            visible:\n              ':input[name=\"select_changes_3\"]':\n                checked: true\n          '#title_display': invisible\n          '#template': '[webform_submission:values:email]'\n  review_row2_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    permanent_addr_container:\n      '#type': container\n      '#states':\n        visible:\n          ':input[name=\"select_changes_address\"]':\n            checked: true\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      permanent_residence_address_change_wrap:\n        '#type': fieldset\n        '#title': 'Permanent residence address change: '\n        personal_address_val:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permst1]'\n          '#hide_empty': true\n        personal_address_val2:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permst2]'\n          '#hide_empty': true\n        personal_address_permcity:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permcity]'\n          '#hide_empty': true\n        personal_address_permstate:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permstate]'\n          '#hide_empty': true\n        personal_address_permzip5:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permzip5]'\n          '#hide_empty': true\n        personal_address_permzip4:\n          '#type': webform_computed_token\n          '#title': Address\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes\"]':\n                checked: true\n          '#template': '[webform_submission:values:permzip4]'\n          '#hide_empty': true\n    mailing_addr_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      mailing_address_change_val:\n        '#type': fieldset\n        '#title': 'Mailing Address Change: '\n        mailing_address_val:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailst1]'\n          '#hide_empty': true\n        mailing_address_val2:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailst2]'\n          '#hide_empty': true\n        mailing_address_mailcity:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailcity]'\n          '#hide_empty': true\n        mailing_address_mailst:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailst]'\n          '#hide_empty': true\n        mailing_address_mailzip5:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailzip5]'\n          '#hide_empty': true\n        mailing_address_mailzip4:\n          '#type': webform_computed_token\n          '#title': 'Mailing address: '\n          '#title_display': invisible\n          '#states':\n            visible:\n              ':input[name=\"select_changes_2\"]':\n                checked: true\n          '#template': '[webform_submission:values:mailzip4]'\n          '#hide_empty': true\n  review_row3_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    auth_sign_container:\n      '#type': container\n      '#attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      authorized_sign_wrap:\n        '#type': fieldset\n        '#title': 'Authorized signature'\n        today_s_date_val:\n          '#type': webform_computed_token\n          '#title': 'Today''s Date'\n          '#title_display': invisible\n          '#template': '[webform_submission:values:datesigned]'\n          '#hide_empty': true\n        request_effective_date_for_changes_to_take_effect_val:\n          '#type': webform_computed_token\n          '#title': 'Request effective date for changes to take effect: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:demographicseffectivedate]'\n        first_name_val:\n          '#type': webform_computed_token\n          '#title': 'First Name: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:signaturefirst]'\n        last_name_val:\n          '#type': webform_computed_token\n          '#title': 'Last Name: '\n          '#title_display': invisible\n          '#template': '[webform_submission:values:signaturelast]'\n        signature_confirm_val:\n          '#type': webform_computed_token\n          '#title': 'Signature confirm: '\n          '#title_display': inline\n          '#template': '[webform_submission:values:signature]'\n          '#hide_empty': true\ntransactiontype:\n  '#type': hidden\n  '#title': 'Transaction Type'\n  '#default_value': DEMOGR\nrecversion:\n  '#type': hidden\n  '#title': 'Received Version'\n  '#default_value': 2019-01\nipaddress:\n  '#type': hidden\n  '#title': 'IP Address'\n  '#default_value': UNKNOWN\ndor:\n  '#type': hidden\n  '#title': dor\n  '#default_value': '[current-date:short]'\ntimestamp:\n  '#type': hidden\n  '#title': timestamp\n  '#default_value': '[current-date:html_time]'\nconf_number:\n  '#type': hidden\n  '#title': conf_number\n  '#default_value': no_confirmation"
+css: ''
+javascript: "  // @see http://api.jqueryui.com/datepicker/\r\n  Drupal.webform = Drupal.webform || {};\r\n  Drupal.webform.datePicker = Drupal.webform.datePicker || {};\r\n  Drupal.webform.datePicker.options = Drupal.webform.datePicker.options || {\r\n          changeYear: true,\r\n          changeMonth: true\r\n  };\r\n\r\n//Just to overrise default date of DOB to 65 year before\r\nif(jQuery && jQuery.fn.datepicker){\r\n  jQuery.datepicker._getDefaultDate = function( inst ) {\r\n\t\tvar defaultDate = this._get( inst, \"defaultDate\" );\r\n\t\tif( jQuery(inst).attr(\"id\") == \"edit-dob\"){\r\n\t\t\tdefaultDate = defaultDate == null? \"-23725\" : defaultDate;\r\n\t\t}\t\t\r\n\t\treturn this._restrictMinMax( inst,\r\n\t\t\tthis._determineDate( inst, defaultDate, new Date() ) );\r\n\t};\r\n}\r\njQuery.extend(jQuery.validator.messages, { \r\n  minlength: jQuery.validator.format(\"Please enter {0} characters.\"),\r\n});\r\n\r\n\t\tjQuery.validator.addMethod('chk-required', function (value) {\r\n              return jQuery('.chk-required:checked').length > 0; }, 'Please check at least one box.');\r\n        var checkboxes = jQuery('.form-checkbox');\r\n        var checkbox_names = jQuery.map(checkboxes, function(e,i) { return jQuery(e).attr(\"name\")}).join(\" \");\r\n        \r\n        jQuery(\"form.webform-submission-form\").validate({\r\n            groups: { checks: checkbox_names },\r\n            errorPlacement: function(error, element) {\r\n             if (element.attr(\"type\") == \"checkbox\")\r\n               error.insertAfter(checkboxes.last());\r\n             else\r\n               error.insertAfter(element);\r\n          },\r\n          rules: {\r\n            permzip5:{\r\n              minlength: 5, \r\n              digits: true\r\n            },\r\n            memberidnumber:{\r\n              minlength: 9,\r\n              digits: true\r\n            },\r\n            permzip4:{\r\n              minlength: 4, \r\n              digits: true\r\n            },\r\n            mailzip5:{\r\n              minlength: 5, \r\n              digits: true\r\n            },\r\n            mailzip4:{\r\n              minlength: 4, \r\n              digits: true\r\n            },\r\n            email: {\r\n              validate_email: true\r\n            },\r\n            confirm_email: {\r\n              validate_email: true,\r\n              xconfirm_email: \"#edit-email\"\r\n            },\r\n            homephone: {\r\n              phoneUS: true\r\n            },\r\n            altphone: {\r\n              phoneUS: true\r\n            }\r\n          }\r\n          });"
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: true
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: "<!-- BEGIN BBRx contact information update form confirmation message -->\r\n<div class=\"row\">\r\n<div class=\"col-sm-12\">\r\n<?php if($_SESSION['conf_no']){ echo \"<h3>Confirmation Number: \". $_SESSION['conf_no'] . \"</h3>\"; }  ?>\r\n<p>You have completed contact information updates for your Basic Blue Rx plan.</p>\r\n\r\n<ul>\r\n\t<li>If you have any questions or concerns about your changes <a data-tooltip=\"You will not lose your place on this confirmation page by clicking this link.\" href=\"/basic-blue-rx-contact-us\" target=\"_blank\">contact Customer Service</a>.</li>\r\n</ul>\r\n\r\n<p class=\"leftarrowheading\">Please write down the confirmation number above.</p>\r\n\r\n<ul>\r\n\t<li>You can also send it by email (other information on this page will not be included in the email).</li>\r\n\t<li>You can print this page for your records.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n</div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n<div class=\"col-sm-6\">\r\n<form id =\"confirmation-form\" class=\"email-confirmation form-inline\">\r\n<div><input type=\"hidden\" name=\"planname\" value=\"2\"></div>\r\n<div class=\"form-group\">\r\n<input type=\"email\" name=\"email\"  class=\"form-control\" id=\"uemail\" value=\" [webform_submission:values:confirm_email] \">\r\n<input type=\"hidden\" value=\"[webform_submission:node:nid]\" name=\"webnid\" />\r\n</div>\r\n<div class=\"send-confirmation\">\r\n<button type=\"submit\" class=\"btn btn-default\">Send</button>\r\n</div>\r\n<div class=\"response\"></div>\r\n</form>\r\n\r\n</div>\r\n\r\n<div class=\"col-sm-6\"><a class=\"btn btn-default print-page\" href=\"#\">Print this Page for Your Records</a></div>\r\n</div>\r\n\r\n<h2 style=\"border-bottom:1px #CC3300 solid\">Your Information</h2>\r\n\r\n<div class=\"row\">\r\n<div class=\"col-sm-6\">\r\n<h2>BBRx member number</h2>\r\n[webform_submission:values:memberidnumber]\r\n\r\n<h2>Member information</h2>\r\n\r\n<div>[webform_submission:values:firstname]</div>\r\n\r\n<div>[webform_submission:values:lastname]</div>\r\n\r\n<h2>Requested changes</h2>\r\n\r\n<div>[webform_submission:values:email]</div>\r\n\r\n<div>[webform_submission:values:homephone]</div>\r\n\r\n<div>[webform_submission:values:permst1]</div>\r\n\r\n<div>[webform_submission:values:permst2]</div>\r\n\r\n<div>[webform_submission:values:permcity]</div>\r\n\r\n<div>[webform_submission:values:permstate]</div>\r\n\r\n<div>[webform_submission:values:permzip5]</div>\r\n\r\n<div>[webform_submission:values:permzip4]</div>\r\n\r\n<div>[webform_submission:values:mailst1]</div>\r\n\r\n<div>[webform_submission:values:mailst2]</div>\r\n\r\n<div>[webform_submission:values:mailcity]</div>\r\n\r\n<div>[webform_submission:values:mailst]</div>\r\n\r\n<div>[webform_submission:values:mailzip5]</div>\r\n\r\n<div>[webform_submission:values:mailzip4]</div>\r\n</div>\r\n\r\n<div class=\"col-sm-6\">\r\n<h2>Authorization signature</h2>\r\n\r\n<p>I agreed to and accepted the terms as described in the contact information update authorization.</p>\r\n\r\n<div>[webform_submission:values:datesigned]</div>\r\n\r\n<div>[webform_submission:values:signaturefirst]</div>\r\n\r\n<div>[webform_submission:values:signaturelast]</div>\r\n\r\n<div>[webform_submission:values:demographicseffectivedate]</div>\r\n</div>\r\n</div>\r\n<!-- END BBRx contact information update form confirmation message -->"
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  permstate_check:
+    id: action
+    label: permstate_check
+    handler_id: permstate_check
+    status: true
+    conditions:
+      enabled:
+        ':input[name="select_changes"]':
+          unchecked: true
+    weight: 0
+    settings:
+      states:
+        - completed
+      notes: ''
+      sticky: null
+      locked: null
+      data: 'permstate: '''''
+      message: ''
+      message_type: status
+      debug: false
+uuid: d4bdf5c5-c357-4351-9659-609379631bad

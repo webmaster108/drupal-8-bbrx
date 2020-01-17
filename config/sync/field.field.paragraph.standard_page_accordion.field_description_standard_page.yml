@@ -1,0 +1,21 @@
+uuid: f2830736-0351-4383-872b-abcd80dfd50b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_description_standard_page
+    - paragraphs.paragraphs_type.standard_page_accordion
+  module:
+    - text
+id: paragraph.standard_page_accordion.field_description_standard_page
+field_name: field_description_standard_page
+entity_type: paragraph
+bundle: standard_page_accordion
+label: 'Description Standard Page'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

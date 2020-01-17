@@ -1,0 +1,657 @@
+<?php
+
+/**
+ * @file
+ * Get data custom.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Url;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\cache\CachePluginBase;
+/**
+ * Hook_page_attachments()
+ */
+function state_content_page_attachments(array &$attachments) {
+  $attachments['#attached']['drupalSettings']['module'] = 'state_content';
+  $attachments['#attached']['library'][] = 'state_content/state_content_assets';
+  $session = \Drupal::request()->getSession();
+  $selected_state = $session->get('selected_state');
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $nid = $node->id();
+  }
+
+  if (isset($nid)) {
+    $default_values = state_content_get_values($nid);
+  }
+
+  if(!empty($default_values['tag'])){
+    if ($selected_state == NULL && $default_values['tag'] == 1) {
+      $attachments['#attached']['library'][] = 'state_content/trigger_popup';
+    }
+  }
+}
+
+/**
+ * State_content_geturls.
+ */
+function state_content_geturls() {
+  $db = db_select('state_content_urls', 'z')
+    ->fields('z', ['url', 'title', 'region']);
+  $results = $db->execute();
+  $urls = [];
+  foreach ($results as $result) {
+    $urls[] = [
+      'url' => $result->url,
+      'page_title' => $result->title,
+      'region' => $result->region,
+    ];
+  }
+  return $urls;
+}
+
+/**
+ * State_content_editurl.
+ */
+function state_content_editurl($id = NULL) {
+  $db = db_select('state_content_urls', 'z')
+    ->fields('z');
+  if (!empty($id)) {
+    $db->condition('z.id', $id);
+  }
+  $results = $db->execute();
+  $url = '';
+  foreach ($results as $result) {
+    $url = (array) $result;
+  }
+  return $url;
+}
+
+/**
+ * State_content_getAllRegionsStates.
+ */
+function state_content_get_all_regions_states() {
+  $db = db_select('state_content_regions', 'r')
+    ->fields('r')
+    ->execute();
+
+  $regions = [];
+  foreach ($db as $k => $v) {
+    $regions[] = (array) $v;
+  }
+
+  $states = [];
+  if (!empty($regions)) {
+    foreach ($regions as $region) {
+      $abbr = explode(',', $region['states']);
+      $states = array_merge($abbr, $states);
+    }
+  }
+  return $states;
+}
+
+/**
+ * State_content_getAllRegions.
+ */
+function state_content_get_all_regions() {
+  $db = db_select('state_content_regions', 'r')
+    ->fields('r')
+    ->execute();
+  $results = [];
+  foreach ($db as $row) {
+    $results[$row->id] = $row->region;
+  }
+  return $results;
+}
+
+/**
+ * State_content_getStates.
+ */
+function state_content_get_states($state = NULL) {
+  $states = [
+    'AL' => t('Alabama'),
+    'AK' => t('Alaska'),
+    'AZ' => t('Arizona'),
+    'AR' => t('Arkansas'),
+    'CA' => t('California'),
+    'CO' => t('Colorado'),
+    'CT' => t('Connecticut'),
+    'DE' => t('Delaware'),
+    'DC' => t('District of Columbia'),
+    'FL' => t('Florida'),
+    'GA' => t('Georgia'),
+    'HI' => t('Hawaii'),
+    'ID' => t('Idaho'),
+    'IL' => t('Illinois'),
+    'IN' => t('Indiana'),
+    'IA' => t('Iowa'),
+    'KS' => t('Kansas'),
+    'KY' => t('Kentucky'),
+    'LA' => t('Louisiana'),
+    'ME' => t('Maine'),
+    'MD' => t('Maryland'),
+    'MA' => t('Massachusetts'),
+    'MI' => t('Michigan'),
+    'MN' => t('Minnesota'),
+    'MS' => t('Mississippi'),
+    'MO' => t('Missouri'),
+    'MT' => t('Montana'),
+    'NE' => t('Nebraska'),
+    'NV' => t('Nevada'),
+    'NH' => t('New Hampshire'),
+    'NJ' => t('New Jersey'),
+    'NM' => t('New Mexico'),
+    'NY' => t('New York'),
+    'NC' => t('North Carolina'),
+    'ND' => t('North Dakota'),
+    'OH' => t('Ohio'),
+    'OK' => t('Oklahoma'),
+    'OR' => t('Oregon'),
+    'PA' => t('Pennsylvania'),
+    'RI' => t('Rhode Island'),
+    'SC' => t('South Carolina'),
+    'SD' => t('South Dakota'),
+    'TN' => t('Tennessee'),
+    'TX' => t('Texas'),
+    'UT' => t('Utah'),
+    'VT' => t('Vermont'),
+    'VA' => t('Virginia'),
+    'WA' => t('Washington'),
+    'WV' => t('West Virginia'),
+    'WI' => t('Wisconsin'),
+    'WY' => t('Wyoming'),
+  ];
+
+  if ($state) {
+    return $states[$state];
+  }
+
+  return $states;
+}
+
+/**
+ * State_content_getPageRegion.
+ */
+function state_content_get_page_region($path = NULL) {
+  $db = \Drupal::database()->select('state_content_urls', 'u')
+    ->fields('u')
+    ->condition('url', $path)
+    ->execute()->fetchAssoc();
+  $db['region'] = unserialize($db['region']);
+
+  $regions = [];
+  if (!empty($db['region'])) {
+    foreach ($db['region'] as $k => $v) {
+      $regions[] = db_select('state_content_regions', 'r')
+        ->fields('r')
+        ->condition('id', $v)
+        ->execute()->fetchAssoc();
+    }
+  }
+
+  $states = [];
+  if (!empty($regions)) {
+    foreach ($regions as $region) {
+      $abbr = explode(',', $region['states']);
+      $states = array_merge($abbr, $states);
+    }
+  }
+  return $states;
+}
+
+/**
+ * State_content_getRegion.
+ */
+function state_content_get_region($id) {
+  $db = \Drupal::database()->select('state_content_regions', 'r')
+    ->fields('r')
+    ->condition('id', $id)
+    ->execute()->fetchAssoc();
+  return $db;
+}
+
+/**
+ * State_content_getTags.
+ */
+function state_content_get_tags($id) {
+  $result = \Drupal::database()->select('state_content_custom_tags', 't')
+    ->fields('t')
+    ->condition('id', $id)
+    ->execute()->fetchAssoc();
+  return $result;
+}
+
+/**
+ * Implements hook_ENTITY_ID_view_alter().
+ */
+function state_content_node_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  $database = \Drupal::database();
+  $results = $database->select('state_content', 's')
+    ->fields('s', ['tag'])
+    ->condition('s.entity_id', $entity->id())
+    ->condition('s.entity_type', 'node')
+    ->execute()
+    ->fetchCol();
+  $build['#cache']['max-age'] = 0;
+
+  if (!empty($results) && array_shift($results) == 1) {
+    
+    if (!empty($build['body'][0]) && isset($build['body'][0]['#text'])) {
+      $format = $build['body'][0]['#format'];
+      $body = $build['body'][0]['#text'];
+      $build['body'][0]['#text'] = state_content_find_custom_tags($body, $format);
+    }
+
+    if (!empty($build['field_header_image_headline'][0]) && isset($build['field_header_image_headline'][0]['#context']['value'])) {
+      $format = $build['field_header_image_headline']['#formatter'];
+      $body = $build['field_header_image_headline'][0]['#context']['value'];
+      $build['field_header_image_headline'][0]['#context']['value'] = state_content_find_custom_tags($body, $format);
+    }
+
+    if (!empty($build['field_header_image_sub_headline'][0]) && isset($build['field_header_image_sub_headline'][0]['#context']['value'])) {
+      $format = $build['field_header_image_sub_headline']['#formatter'];
+      $body = $build['field_header_image_sub_headline'][0]['#context']['value'];
+      $build['field_header_image_sub_headline'][0]['#context']['value'] = state_content_find_custom_tags($body, $format);
+    }
+
+    if (!empty($build['field_display_title'][0]) && isset($build['field_display_title'][0]['#context']['value'])) {
+      $format = $build['field_display_title']['#formatter'];
+      $body = $build['field_display_title'][0]['#context']['value'];
+      $build['field_display_title'][0]['#context']['value'] = state_content_find_custom_tags($body, $format);
+    }
+  }
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function state_content_views_pre_render(ViewExecutable $view){
+  $display = $view->getDisplay();
+  $view_id = $view->id();
+  $id = $display->display['id'];
+
+  if ($id == "block_1" && $view_id == 'content_views') {
+    foreach ($view->result as $result) {
+      $get_headline = $result->_entity->field_header_image_headline->value;
+      $tag_headline = state_content_find_custom_tags($get_headline);
+      $result->_entity->set('field_header_image_headline', $tag_headline);
+
+      $get_sub_headline = $result->_entity->field_header_image_sub_headline->value;
+      $tag_sub_headline = state_content_find_custom_tags($get_sub_headline);
+      $result->_entity->set('field_header_image_sub_headline', $tag_sub_headline);
+    }
+  }
+}
+
+
+/**
+ * Find custom tags in a string.
+ */
+function state_content_find_custom_tags($data, $format = NULL) {
+  if (is_string($data)) {
+    preg_match_all("/\[[^\]]*\]/", $data, $matches);
+    $updated_string = $data;
+    if (is_array($matches[0]) && !empty($matches)) {
+      foreach ($matches[0] as $key => $tag) {
+        $updated_string = state_content_get_tag_content($data, $tag, $format);
+      }
+    }
+    // Check if there still exists some tags in the string.
+    $updated_string = state_content_tag_exists($updated_string, $format);
+    return $updated_string;
+  }
+  return $data;
+}
+
+/**
+ * Check if still there is a custom tag in string.
+ */
+function state_content_tag_exists($string, $format) {
+  // Limiting this to just 10 level otherwise it will run into infinite loop.
+  for ($i = 1; $i <= 10; $i++) {
+    preg_match_all("/\[[^\]]*\]/", $string, $match);
+    if (is_array($match[0]) && !empty($match)) {
+      foreach ($match[0] as $childtag) {
+        $string = state_content_get_tag_content($string, $childtag, $format);
+      }
+    }
+  }
+
+  return $string;
+}
+
+/**
+ * Get tag content.
+ */
+function state_content_get_tag_content($string, $tag, $format) {
+  $updated_string = $string;
+  $session = \Drupal::request()->getSession();
+  $selected_state = $session->get('selected_state');
+  $results = \Drupal::database()->select('state_content_custom_tags', 't')
+    ->fields('t')
+    ->condition('tag', $tag)
+    ->execute()->fetchAll();
+  if ($results) {
+    foreach ($results as $key => $value) {
+      $reg_state = [];
+      $states_all = [];
+      $regions = unserialize($value->region);
+      foreach ($regions as $region_id) {
+        $region_content = state_content_get_region($region_id);
+        if ($region_content && isset($region_content['states'])) {
+          $states_region = explode(',', $region_content['states']);
+          $states_all = array_merge($states_all, $states_region);
+        }
+      }
+      if (in_array($selected_state, $states_all)) {
+        if ($format == 'string') {
+          $updated_string = str_replace($tag, strip_tags($value->content), $string);
+        }
+        else {
+          $updated_string = str_replace($tag, $value->content, $string);
+        }
+      }
+    }
+
+    return $updated_string;
+  }
+  return $string;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function state_content_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $default_values = [];
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $nid = $node->id();
+  }
+  if (isset($nid)) {
+    $default_values = state_content_get_values($nid);
+  }
+
+  $form['state_content'] = [
+    '#type' => 'details',
+    '#title' => t('State Based Content'),
+    '#description' => '',
+    '#group' => 'advanced',
+    '#open' => FALSE,
+    '#weight' => 100,
+  ];
+
+  $form['state_content']['state_enable'] = [
+    '#type' => 'radios',
+    '#title' => t('Enable State Based Content'),
+    '#options' => [
+      0 => 'Disabled',
+      1 => 'Enabled',
+    ],
+    '#default_value' => isset($default_values['enable']) ? $default_values['enable'] : 0,
+  ];
+  $form['state_content']['states'] = [
+    '#type' => 'textarea',
+    '#title' => t('States'),
+    '#description' => t('Please comma separate states and use state abbreviations in uppercase. For ex: AK,AL,MN'),
+    '#default_value' => isset($default_values['states']) ? $default_values['states'] : '',
+  ];
+  $form['state_content']['url'] = [
+    '#type' => 'select',
+    '#title' => t('URL'),
+    '#options' => state_content_get_urls(),
+    '#default_value' => isset($default_values['url']) ? $default_values['url'] : 0,
+  ];
+  $form['state_content']['tag'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable for Custom Tag Replacement'),
+    '#default_value' => isset($default_values['tag']) ? $default_values['tag'] : 0,
+  ];
+
+  $form['actions']['submit']['#submit'][] = 'state_content_form_submit';
+}
+
+/**
+ * State_content_form_submit.
+ */
+function state_content_form_submit(array $form, FormStateInterface $form_state) {
+  $value = $form_state->getValues();
+
+  \Drupal::database()->merge('state_content')
+    ->key(['entity_id' => $value['nid']])
+    ->insertFields([
+      'entity_id' => $value['nid'],
+      'entity_type' => 'node',
+      'enable' => $value['state_enable'],
+      'states' => $value['states'],
+      'url' => $value['url'],
+      'tag' => $value['tag'],
+    ])
+    ->updateFields([
+      'entity_type' => 'node',
+      'enable' => $value['state_enable'],
+      'states' => $value['states'],
+      'url' => $value['url'],
+      'tag' => $value['tag'],
+    ])->execute();
+}
+
+/**
+ * State_content_get_values.
+ */
+function state_content_get_values($entity_id) {
+  $query = \Drupal::database()->select('state_content', 'sc')
+    ->fields('sc')
+    ->condition('sc.entity_id', $entity_id);
+  $result = $query->execute()->fetchAssoc();
+  return $result;
+}
+
+/**
+ * State_content_get_urls.
+ */
+function state_content_get_urls() {
+  $db = \Drupal::database()->select('state_content_urls', 'z')
+    ->fields('z', ['id', 'url']);
+  $results = $db->execute();
+  $rows = [0 => 'Please select a url'];
+  foreach ($results as $result) {
+    $rows[$result->id] = $result->url;
+  }
+  return $rows;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function state_content_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $session = \Drupal::request()->getSession();
+  $selected_state = $session->get('selected_state');
+  $states = state_content_get_states();
+  $state_options = [];
+  
+  //$values = state_content_get_region($region_id);
+  if($selected_state) {
+    $other_states = state_content_get_other_states($selected_state);
+    $standard_plan = state_get_standard_plan($selected_state);
+
+    if (strpos($other_states, ',') !== FALSE) {
+      $states_array = explode(',', $other_states);
+      foreach ($states_array as $state_key) {
+        $state_options[$state_key] = $states[$state_key]->render();
+      }
+    } else {
+      $state_options[$other_states] = $states[$other_states]->render();
+    }
+  }
+  if (strpos($form_id, 'webform_submission_basic_blue_rx_enroll') !== false) {
+    if(is_array($state_options) && !empty($state_options)) {
+      $form['elements']['step_1']['permanent_resident_address']['row_2']['permstate']['#options'] = $state_options;
+      if(!empty($standard_plan)){
+          if($standard_plan == TRUE){
+            $form['elements']['step_1']['enroll_in_plan']['planname']['#options'] = array('Basic Blue Rx Standard' => "Basic Blue Rx Standard (PDP) ");
+          }
+      }
+    }
+
+    if ($selected_state) {
+      $form['elements']['step_1']['permanent_resident_address']['row_2']['permstate']['#default_value'] = $selected_state;
+    }
+  }
+  if (strpos($form_id, 'webform_submission_bbrx_update_contact_information') !== false) {
+    if(is_array($state_options) && !empty($state_options)) {
+      $form['elements']['step_1_page']['change_permanent_resident_address']['row_addr2_container']['permstate']['#options'] = $state_options;
+    }
+    if ($selected_state) {
+      $form['elements']['step_1_page']['change_permanent_resident_address']['row_addr2_container']['permstate']['#default_value'] = $selected_state;
+    }
+    // Custom tag replacement.
+    $address_summary = $form['elements']['step_1_page']['change_permanent_resident_address']['#description'];
+    if (is_object($address_summary)) {
+      $address_description = (string)$address_summary;
+    }
+    else {
+      $address_description = (string)$address_summary;
+    }
+    if (!empty($address_description) && isset($form['elements']['step_1_page']['change_permanent_resident_address']['#description'])) {
+      $body = $address_description;
+      $form['elements']['step_1_page']['change_permanent_resident_address']['#description'] = state_content_find_custom_tags($body);
+    }
+
+  }
+
+  if (strpos($form_id, 'webform_submission_basic_blue_rx_change') !== false) {
+    if(is_array($state_options) && !empty($state_options)) {
+      $form['elements']['step_1']['permanent_resident_address']['row_2']['permstate']['#options'] = $state_options;
+    }
+    if ($selected_state) {
+      $form['elements']['step_1']['permanent_resident_address']['row_2']['permstate']['#default_value'] = $selected_state;
+    }
+   // kint();
+    if(!empty($standard_plan)){
+        if($standard_plan == TRUE){
+            $form['elements']['step_1']['enroll_in_plan']['planname']['#options'] = array('Basic Blue Rx Standard' => "Basic Blue Rx Standard (PDP) ");
+          }
+    }
+  }
+  // Replacing tag values.
+  $find_webform = substr($form_id, 0, 18);
+  if ($find_webform == 'webform_submission') {
+    $webform_id = substr($form_id, 19, -17);
+    $forms = \Drupal::entityTypeManager()->getStorage('webform')->loadMultiple();
+    foreach ($forms as $entity) {
+      if ($entity->id() == $webform_id) {
+        $build['#cache']['max-age'] = 0;
+        // TO-DO: make recursive function.
+        foreach ($form['elements'] as $k1 => &$v1) {
+          replace_webform_tag_value($v1);
+          if (is_array($v1)) {
+            foreach ($v1 as $k2 => &$v2) {
+              replace_webform_tag_value($v2);
+              if (is_array($v2)) {
+                foreach ($v2 as $k3 => &$v3) {
+                  replace_webform_tag_value($v3);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Get other states from same region
+ */
+/**
+ * Get logo file id.
+ */
+function state_content_get_other_states($state) {
+  $db = \Drupal::database()->select('state_content_regions', 'r')
+    ->fields('r', ['states'])
+    ->condition('states', '%' . db_like($state) . '%', 'LIKE')
+    ->execute()->fetchCol();
+  $other_states = array_shift($db);
+  return $other_states;
+}
+
+/**
+ * Check if allows Standard Plan.
+ */
+function state_get_standard_plan($state) {
+  $db = \Drupal::database()->select('state_content_regions', 'r')
+    ->fields('r', ['standard_plan'])
+    ->condition('states', '%' . db_like($state) . '%', 'LIKE')
+    ->execute()->fetchCol();
+  $standard_plan = array_shift($db);
+  return $standard_plan;
+}
+
+function replace_webform_tag_value(&$v1) {
+  if (isset($v1['#title'])) {
+    $v1['#title'] = state_content_find_custom_tags($v1['#title']);
+  }
+  if (isset($v1['#text'])) {
+    $v1['#text'] = state_content_find_custom_tags($v1['#text']);
+  }
+  if (isset($v1['#description'])) {
+    if (is_object($v1['#description'])) {
+      $v1['#description'] = state_content_find_custom_tags($v1['#description']->__toString());
+    }
+    else {
+      $v1['#description'] = state_content_find_custom_tags($v1['#description']);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function state_content_preprocess_block(&$variables) {
+  if (isset($variables['content']['#block_content'])) {
+    $content = $variables['content']['#block_content'];
+    $blocks = get_all_custom_block_id();
+    foreach ($blocks as $block_id) {
+      if (method_exists($content, 'id') && $content->id() == $block_id) {
+        $variables['#cache']['max-age'] = 0;
+        if (isset($variables['content']['body'][0])) {
+          $format = $variables['content']['body'][0]['#format'];
+          $body = $variables['content']['body'][0]['#text'];
+          $variables['content']['body'][0]['#text'] = state_content_find_custom_tags($body, $format);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Get all custom block id.
+ */
+function get_all_custom_block_id() {
+  $result = db_select('block_content', 't')
+    ->fields('t', ['id'])
+    ->execute()->fetchCol();
+  return $result;
+}
+
+function state_content_preprocess_field(&$variables, $hook) {
+  $element = $variables['element'];
+  if (isset($element['#field_name'])) {
+    // echo "<br>field-name = " . $element['#field_name'];
+    if ($element['#field_name'] == 'webform') {
+    //   $variables['items'][0]['content']['#text'] = "lorem ipsum";
+      $variables['items'][0]['content']['#webform'] = state_content_find_custom_tags($variables['items'][0]['content']['#webform']);
+      // echo "<pre>"; print_r($variables['items'][0]['content']['#webform']); die('===');
+    }
+  }
+  // else {
+  //   die('==not==');
+  // }
+}

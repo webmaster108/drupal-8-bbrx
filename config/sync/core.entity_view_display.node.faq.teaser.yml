@@ -1,0 +1,35 @@
+uuid: 8bbe6ab4-c4b3-4598-b990-2e000027e20b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.faq.body
+    - node.type.faq
+  module:
+    - text
+    - user
+id: node.faq.teaser
+targetEntityType: node
+bundle: faq
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_display_title: true
+  field_faqs: true
+  field_header_image: true
+  field_header_image_headline: true
+  field_header_image_sub_headline: true

@@ -1,0 +1,52 @@
+uuid: 0c2930ae-670d-41f1-bd90-86bc92adbc3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_add_accordion
+    - node.type.page
+    - paragraphs.paragraphs_type.standard_page_accordion
+  module:
+    - entity_reference_revisions
+id: node.page.field_add_accordion
+field_name: field_add_accordion
+entity_type: node
+bundle: page
+label: 'Add Accordion'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      standard_page_accordion: standard_page_accordion
+    target_bundles_drag_drop:
+      content_section:
+        weight: 9
+        enabled: false
+      faqs:
+        weight: 10
+        enabled: false
+      file_or_link:
+        weight: 11
+        enabled: false
+      forms:
+        weight: 12
+        enabled: false
+      slider_column_content:
+        weight: 13
+        enabled: false
+      standard_page_accordion:
+        enabled: true
+        weight: 14
+      table_menu:
+        weight: 15
+        enabled: false
+      table_menu_content:
+        weight: 16
+        enabled: false
+field_type: entity_reference_revisions

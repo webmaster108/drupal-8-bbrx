@@ -1,0 +1,36 @@
+uuid: 620b2d00-5bd0-4df0-a955-fd14565cbafe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.table_menu_content.field_description
+    - field.field.paragraph.table_menu_content.field_link_section_url
+    - paragraphs.paragraphs_type.table_menu_content
+  module:
+    - link
+    - text
+id: paragraph.table_menu_content.default
+targetEntityType: paragraph
+bundle: table_menu_content
+mode: default
+content:
+  field_description:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_link_section_url:
+    weight: 0
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

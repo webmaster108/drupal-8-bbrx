@@ -1,0 +1,19 @@
+uuid: 75dc4419-b81f-4974-bb66-af5cc07d0100
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image_headline
+    - node.type.faq
+id: node.faq.field_header_image_headline
+field_name: field_header_image_headline
+entity_type: node
+bundle: faq
+label: 'Header Image Headline'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

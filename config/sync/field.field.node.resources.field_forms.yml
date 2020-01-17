@@ -1,0 +1,34 @@
+uuid: 284de316-b060-4996-adaa-aef1949cb91e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_forms
+    - node.type.resources
+    - paragraphs.paragraphs_type.forms
+  module:
+    - entity_reference_revisions
+id: node.resources.field_forms
+field_name: field_forms
+entity_type: node
+bundle: resources
+label: Forms
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      forms: forms
+    target_bundles_drag_drop:
+      file_or_link:
+        weight: 3
+        enabled: false
+      forms:
+        enabled: true
+        weight: 4
+field_type: entity_reference_revisions

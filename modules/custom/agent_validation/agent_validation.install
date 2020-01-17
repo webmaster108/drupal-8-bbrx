@@ -1,0 +1,71 @@
+<?php
+// $Id$
+
+/**
+* @file
+* Install, update and uninstall functions for the clearstone_form module
+*
+* In this version we demonstrate the use of hook_update_N() to add
+* a new database table.
+*
+* For more information on hook_update_N(), see:
+* http://drupal.org/node/150215 and
+* http://api.drupal.org/api/drupal/modules--system--system.api.php/function/hook_update_N/7
+*/
+
+/**
+* Implements hook_schema().
+**/
+
+function agent_validation_schema(){
+  $schema = array();
+  $schema['agent_validation'] = array(
+    'description' => 'TODO: please describe this table!',
+    'fields' => array(
+      'id' => array(
+        'description' => '',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'npn' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+      'state' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+      'agentfirst' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+      'agentlast' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+      'agentphone' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+      'fmo' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

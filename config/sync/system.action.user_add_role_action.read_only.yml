@@ -1,0 +1,14 @@
+uuid: 0b26b173-1e2a-474b-870e-85f06ab1b759
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.read_only
+  module:
+    - user
+id: user_add_role_action.read_only
+label: 'Add the Read Only role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: read_only

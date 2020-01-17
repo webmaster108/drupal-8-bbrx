@@ -1,0 +1,6 @@
+use_cdn: false
+cdn_base_url: 'https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/'
+_core:
+  default_config_hash: q8W99tXJ9mj7FOjYmXBdpYKYdlFQHQ5ccXRgRk-z2f8
+validate_all_ajax_forms: 2
+force_validate_on_blur: 0

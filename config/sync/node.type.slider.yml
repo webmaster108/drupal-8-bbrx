@@ -1,0 +1,17 @@
+uuid: 360ac072-8f40-462f-b8e1-9a8569bf2cc1
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Slider
+type: slider
+description: 'Home page Slider'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

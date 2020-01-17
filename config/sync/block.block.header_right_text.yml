@@ -1,0 +1,29 @@
+uuid: e9f4f323-eb08-4a45-84de-cf00e049b717
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:17061a1a-52be-463b-b9cf-72c70cefe831'
+  module:
+    - block_class
+    - block_content
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: 'tab-area mr-3'
+id: header_right_text
+theme: basic_bluerx
+region: header_right
+weight: -7
+provider: null
+plugin: 'block_content:17061a1a-52be-463b-b9cf-72c70cefe831'
+settings:
+  id: 'block_content:17061a1a-52be-463b-b9cf-72c70cefe831'
+  label: header_right_text
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

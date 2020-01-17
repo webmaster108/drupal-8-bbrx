@@ -1,0 +1,249 @@
+<?php
+
+/**
+ * @file
+ * Id$.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * @file
+ * Install, update and uninstall functions for the clearstone_form module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function clearstone_schema() {
+  $schema = [];
+  $schema['clearstone_submission_conf'] = [
+    'description' => 'TODO: please describe this table!',
+    'fields' => [
+      'sid' => [
+        'description' => 'Submission ID to tie them all together.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'domain_id' => [
+        'description' => 'Domain ID inputting data to the table.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'secret' => [
+        'description' => 'Secret Key for viewing submissions.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'conf_number' => [
+        'description' => 'Confirmation Number for Form Submissions.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['sid'],
+  ];
+  $schema['clearstone_form_export'] = [
+    'description' => 'Forms to export on a daily basis.',
+    'fields' => [
+      'id' => [
+        'description' => 'Key for Table',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'form_node_id' => [
+        'description' => 'Node ID of form to export.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'filename' => [
+        'description' => 'Filename of export.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'root_tag' => [
+        'description' => 'Root XML Tag.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'record_tag' => [
+        'description' => 'Record XML Tag for each submission.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'output_folder' => [
+        'description' => 'Folder to output to.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'domain' => [
+        'description' => 'Domain form is on.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'merge' => [
+        'description' => 'Merge with other forms?',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'merge_set' => [
+        'description' => 'Set to merge with.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'csv' => [
+        'description' => 'CSV export the form?',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema['clearstone_form_merge'] = [
+    'description' => 'Merge sets available to forms.',
+    'fields' => [
+      'id' => [
+        'description' => 'Key for table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'title' => [
+        'description' => 'Title of merge.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'filename' => [
+        'description' => 'Filename of exported merged file.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'output_folder' => [
+        'description' => 'Folder to output to.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'root_tag' => [
+        'description' => 'Root tag for merged XML file.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'record_tag' => [
+        'description' => 'Record tag for merged XML file.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_update_n().
+ */
+function clearstone_update_8002() {
+  $spec = [
+    'description' => 'Domain Records Value.',
+    'fields' => [
+      'id' => [
+        'description' => 'Key for table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'domain_id' => [
+        'description' => 'Domain ID.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'prefix_confirmation_number' => [
+        'description' => 'Prefix for confirmation number.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+
+      'starting_confirmation_number' => [
+        'description' => 'Starting confirmation number.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'exclude_nodes' => [
+        'description' => 'Exclude nodes from incrementing.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema = Database::getConnection()->schema();
+  if (!db_table_exists('clearstone_domain_record')) {
+    $schema->createTable('clearstone_domain_record', $spec);
+  }
+
+  $webconf = [
+    'description' => 'Webforms Confirmations Value.',
+    'fields' => [
+      'id' => [
+        'description' => 'Key for table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'webform_id' => [
+        'description' => 'Webform ID.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'confirmation_checkbox' => [
+        'description' => 'Webform Confirmations Value.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema = Database::getConnection()->schema();
+  if (!db_table_exists('webform_confirmations_value')) {
+    $schema->createTable('webform_confirmations_value', $webconf);
+  }
+
+}
+
+
+/**
+ * Implements hook_update_n().
+ */
+function clearstone_update_8003() {
+  $new_field = [
+    'description' => 'Confirmation Number for Form Submissions.',
+    'type' => 'varchar',
+    'length' => '255',
+    'not null' => FALSE,
+  ];
+  db_change_field('clearstone_submission_conf', 'conf_number', 'conf_number', $new_field);
+}

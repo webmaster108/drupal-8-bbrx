@@ -1,0 +1,20 @@
+uuid: f60286cd-d352-4678-b67a-14ba10ed6425
+langcode: en
+status: true
+dependencies:
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: H_MGyzlST9lxv_smDJtnILyuBX6Uc7cyJA2zatH9bIE
+id: basic_bluerx_local_actions
+theme: basic_bluerx
+region: content
+weight: -8
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

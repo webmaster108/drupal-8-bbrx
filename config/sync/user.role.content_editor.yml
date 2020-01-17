@@ -1,0 +1,26 @@
+uuid: 1999d684-c98b-4be6-82ae-88de57a8b5d5
+langcode: en
+status: true
+dependencies: {  }
+id: content_editor
+label: 'content editor'
+weight: 4
+is_admin: null
+permissions:
+  - 'access contextual links'
+  - 'access in-place editing'
+  - 'administer blocks'
+  - 'edit any article content'
+  - 'edit any faq content'
+  - 'edit any page content'
+  - 'edit any resources content'
+  - 'edit any slider content'
+  - 'edit any standard content'
+  - 'edit any webform content'
+  - 'edit own article content'
+  - 'edit own faq content'
+  - 'edit own page content'
+  - 'edit own resources content'
+  - 'edit own slider content'
+  - 'edit own standard content'
+  - 'edit own webform content'

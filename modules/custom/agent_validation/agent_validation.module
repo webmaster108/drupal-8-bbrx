@@ -1,0 +1,286 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Database\Schema;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
+/**
+ * Implements hook_form_alter().
+ */
+function agent_validation_form_alter(array &$form, FormStateInterface $form_state, $form_id){
+
+}
+/**
+ * Implements hook_page_attachments().
+ */
+function agent_validation_page_attachments(array &$attachments) {
+	$attachments['#attached']['library'][] = 'agent_validation/agent_validation_assets';
+}
+
+function agent_validation_page_attachments_alter(&$attachments) {
+	$array_libraries = $attachments['#attached']['library'];
+
+	if (in_array('agent_validation/agent_validation_assets', $attachments['#attached']['library'])) {
+		$index = array_search('agent_validation/agent_validation_assets', $attachments['#attached']['library']);
+    	unset($attachments['#attached']['library'][$index]);
+	}
+  $attachments['#attached']['library'][] = 'agent_validation/agent_validation_assets';
+
+}
+
+/**
+ * Implements hook_cron().
+ */
+function agent_validation_cron(){
+  $time = date('G');
+
+  if($time >= 6 && $time <  7){
+    agent_validation_import();
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function agent_validation_mail($key, &$message, $params){
+  switch($key){
+    case 'file_success':
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+      $message['subject'] = 'Agent Validation Automated Process: Success';
+      $message['body'][] = '<p>ClearStone received a Agent Validation file on '.$params['date'].' and successfully uploaded it to the agent validation directory.</p>';
+    break;
+    case 'file_error':
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+      $message['subject'] = 'Agent Validation Automated Process: Error';
+      $message['body'][] = '<p>ClearStone received a Agent Validation file on '.$params['date'].'. The file contained an error which is detailed below. Note the line number where the error occurred. Please fix the file and send an updated version as soon as possible. ClearStone will also look into this issue.</p>';
+      $message['body'][] = '<p><b>Lines with errors:</b></p>';
+      foreach($params['errors'] as $k => $v){
+        $message['body'][] = '<p>'.$v.'</p>';
+      }
+      $message['body'][] = '<p>'.$params['file'].' was moved to the failed folder.</p>';
+    break;
+    case 'file_column_error':
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+      $message['subject'] = 'Agent Validation Automated Process: Error - Column Mismatch';
+      $message['body'][] = '<p>ClearStone received a Agent Validation file on '.$params['date'].'. The file contained an error which is detailed below. Note the line number where the error occurred. Please fix the file and send an updated version as soon as possible. ClearStone will also look into this issue.</p>';
+      $message['body'][] = '<p>The files header columns mismatched the database columnes. Please correct the header columns and resubmit.</p>';
+      $message['body'][] = '<p>'.$params['file'].' was moved to the failed folder.</p>';
+    break;
+    case 'no_file':
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+      $message['subject'] = 'Agent Validation Automated Process';
+      $message['body'][] = '<p>The Agent Validation file was not received on '.$params['date'].'. This does not indicate a problem. It simply means no file was found when our automated web processes last ran.</p>';
+    break;
+  }
+}
+
+
+function agent_validation_import(){
+	\Drupal::logger('agent_validation')->notice(t('Agent Validation import successfully started at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+	$from 	 = \Drupal::state()->get('agent_validation_from_email');
+	$emails 	 = \Drupal::state()->get('agent_validation_email_adds');
+	$failed 	 = \Drupal::state()->get('agent_validation_failed_directory');
+	$directory = \Drupal::state()->get('agent_validation_file_directory');
+
+	$files = scandir($directory, SCANDIR_SORT_DESCENDING);
+	$filename = $files[0];
+	$filepath = \Drupal::service('file_system')->realpath($directory.$filename);
+	//$filepath = \Drupal::service('file_system')->realpath($directory.$filename);
+	\Drupal::logger('agent_validation')->notice(t('Filepath: @file', array('@file' => $filepath)));
+	//print_r($filepath);exit;
+
+	if(file_exists($filepath) && $filename != '..' && !empty($directory) && !empty($failed)){
+		$error = agent_validation_import_csv($filepath);
+	if($error['err'] == false){
+	  		// Send Success Message
+			agent_validation_send_csv_success($from, $emails, $filepath, $filename);
+		} else {
+		if($error['desc'] == 'columns'){
+	    	agent_validation_send_csv_column_mismatch($from, $emails, $error, $filepath, $failed, $filename);
+	  	} else {
+		    // Send Failed Message
+		    agent_validation_send_csv_failed($from, $emails, $error, $filepath, $failed, $filename);
+	  }
+	}
+	} else {
+			// Send No File Message
+			agent_validation_csv_no_file($emails);
+	}
+}
+
+
+function agent_validation_send_csv_success($from, $emails, $filepath, $filename){
+	// Send success email message
+	\Drupal::logger('agent_validation')->notice(t('Send success email at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	$data = array(
+	'date' => date('F j, Y g:ia'),
+	'file' => $filename
+	);
+	if(!empty($emails)){
+		$mailManager = \Drupal::service('plugin.manager.mail');
+		$module = 'agent_validation';
+		$key = 'file_success';
+		$to = \Drupal::currentUser()->getEmail();
+		$langcode = \Drupal::currentUser()->getPreferredLangcode();
+		$send = true;
+		$result = $mailManager->mail($module, $key, $emails, $langcode, $data, NULL, $send);
+		//$mail = drupal_mail('agent_validation', 'file_success', $emails, language_default(), $data, $from);
+	}
+	file_unmanaged_delete($filepath);
+}
+
+
+function agent_validation_csv_no_file($emails){
+	\Drupal::logger('agent_validation')->notice(t('No file found at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	$data = array(
+		'date' => date('F j, Y g:ia')
+	);
+
+	if(!empty($emails)){
+		$mailManager = \Drupal::service('plugin.manager.mail');
+		$module = 'agent_validation';
+		$key = 'no_file';
+		$to = \Drupal::currentUser()->getEmail();
+		$langcode = \Drupal::currentUser()->getPreferredLangcode();
+		$send = true;
+		$result = $mailManager->mail($module, $key, $emails, $langcode, $data, NULL, $send);
+		//$mail = drupal_mail('agent_validation', 'no_file', $emails, language_default(), $data, $from);
+	}
+}
+
+function agent_validation_send_csv_failed($from, $emails, $error, $filepath, $failed, $filename){
+	\Drupal::logger('agent_validation')->notice(t('Send failed message for line errors at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	// Send failed email message
+	$data = array(
+		'errors' => $error['lines'],
+		'file' => $filename
+	);
+	if(!empty($emails)){
+		$mailManager = \Drupal::service('plugin.manager.mail');
+		$module = 'agent_validation';
+		$key = 'file_error';
+		$to = \Drupal::currentUser()->getEmail();
+		$langcode = \Drupal::currentUser()->getPreferredLangcode();
+		$send = true;
+		$result = $mailManager->mail($module, $key, $emails, $langcode, $data, NULL, $send);
+		//$mail = drupal_mail('agent_validation', 'file_error', $emails, language_default(), $data, $from);
+	}
+
+	\Drupal::logger('agent_validation')->notice(t('Move file to failed folder at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	// Create failed folder
+	if(file_prepare_directory($failed, FILE_CREATE_DIRECTORY)){
+		$newPath = \Drupal::service('file_system')->realpath($failed.$filename);
+		rename($filepath, $newPath);
+	}
+}
+
+
+function agent_validation_import_csv($filepath){
+	\Drupal::logger('agent_validation')->notice(t('File was found at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	$error = array(
+		'err' => false,
+		'lines' => '',
+		'desc' => ''
+	);
+	$handle = @fopen($filepath, 'r');
+	if($handle){
+		\Drupal::logger('agent_validation')->notice(t('Truncate table and start import at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+		$table = db_truncate('agent_validation')->execute();
+	}
+	$rowHeader = fgetcsv($handle);
+	$columns = array();
+	foreach ($rowHeader as $i => $header) {
+		$columns[$i] = str_replace(' ', '', str_replace('  ', '', strtolower(trim(preg_replace('/[^A-Za-z0-9\-_]/', '', $header)))));
+	}
+	$columnCheck = agent_validation_check_headers($columns);
+		if($columnCheck == false){
+			$error = array(
+				'err' => true,
+				'desc' => 'columns'
+			);
+		return $error;
+	}
+	$rowNum = 1;
+	while($row = fgetcsv($handle)){
+		$record = array();
+		$lineError = false;
+		foreach($row as $i => $field){
+			if(!empty($columns[$i]) && !empty($field)){
+				$record[$columns[$i]] = $field != NULL ? htmlspecialchars($field) : '';
+			} else if (empty($columns[$i]) && !empty($field)){
+				$lineError = true;
+		}
+	}
+
+	$rowNum++;
+
+	if($lineError == true){
+		$error['lines'][] = '<b>Line '.$rowNum.'</b> has an error. This could be that a column is out of order.';
+		\Drupal::logger('agent_validation')->error('Line '.$rowNum.' has an error. This could be that a column is out of order.');
+
+		$error['err'] = true;
+		continue;
+	}
+
+	try{
+	\Drupal::logger('agent_validation')->notice(t('Attempt insert to database for line @line at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')), '@line' => $rowNum)));
+
+	$db = db_insert('agent_validation')
+			->fields($record);
+			$db->execute();
+	} catch(Exception $e){
+		$error['err'] = true;
+		$error['lines'][] = '<b>Line '.$rowNum.'</b> has an error. Exception error: '.$e;
+		\Drupal::logger('agent_validation')->error('Line '.$rowNum.' has an error. Exception error: '.$e);
+		}
+	}
+	\Drupal::logger('agent_validation')->notice(t('Close file at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+	fclose($handle);
+	return $error;
+}
+
+
+function agent_validation_send_csv_column_mismatch($from, $emails, $error, $filepath, $failed, $filename){
+	\Drupal::logger('agent_validation')->notice(t('Column mismatch found at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	// Send failed email message
+	$data = array(
+		'date' => date('F j, Y g:ia'),
+		'file' => $filename
+	);
+	if(!empty($emails)){
+		$mailManager = \Drupal::service('plugin.manager.mail');
+		$module = 'agent_validation';
+		$key = 'file_column_error';
+		$to = \Drupal::currentUser()->getEmail();
+		$langcode = \Drupal::currentUser()->getPreferredLangcode();
+		$send = true;
+		$result = $mailManager->mail($module, $key, $emails, $langcode, $data, NULL, $send);
+	//	$mail = drupal_mail('agent_validation', 'file_column_error', $emails, language_default(), $data, $from);
+	}
+
+	\Drupal::logger('agent_validation')->notice(t('Move file to failed folder at @time.', array('@time' => date('m/d/Y H:i:s', strtotime('now')))));
+
+	// Create failed folder
+	if(file_prepare_directory($failed, FILE_CREATE_DIRECTORY)){
+		$newPath = \Drupal::service('file_system')->realpath($failed.$filename);
+		rename($filepath, $newPath);
+	}
+}
+
+function agent_validation_check_headers($columns){
+	$check = true;
+	$fields = drupal_get_module_schema('agent_validation', 'agent_validation');
+	foreach($columns as $k => $v){
+		if(!isset($fields['fields'][$v])){
+			$check = false;
+		break;
+		}
+	}
+	return $check;
+}

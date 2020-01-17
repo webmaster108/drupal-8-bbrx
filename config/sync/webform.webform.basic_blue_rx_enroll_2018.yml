@@ -1,0 +1,176 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+weight: 0
+uid: 1
+template: false
+archive: false
+id: basic_blue_rx_enroll_2018
+title: 'Basic Blue Rx enroll 2018'
+description: ''
+category: ''
+elements: "step_1:\n  '#type': webform_wizard_page\n  '#title': 'Step 1'\n  '#prev_button_label': Back\n  '#next_button_label': Continue\n  step_1_title:\n    '#type': processed_text\n    '#text': '<h1 style=\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\">Personal and Plan Information</h1>'\n    '#format': full_html\n  please_provide_your_medicare_insurance_information:\n    '#type': fieldset\n    '#title': 'Please Provide Your Medicare Insurance Information'\n    beneficiary:\n      '#type': fieldset\n      '#title': Beneficiary\n      medicareclaimnum:\n        '#type': textfield\n        '#title': 'Medicare Claim (ID) Number'\n        '#required': true\n      is_entitled_to:\n        '#type': fieldset\n        '#title': 'Is Entitled To'\n        hospital_part_a_effective_date:\n          '#type': date\n          '#title': 'HOSPITAL (Part A) Effective Date**'\n        medical_part_b_effective_date:\n          '#type': date\n          '#title': 'MEDICAL (Part B) Effective Date**'\n        must_have_part_a_or_b:\n          '#type': processed_text\n          '#text': \"<p><em>**You must have Medicare Part A or Part B (or both) to join a Medicare prescription drug plan.</em></p>\\r\\n\"\n          '#format': full_html\n      medicare_card_image:\n        '#type': processed_text\n        '#text': \"<p style=\\\"padding-left: 20%;\\\"><img alt=\\\"Example Medicare Card\\\" src=\\\"/sites/default/files/medicare_card.png\\\" /></p>\\r\\n\"\n        '#format': full_html\n  enroll_in_plan:\n    '#type': fieldset\n    '#title': 'Enroll me in the plan below'\n    planname:\n      '#type': select\n      '#title': 'Choose a Plan'\n      '#options':\n        'Basic Blue Rx': 'Basic Blue Rx (PDP)'\n      '#required': true\n  personal_information:\n    '#type': fieldset\n    '#title': 'Personal Information'\n    title:\n      '#type': select\n      '#title': Title\n      '#options':\n        Mr.: Mr.\n        Mrs.: Mrs.\n        Ms.: Ms.\n    firstname:\n      '#type': textfield\n      '#title': 'First Name'\n      '#required': true\n    middle_initial:\n      '#type': textfield\n      '#title': 'Middle Initial'\n    lastname:\n      '#type': textfield\n      '#title': 'Last Name'\n      '#required': true\n    dob:\n      '#type': date\n      '#title': Birthdate\n      '#required': true\n      '#default_value': '1954-03-11'\n      '#date_date_min': '-110 years'\n      '#date_date_max': '+0 years'\n    sex:\n      '#type': select\n      '#title': Gender\n      '#options':\n        M: Male\n        F: Female\n      '#required': true\n  permanent_resident_address:\n    '#type': fieldset\n    '#title': 'Permanent Resident Address'\n    address:\n      '#type': webform_address\n      '#title': Address\n      '#address__required': true\n      '#city__required': true\n      '#state_province__required': true\n      '#country__required': true\n    homephone:\n      '#type': tel\n      '#title': 'Home Phone'\n      '#required': true\n    altphone:\n      '#type': tel\n      '#title': 'Alternate Phone'\n    email:\n      '#type': webform_email_confirm\n      '#title': 'Email Address'\n      '#confirm__title': 'Confirm Email Address'\n  different_mailing_address:\n    '#type': select\n    '#title': 'different mailing address'\n    '#options':\n      different: 'Check this ONLY if your mailing address is DIFFERENT than your Permanent Resident Address'\n  mailing_address:\n    '#type': fieldset\n    '#title': 'Mailing Address (enter complete information)'\n    dst:\n      '#type': webform_address\n      '#title': 'Mailing Address'\n      '#address__title': 'Mailing Address'\n      '#address_2__title': 'Mailing Address 2'\n      '#city__title': 'Mailing City'\n      '#state_province__title': 'Mailing State'\n      '#postal_code__title': 'Mailing Zip Code'\n      '#country__access': false\n    dzip4:\n      '#type': textfield\n      '#title': 'Mailing Zip+4'\n  google_ua_85545403_2:\n    '#type': processed_text\n    '#text': \"<script>\\r\\n  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\\r\\n  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\\r\\n  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\\r\\n  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');\\r\\n  ga('create', 'UA-85545403-2', 'auto');\\r\\n  ga('send', 'pageview');\\r\\n</script>\"\n    '#format': code\nstep_2:\n  '#type': webform_wizard_page\n  '#title': 'Step 2'\n  '#prev_button_label': 'Back to Step 1'\n  '#next_button_label': 'Continue to Step 2'\n  step_2_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\\\">Enrollment Details</h1>\\r\\n\"\n    '#format': full_html\n  step_2_instructions:\n    '#type': processed_text\n    '#text': \"<p><strong>Asterisk (*) indicates required information</strong></p>\\r\\n\\r\\n<p><strong>Typically, you may enroll in a Medicare Prescription Drug Plan only during the annual enrollment period from October 15 through December 7 each year</strong>. Additionally, there are exceptions that may allow you to enroll in a Medicare Prescription Drug Plan outside of the annual enrollment period. Please read the following statements carefully and check the box if the statement applies to you. By checking any of the following boxes you are certifying that, to the best of your knowledge, you are eligible for an Enrollment Period. If we later determine that this information is incorrect, you may be disenrolled.</p>\\r\\n\\r\\n<p><strong>Note: A choice of effective dates is only allowed in certain enrollment situations identified below</strong>. In all other cases, or if you do not specify an effective date, your effective date will be the first of the month after your form is received by the plan.</p>\\r\\n\"\n    '#format': full_html\n  new_to_plan_aep:\n    '#type': fieldset\n    '#title': 'I am enrolling during annual enrollment (AEP) October 15 - December 7'\n    aep:\n      '#type': checkbox\n      '#title': 'I am enrolling during the annual enrollment period, October 15 through December 7, for a January 1, 2017 effective date. <em>(Note: The enrollment application must be received by December 7 for the enrollment to be effective on January 1.)</em>'\n  new_to_plan:\n    '#type': fieldset\n    '#title': 'I am new to Medicare'\n    sepnewtomedicare:\n      '#type': checkbox\n      '#title': 'I am new to Medicare.'\n  part_a_b:\n    '#type': fieldset\n    '#title': 'Part A/B'\n    effectivedate:\n      '#type': date\n      '#title': 'PART A'\n      '#date_date_min': '+1 years'\n      '#date_date_max': '-51 years'\n    sepnewpartbdate:\n      '#type': date\n      '#title': 'PART B'\n      '#date_date_min': '+1 years'\n      '#date_date_max': '-51 years'\n  moving_or_have_moved:\n    '#type': fieldset\n    '#title': 'I am moving or have moved...'\n    sepserviceareamove:\n      '#type': checkbox\n      '#title': 'I moved outside of the service area for my current plan or I recently moved and this plan is a new option for me.'\n    sepserviceareamovedate:\n      '#type': date\n      '#title': 'I moved on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepotherdate:\n      '#type': date\n      '#title': 'Requested effective date'\n    sepltc:\n      '#type': checkbox\n      '#title': 'I am moving into or live in a Long-Term Care Facility (for example, a nursing home or Long-Term Care facility).'\n    sepltcdate:\n      '#type': date\n      '#title': 'I moved in on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepltcout:\n      '#type': checkbox\n      '#title': 'I am moving out of a Long-Term Care Facility (for example, a nursing home or Long-Term Care facility)'\n    sepltcoutdate:\n      '#type': date\n      '#title': 'I moved out on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepreturn2us:\n      '#type': checkbox\n      '#title': 'I returned to the United States after living permanently outside the U.S.'\n    sepreturn2usdate:\n      '#type': date\n      '#title': 'I returned to the U.S. on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n  lost_losing_coverage:\n    '#type': fieldset\n    '#title': 'I lost or am losing my coverage or extra help...'\n    i_no_longer_qualify_for_extra_help_paying_for_my_medicare_prescr:\n      '#type': checkbox\n      '#title': 'I no longer qualify for extra help paying for my Medicare prescription drug coverage.'\n    sepextrahelptermdate:\n      '#type': date\n      '#title': 'I received notice of loss of extra help on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    i_involuntarily_lost_my_creditable_prescription_drug_coverage_co:\n      '#type': checkbox\n      '#title': 'I involuntarily lost my creditable prescription drug coverage (coverage as good as Medicare''s) or was notified of the loss (whichever is later).'\n    seplostcoveragedate:\n      '#type': date\n      '#title': 'I lost my drug coverage on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepotherdate3:\n      '#type': date\n      '#title': 'Requested effective date'\n      '#date_date_min': '+0 years'\n      '#date_date_max': '-2 years'\n      '#datepicker': true\n    sepdisenrollmcp:\n      '#type': checkbox\n      '#title': 'I have disenrolled from a Medicare cost plan and the plan''s optional supplemental Part D benefits'\n    sepdisenrollmcpdate:\n      '#type': date\n      '#title': 'Disenrollment date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepdisenrlsnp:\n      '#type': checkbox\n      '#title': 'I am being disenrolled from a special needs plan because my condition does not qualify me for that plan'\n    sepdisenrlsnpdate:\n      '#type': date\n      '#title': 'Disenrollment date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepnonrenewal:\n      '#type': checkbox\n      '#title': 'I am being disenrolled from my existing plan due to its non-renewal'\n      '#description': '(Note: The enrollment period for this is December 8 - February 28. Enrollment received in December, January or February are effective the first of the next month.)'\n    sepnonrenewaldate:\n      '#type': date\n      '#title': 'Disenrollment date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    seplostpdppartb:\n      '#type': checkbox\n      '#title': 'I have been disenrolled from a Medicare Advantage-Prescription Drug plan due to loss of Part B but continue to be entitled to Part A'\n    seplostpdppartbdate:\n      '#type': date\n      '#title': 'Disenrollment date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepmaopenenrollment:\n      '#type': checkbox\n      '#title': 'I am making this enrollment request between January 1 and February 14, and I recently ended my enrollment in a Medicare Advantage plan.'\n    sepleavingempcoverage:\n      '#type': checkbox\n      '#title': 'I am leaving employer or union coverage'\n    sepleavingempcoveragedate:\n      '#type': date\n      '#title': 'Leave date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepotherdate2:\n      '#type': date\n      '#title': 'Requested effective date'\n      '#date_date_min': '0 years'\n      '#date_date_max': '-2 years'\n    sepleavingma:\n      '#type': checkbox\n      '#title': 'I am leaving my Medicare Advantage plan within 12 months of my initial enrollment under a Special Enrollment Period to go back to a Medigap (Medicare Supplement) plan'\n    sepleavingmadate:\n      '#type': date\n      '#title': 'I left on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n  other_reasons:\n    '#type': fieldset\n    '#title': 'Other reasons'\n    sepmedicarepremcoverage:\n      '#type': checkbox\n      '#title': 'I have both Medicare and Medicaid, or my state helps pay for my Medicare premiums.'\n    sepextrahelp:\n      '#type': checkbox\n      '#title': 'I get extra help paying for Medicare prescription drug coverage'\n    sepextrahelpdate:\n      '#type': date\n      '#title': 'Assistance start date'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    seplawfulpresence:\n      '#type': checkbox\n      '#title': 'I recently obtained lawful presence in the United States'\n    seplawfulpresencedate:\n      '#type': date\n      '#title': 'I got this status on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepincarceration:\n      '#type': checkbox\n      '#title': 'I was recently released from incarceration'\n    sepincarcerationdate:\n      '#type': date\n      '#title': 'I was released on'\n      '#date_date_min': '+2 years'\n      '#date_date_max': '-10 years'\n    sepother:\n      '#type': checkbox\n      '#title': 'Other Special Enrollment Period not identified above'\n    sepothertxt:\n      '#type': textfield\n      '#title': Reason\n  no_statements_apply:\n    '#type': processed_text\n    '#text': \"<p>If none of these statements applies to you or you're not sure, please contact Basic Blue Rx at 1-844-469-2920 to see if you are eligible to enroll. We are open 8 a.m. to 8 p.m., daily, local time. TTY users should call 711.</p>\\r\\n\\r\\n<p>If you have special needs, alternative formats are available. Please contact our Basic Blue Rx Medicare Solutions specialists at the phone number above.</p>\\r\\n\"\n    '#format': full_html\nstep_3:\n  '#type': webform_wizard_page\n  '#title': 'Step 3'\n  '#prev_button_label': Back\n  '#next_button_label': Continue\n  step_3_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\\\">Payment Options</h1>\\r\\n\"\n    '#format': full_html\n  select_payment_options:\n    '#type': fieldset\n    '#title': 'Please Select Your Premium Payment Option'\n  paymentoption:\n    '#type': select\n    '#title': 'Payment options'\n    '#options':\n      Paper: 'Receive a paper bill'\n      EFT: 'Electronic Funds Transfer (EFT)'\n      SSA: 'Social Security deduction'\n      RRB: 'Railroad Retirement Board (RRB) deduction'\n    '#required': true\n  payment_info:\n    '#type': processed_text\n    '#text': \"<p>You can choose to pay your monthly plan premium, including any late enrollment penalty you may owe, each month by mail, Electronic Funds Transfer (EFT) or automatic deduction from your Social Security or Railroad Retirement Board (RRB) benefit check. You may also choose automatic deduction from your Social Security or RRB checks after you are enrolled. If Social Security/RRB does not approve your automatic deduction request, we will send you paper bills for your monthly premiums and resubmit your request. Once approved, it can take two or more months for the deduction to begin. During this time, you will receive paper bills and be responsible for paying your premium directly to the plan until the deduction begins. If you do not pay your premium for the months before the deduction takes effect, you may be disenrolled from the plan. Neither Social Security nor RRB allow retroactive withholding requests.</p>\\r\\n\\r\\n<p>If you are assessed a Part D-Income Related Monthly Adjustment Amount (IRMAA), the Social Security Administration will notify you. You will be responsible for paying this extra amount in addition to your plan premium. You will either have the amount withheld from your Social Security or RRB check or be billed directly by Medicare. Do NOT pay Basic Blue Rx the Part D-IRMAA.</p>\\r\\n\\r\\n<p>You can also choose to pay by <strong>Electronic Funds Transfer (EFT)</strong>. You must sign and date the form, and send it along with a voided check to the plan. Contact Customer Service for a form at 1-877-376-2185 8 a.m. to 8 p.m., daily, local time, TTY hearing impaired users call 711. It may take up to two months to process your request. Please pay your premiums billed to you on paper until your EFT is active. Any unpaid premiums due when EFT takes effect will be deducted at that time to bring your account up-to-date.</p>\\r\\n\\r\\n<p>People with limited incomes may qualify for extra help to pay for their prescription drug costs. If you qualify, Medicare could pay for 75 percent or more of your drug costs including monthly prescription drug premiums, annual deductibles and coinsurance. Those who qualify won't have a coverage gap or a late enrollment penalty. Many people are eligible for these savings and don't even know it. For more information, contact your local Social Security office, or call Social Security at <strong>1-800-772-1213</strong>. TTY users should call <strong>1-800-325-0778</strong>. You can also apply for extra help online at socialsecurity.gov/prescriptionhelp. If you qualify for extra help, Medicare will pay all or part of your plan premium. If Medicare pays only a portion of this premium, we will bill you for the amount that Medicare doesn't cover. If you don't select a payment option, you will receive a bill each month.</p>\\r\\n\"\n    '#format': full_html\nstep_4:\n  '#type': webform_wizard_page\n  '#title': 'Step 4'\n  '#prev_button_label': 'Back '\n  '#next_button_label': Continue\n  step_4_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\\\">Coordinate Benefits</h1>\\r\\n\"\n    '#format': full_html\n  medicare_coordinate_benefits:\n    '#type': fieldset\n    '#title': 'Please answer the following questions to help Medicare coordinate your benefits'\n  adddrugcov:\n    '#type': select\n    '#title': 'other coverage in addition to Basic Blue Rx'\n    '#options':\n      'Y': 'Yes'\n      Blank: 'No'\n    '#required': true\n  question_1:\n    '#type': processed_text\n    '#text': \"<p>Some individuals may have other drug coverage, including other private insurance, TRICARE, Federal employee health benefits coverage, VA benefits, or State pharmaceutical assistance programs.</p>\\r\\n\\r\\n<p>Will you have other prescription drug coverage in addition to <em><strong>Basic Blue Rx</strong></em>?</p>\\r\\n\"\n    '#format': full_html\n  addcovname:\n    '#type': textfield\n    '#title': 'Name of other coverage'\n  addcovid:\n    '#type': textfield\n    '#title': 'ID number for this coverage'\n  addgroupid:\n    '#type': textfield\n    '#title': 'Group number for this coverage'\n  question_2:\n    '#type': processed_text\n    '#text': \"<p>Are you a resident in a Long-Term Care facility, such as a nursing home?</p>\\r\\n\"\n    '#format': full_html\n  longtermcare:\n    '#type': select\n    '#title': 'I am a resident in a long term care facility'\n    '#options':\n      'Y': 'Yes'\n      Blank: 'No'\n    '#required': true\n  instname:\n    '#type': textfield\n    '#title': 'Name of Institution'\n  instadd:\n    '#type': webform_address\n    '#title': Address\n    '#address__title': 'Street address'\n    '#address_2__access': false\n    '#country__access': false\n  instphone:\n    '#type': tel\n    '#title': 'Phone Number'\nstep_5:\n  '#type': webform_wizard_page\n  '#title': 'Step 5'\n  '#prev_button_label': Back\n  '#next_button_label': Continue\n  step_5_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\\\">Enrollment Authorization</h1>\\r\\n\"\n    '#format': full_html\n  enrollment_auth:\n    '#type': processed_text\n    '#text': \"<div class=\\\"content\\\">\\r\\n<p>ENROLLMENT AUTHORIZATION</p>\\r\\n\\r\\n<ol>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand MII Life, Inc., a Medicare contractor, is an independent licensee of the Blue Cross® and Blue Shield® Association and the underwriter for Basic Blue® Rx, a prescription drug plan. Enrollment in Basic Blue Rx depends on contract renewal. Blue Cross and Blue Shield of Michigan is an independent licensee of the Blue Cross and Blue Shield Association. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand that this prescription drug coverage is in addition to my coverage under Medicare; therefore, I will need to keep my Medicare Part A or Part B coverage. It is my responsibility to inform Basic Blue Rx of any prescription drug coverage that I have or may get in the future. I can only be in one Medicare prescription drug plan at a time - if I am currently in a Medicare Prescription Drug Plan, my enrollment in Basic Blue Rx will end that enrollment. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">Enrollment in this plan is generally for the entire year. Once I enroll, I may leave this plan or make changes if an enrollment period is available, generally during the Annual Enrollment Period (October 15-December 7), unless I qualify for certain special circumstances. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand Basic Blue Rx serves a specific service area. If I move out of the area that Basic Blue Rx serves, I need to notify the plan so I can disenroll and find a new plan in my new area. I understand that in order to receive coverage from Basic Blue Rx I must use network pharmacies except in an emergency when I cannot reasonably use Basic Blue Rx network pharmacies. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand that once I am a member of Basic Blue Rx, I have the right to appeal plan decisions about payment or services if I disagree. I will read the Evidence of Coverage document from Basic Blue Rx when I get it to know which rules I must follow to get coverage. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand that if I leave this plan and don't have or get other Medicare prescription drug coverage or creditable prescription drug coverage (as good as Medicare's), I may have to pay a late enrollment penalty in addition to my premium for Medicare prescription drug coverage in the future. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">I understand that if I am getting assistance from a sales agent, broker or other individual employed by or contracted with one of the independent Blue Cross and Blue Shield plans offering Basic Blue Rx, he/she may be paid based on my enrollment in Basic Blue Rx. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\">Counseling services may be available in my state to provide advice concerning Medicare supplement insurance or other Medicare Advantage or Prescription Drug Plan options, medical assistance through the state Medicaid program and the Medicare Savings Program. </span></li>\\r\\n\\t<li><span style=\\\"line-height: 1.538em;\\\"><strong>Release of Information</strong>: By joining this Medicare prescription drug plan, I acknowledge that Basic Blue Rx will release my information to Medicare and other plans as is necessary for treatment, payment and health care operations, and as otherwise permitted by law. I also acknowledge that Basic Blue Rx will release my information, including my prescription drug event data, to Medicare, who may release it for research and other purposes that follow all applicable Federal statutes and regulations.</span></li>\\r\\n</ol>\\r\\n<a class=\\\"cboxClose btn-default form-submit\\\" style=\\\"padding:6px;cursor:pointer;color:white\\\">I have read and understand.</a></div>\\r\\n\"\n    '#format': full_html\n  enrollment_authorization:\n    '#type': fieldset\n    '#title': 'Enrollment Authorization'\n    agree_terms_enroll_auth:\n      '#type': checkbox\n      '#title': 'I agree with the terms as described in the <a href=\"#\" class=\"openAuth\">Enrollment Authorization</a>'\n      '#description': 'By selecting the checkbox above, I acknowledge that I have read and understand the contents of the &lt;a href=&quot;#&quot; class=&quot;openAuth&quot;&gt;Enrollment Authorization&lt;/a&gt;'\n  auth_rep_sig:\n    '#type': fieldset\n    '#title': 'Applicant or Authorized Representative Signature'\n    datesigned:\n      '#type': date\n      '#title': 'Today''s Date'\n    signaturefirst:\n      '#type': textfield\n      '#title': 'Enrollee First Name'\n      '#required': true\n    signaturelast:\n      '#type': textfield\n      '#title': 'Enrollee Last Name'\n      '#required': true\n    signature:\n      '#type': hidden\n      '#title': 'signature confirm'\n    preparer:\n      '#type': select\n      '#title': 'Person Completing Document'\n      '#options':\n        enrollee: 'I am the enrollee'\n        auth_rep: 'I am the enrollee''s Authorized Representative'\n        assisted: 'I assisted the enrollee in filling out the form'\n        agent: 'I am the enrollee''s Agent'\n        callcenter: 'I was assisted by DialogDirect during this process'\n      '#required': true\n  auth_rep_info:\n    '#type': fieldset\n    '#title': 'If you are the authorized representative, you MUST provide the following information (*required):'\n    authrepfirstname:\n      '#type': textfield\n      '#title': 'Representative First Name'\n      '#required': true\n    authreplastname:\n      '#type': textfield\n      '#title': 'Representative Last Name'\n      '#required': true\n    authreprelationship:\n      '#type': select\n      '#title': 'Relationship to Enrollee'\n      '#options':\n        Family: 'Family Member'\n        Emergency: 'Emergency Contact'\n        Attorney: Attorney\n        Other: Other\n      '#required': true\n    authrepaddress:\n      '#type': webform_address\n      '#title': Address\n      '#address__title': 'Street Address'\n      '#address_2__access': false\n      '#country__access': false\n    authrepphone:\n      '#type': tel\n      '#title': 'Phone Number'\n      '#required': true\n    authrepmail:\n      '#type': checkbox\n      '#title': 'I want all of my information sent to this address.'\n  assistance_provider_info:\n    '#type': fieldset\n    '#title': 'Assistance Provider Information (*required)'\n    assistorsigned:\n      '#type': textfield\n      '#title': 'Assistor Signed (First Name Last Name)'\n      '#required': true\n    assistorrelationship2applicant:\n      '#type': select\n      '#title': 'Relationship to Enrollee'\n      '#options':\n        Family: 'Family Member'\n        Emergency: 'Emergency Contact'\n        Attorney: Attorney\n        Other: Other\n      '#required': true\n    assistorsigneddate:\n      '#type': date\n      '#title': 'Assistor Date Signed'\n  call_center_info:\n    '#type': fieldset\n    '#title': 'Call Center Information'\n    callcentername:\n      '#type': select\n      '#title': 'Call Center (*required)'\n      '#options':\n        CALLCTRDD: DialogDirect\n      '#required': true\n    callcenterrep:\n      '#type': textfield\n      '#title': 'Call Center Representative (First Name Last Name) (*required)'\n      '#required': true\n    signedbysomebodyelse:\n      '#type': hidden\n      '#title': signedbysomebodyelse\n    agent_assisted:\n      '#type': fieldset\n      '#title': 'If you were assisted by an Agent, please fill in information if known'\n  agent_information:\n    '#type': fieldset\n    '#title': 'Agent Information (*required)'\n  agentfirst:\n    '#type': textfield\n    '#title': 'Certified Agent First Name'\n  agentlast:\n    '#type': textfield\n    '#title': 'Certified Agent Last Name'\n  ridnbr:\n    '#type': textfield\n    '#title': 'Call Record # (optional)'\n  agentid:\n    '#type': textfield\n    '#title': 'National Producer Number (NPN)'\n  agentphone:\n    '#type': tel\n    '#title': 'Phone Number'\n  agent_note:\n    '#type': processed_text\n    '#text': \"<p>Note: To enroll an applicant online, you must have their permission. Forms should be submitted within 2 calendar days of the date you receive the complete form.</p>\\r\\n\"\n    '#format': full_html\n  agent_signatures:\n    '#type': fieldset\n    '#title': 'Agent Signatures'\n    please_specify_one:\n      '#type': radios\n      '#title': 'Please specify whether enrollee is present or if Agent has paper enrollment (attestation) in hand'\n      '#description': 'Note: Agents or sales representatives should submit all enrollment forms within 2 calendar days of receipt so the plan can meet CMS processing timeframes.'\n      '#options':\n        present: 'Enrollee is present'\n        attestation: 'Agent has signed paper enrollment form in hand'\n    datesignedpaper:\n      '#type': date\n      '#title': 'What date did the enrollee sign the paper enrollment form'\n      '#date_date_min': '+0 years'\n      '#date_date_max': '-100 years'\n      '#datepicker': true\n    agentsigned:\n      '#type': date\n      '#title': 'What date did you, the agent, sign the paper enrollment form'\n      '#date_date_min': '+0 years'\n      '#date_date_max': '-100 years'\n      '#datepicker': true\n  agencyid:\n    '#type': hidden\n    '#title': agencyid\n  fmo:\n    '#type': hidden\n    '#title': fmo\nstep_6:\n  '#type': webform_wizard_page\n  '#title': 'Step 6'\n  '#prev_button_label': Back\n  '#next_button_label': Continue\n  step_6_title:\n    '#type': processed_text\n    '#text': \"<h1 style=\\\"margin:-25px 0px -9px;padding:8px;background:#ff3300;color:#fff;font-size:20px\\\">Review</h1>\\r\\n\"\n    '#format': full_html\n  review_information:\n    '#type': fieldset\n    '#title': 'Review your information'\n    product_selection:\n      '#type': webform_computed_twig\n      '#title': 'Product Selection'\n      '#display_on': form\n      '#template': '{{ elements }}'\nrecversion:\n  '#type': hidden\n  '#title': 'Received Version'\n  '#default_value': 2017-01\ntransactiontype:\n  '#type': hidden\n  '#title': 'Transaction Type'\n  '#default_value': ENROLL\nip_address:\n  '#type': hidden\n  '#title': 'IP Address'\nmemberidnumber:\n  '#type': hidden\n  '#title': memberidnumber\ngroupnum:\n  '#type': hidden\n  '#title': groupnum\nesrd:\n  '#type': hidden\n  '#title': esrd\nstatemedicaid:\n  '#type': hidden\n  '#title': statemedicaid\nmedicaidnbr:\n  '#type': hidden\n  '#title': medicaidnbr\nworkspouseself:\n  '#type': hidden\n  '#title': workspouseself\nseppap:\n  '#type': hidden\n  '#title': seppap\nmailst1:\n  '#type': hidden\n  '#title': mailst1\nmailst2:\n  '#type': hidden\n  '#title': mailst2\nmailcity:\n  '#type': hidden\n  '#title': mailcity\nmailst:\n  '#type': hidden\n  '#title': mailst\nmailzip5:\n  '#type': hidden\n  '#title': mailzip5\nmailzip4:\n  '#type': hidden\n  '#title': mailzip4\ncallcenter:\n  '#type': hidden\n  '#title': callcenter\nsepmadpdate:\n  '#type': hidden\n  '#title': sepmadpdate"
+css: ''
+javascript: ''
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: both
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers: {  }
+uuid: f2fc1ea0-c961-4154-8b57-8571a4ecb314

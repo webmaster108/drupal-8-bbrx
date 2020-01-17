@@ -1,0 +1,30 @@
+uuid: 377fdd35-05d0-4e46-a56f-aec0db486471
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.content_views
+  module:
+    - system
+    - views
+  theme:
+    - basic_bluerx
+id: views_block__content_views_block_2
+theme: basic_bluerx
+region: slider
+weight: 0
+provider: null
+plugin: 'views_block:content_views-block_2'
+settings:
+  id: 'views_block:content_views-block_2'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,34 @@
+uuid: 1950015e-d9fa-4fc1-9337-965090990858
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.standard_page_accordion.field_description_standard_page
+    - field.field.paragraph.standard_page_accordion.field_heading
+    - paragraphs.paragraphs_type.standard_page_accordion
+  module:
+    - text
+id: paragraph.standard_page_accordion.default
+targetEntityType: paragraph
+bundle: standard_page_accordion
+mode: default
+content:
+  field_description_standard_page:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_heading:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  status: true

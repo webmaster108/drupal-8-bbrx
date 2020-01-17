@@ -1,0 +1,23 @@
+state_content.tab_1:
+  route_name : state_content.settings
+  title: Overview
+  base_route: state_content.settings
+  weight: 10
+
+state_content.tab_2:
+  route_name: state_content.regions_form
+  title: State Regions
+  base_route: state_content.settings
+  weight: 20
+
+state_content.tab_3:
+  route_name: state_content.customtag_form
+  title: Custom Tags
+  base_route: state_content.settings
+  weight: 30
+
+state_content.tab_4:
+  route_name: state_content.webform_component_form
+  title: State Webform Components
+  base_route: state_content.settings
+  weight: 40

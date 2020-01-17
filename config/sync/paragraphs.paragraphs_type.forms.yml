@@ -1,0 +1,9 @@
+uuid: 7f04551d-0fe3-4d5c-a34f-47eabd677bc2
+langcode: en
+status: true
+dependencies: {  }
+id: forms
+label: Forms
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

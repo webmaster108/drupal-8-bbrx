@@ -1,0 +1,68 @@
+uuid: 89f09d11-5300-4f91-911c-183265dc1560
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.slider.field_header_image_headline
+    - field.field.node.slider.field_header_image_sub_headline
+    - field.field.node.slider.field_meta_tags
+    - field.field.node.slider.field_slider_content
+    - field.field.node.slider.field_slider_image_s
+    - node.type.slider
+  module:
+    - entity_reference_revisions
+    - image
+    - metatag
+    - user
+id: node.slider.default
+targetEntityType: node
+bundle: slider
+mode: default
+content:
+  field_header_image_headline:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_header_image_sub_headline:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_meta_tags:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_slider_content:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_slider_image_s:
+    weight: 101
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

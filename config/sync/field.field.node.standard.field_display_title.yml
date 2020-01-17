@@ -1,0 +1,19 @@
+uuid: bb9bd9ea-85b4-486d-9932-a60b1ae3ea89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.standard
+id: node.standard.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: standard
+label: 'Display Page Title'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

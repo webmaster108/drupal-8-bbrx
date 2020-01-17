@@ -1,0 +1,34 @@
+uuid: 4e04574b-8978-4e38-b047-764ad8eb4881
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_file_or_link
+    - paragraphs.paragraphs_type.file_or_link
+    - paragraphs.paragraphs_type.forms
+  module:
+    - entity_reference_revisions
+id: paragraph.forms.field_file_or_link
+field_name: field_file_or_link
+entity_type: paragraph
+bundle: forms
+label: 'File or Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      file_or_link: file_or_link
+    target_bundles_drag_drop:
+      file_or_link:
+        enabled: true
+        weight: 3
+      forms:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

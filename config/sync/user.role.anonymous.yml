@@ -1,0 +1,17 @@
+uuid: 9711d7f1-3ccd-43fb-8668-da5b3967655c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'publish to any domain'
+  - 'search content'
+  - 'use text format restricted_html'

@@ -1,0 +1,9 @@
+uuid: 840a85f8-ac3f-49c0-acf3-9c12bf7475ab
+langcode: en
+status: true
+dependencies: {  }
+id: slider_column_content
+label: 'Slider Column Content'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

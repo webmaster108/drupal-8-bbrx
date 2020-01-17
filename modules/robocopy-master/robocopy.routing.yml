@@ -1,0 +1,8 @@
+robocopy.merge_page:
+  path: 'merge/result'
+  defaults:
+    _controller: '\Drupal\robocopy\Controller\RobocopyController::mergePage'
+    _title: 'Merge Result'
+  requirements:
+    _permission: 'access content'
+    

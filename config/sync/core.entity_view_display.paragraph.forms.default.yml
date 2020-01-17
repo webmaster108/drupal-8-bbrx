@@ -1,0 +1,33 @@
+uuid: c0d285a5-56ef-49ba-ae78-c304c46434cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.forms.field_file_or_link
+    - field.field.paragraph.forms.field_list_title
+    - paragraphs.paragraphs_type.forms
+  module:
+    - entity_reference_revisions
+id: paragraph.forms.default
+targetEntityType: paragraph
+bundle: forms
+mode: default
+content:
+  field_file_or_link:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_list_title:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

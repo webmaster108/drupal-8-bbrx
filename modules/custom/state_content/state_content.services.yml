@@ -1,0 +1,10 @@
+services:
+  state_content.event_subscriber:
+    class: Drupal\state_content\EventSubscriber\StateContentSubscriber
+    tags:
+      - {name: event_subscriber}
+
+  state_content.outbound_path_processor:
+    class: Drupal\state_content\PathProcessor\StateContentOutboundPathProcessor
+    tags:
+      - { name: path_processor_outbound }

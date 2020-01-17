@@ -1,0 +1,6 @@
+name: Robocopy module
+type: module
+description: 'Drupal 8 Robocopy module.'
+package: Custom
+version: 8.x
+core: 8.x

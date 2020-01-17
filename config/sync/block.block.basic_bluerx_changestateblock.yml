@@ -1,0 +1,24 @@
+uuid: 9e4f01d9-f909-4b65-bafd-4af41e7d2cdc
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - state_content
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: 'nav navbar-nav navbar-right'
+id: basic_bluerx_changestateblock
+theme: basic_bluerx
+region: navigation
+weight: -6
+provider: null
+plugin: state_content
+settings:
+  id: state_content
+  label: 'Change State block'
+  provider: state_content
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,5 @@
+name: Track Enrollment Referrals
+description: Track Enrollment Referrals
+package: Custom
+core: 8.x
+type: module

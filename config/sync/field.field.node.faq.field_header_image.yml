@@ -1,0 +1,38 @@
+uuid: 56eca871-5be4-4c6d-96e8-b395a20cc09d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image
+    - node.type.faq
+  module:
+    - image
+id: node.faq.field_header_image
+field_name: field_header_image
+entity_type: node
+bundle: faq
+label: 'Header Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

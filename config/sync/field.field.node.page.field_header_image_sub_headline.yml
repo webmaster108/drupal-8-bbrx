@@ -1,0 +1,19 @@
+uuid: 0dd186e9-3331-4495-a78e-96d3c1026d93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_image_sub_headline
+    - node.type.page
+id: node.page.field_header_image_sub_headline
+field_name: field_header_image_sub_headline
+entity_type: node
+bundle: page
+label: 'Header Image Sub-headline'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

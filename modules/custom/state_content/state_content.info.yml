@@ -1,0 +1,6 @@
+name: State Content
+description: State Content Module
+package: Custom
+configure: state_content.settings
+type: module
+core: '8.x'

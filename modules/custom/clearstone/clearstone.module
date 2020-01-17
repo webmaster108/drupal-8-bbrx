@@ -1,0 +1,427 @@
+<?php
+
+/**
+ * @file
+ * Module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpFoundation;
+use Drupal\Core\Render\Markup;
+/**
+ * Getdomain.
+ */
+function clearstone_get_domains() {
+  $domains_name = [];
+  $storage = \Drupal::entityTypeManager()->getStorage('domain');
+  if ($storage) {
+    $domains = $storage->loadMultiple();
+    foreach ($domains as $val) {
+      $domain_id = $val->get('domain_id');
+      $domains_name[$domain_id] = $val->get('name');
+    }
+  }
+  return $domains_name;
+}
+
+/**
+ * Implements hook_preprocess_block()
+ */
+function clearstone_preprocess_block(&$vars) {
+ // kint($vars);
+  //- Change the block-id-name by your block id
+  if($vars['plugin_id'] == 'last_updated_block') {
+    //- This stops the block being cache in drupal 8
+    $vars['#cache']['max-age'] = 0;
+
+  }
+}
+
+
+/**
+ * Getformid.
+ */
+function clearstone_get_form_ids() {
+  $ids = [];
+  $nids = \Drupal::entityQuery('node')->condition('type', 'webform')->execute();
+  if (!empty($nids)) {
+    $entities = Node::loadMultiple($nids);
+  }
+
+  if (!empty($entities)) {
+    foreach ($entities as $entity) {
+      $label = $entity->label();
+      $id = $entity->get('nid')->getString();
+      $ids[$id] = $label;
+    }
+  }
+  return $ids;
+}
+
+/**
+ * Getmergsets.
+ */
+function clearstone_get_merge_sets() {
+  $sets = [];
+  $query = \Drupal::database()->select('clearstone_form_merge', 'm')
+    ->fields('m', ['id', 'title'])
+    ->execute();
+  $result = $query->fetchAll();
+  foreach ($result as $rs) {
+    $sets[$rs->id] = $rs->title;
+  }
+  return $sets;
+}
+
+/**
+ * Formalter.
+ */
+function clearstone_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'webform_settings_form_form') {
+
+    $form['advance'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Advanced'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    ];
+    $entity = $form_state->getFormObject()->getEntity();
+    $entity_id = $entity->get('id');
+    $confirmation_number = \Drupal::state()->get($entity_id);
+    $form['advance']['confirmation_no'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Turn on Confirmation Number Generation'),
+      '#default_value' => isset($confirmation_number) ? $confirmation_number : 0,
+      '#description' => t('Turns the confirmation number on for auto generation of confirmation numbers. Based on domain name and starting number.'),
+    ];
+
+    $form['actions']['submit']['#submit'][] = 'webform_setting_form_submit';
+  }
+
+  if ($form_id == 'domain_edit_form') {
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('domain')) {
+      $loader = \Drupal::service('domain.negotiator');
+      $current_domain = $loader->getActiveDomain();
+      if ($current_domain) {
+        $domainID = $current_domain->get('id');
+        $connection = \Drupal::database();
+        if (db_table_exists('clearstone_domain_record')) {
+          $results = $connection->select('clearstone_domain_record', 'x')
+            ->fields('x',
+              [
+                'domain_id', 'prefix_confirmation_number',
+                'starting_confirmation_number',
+                'exclude_nodes',
+              ])
+            ->condition('domain_id', $domainID)
+            ->execute()->fetchAll();
+          if ($results) {
+            foreach ($results as $result) {
+              $conf_prefix = $result->prefix_confirmation_number;
+              $conf_start = $result->starting_confirmation_number;
+              $conf_exclude = $result->exclude_nodes;
+            }
+          }
+        }
+      }
+
+    }
+    $form['clearstone'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Clearstone'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    ];
+
+    $form['clearstone']['conf_prefix'] = [
+      '#type' => 'textfield',
+      '#title' => t('Prefix for confirmation number.'),
+      '#default_value' => isset($conf_prefix) ? $conf_prefix : '',
+    ];
+
+    $form['clearstone']['conf_start'] = [
+      '#type' => 'textfield',
+      '#title' => t('Starting confirmation number.'),
+      '#default_value' => isset($conf_start) ? $conf_start : '',
+    ];
+
+    $form['clearstone']['conf_exclude'] = [
+      '#type' => 'textfield',
+      '#title' => t('Exclude nodes from incrementing.'),
+      '#default_value' => isset($conf_exclude) ? $conf_exclude : '',
+      '#description' => t('Nodes to exclude from incrementing the confirmation number. Input multiples as comma separated. ex: 1,2,3'),
+    ];
+
+    $form['actions']['submit']['#submit'][] = 'mydomain_form_submit';
+
+    $form['clearstone']['#domain_setting'] = TRUE;
+  }
+  return $form;
+}
+
+/**
+ * Customsubmit.
+ */
+function mydomain_form_submit(array &$form, FormStateInterface $form_state) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('domain')) {
+    $loader = \Drupal::service('domain.negotiator');
+    $current_domain = $loader->getActiveDomain();
+    if ($current_domain) {
+      $domainID = $current_domain->get('id');
+      if (db_table_exists('clearstone_domain_record')) {
+        $conn = \Drupal::database();
+        $conn->insert('clearstone_domain_record')->fields(
+        [
+          'domain_id' => $domainID,
+          'prefix_confirmation_number' => $form_state->getValue('conf_prefix'),
+          'starting_confirmation_number' => $form_state->getValue('conf_start'),
+          'exclude_nodes' => $form_state->getValue('conf_exclude'),
+        ]
+          )->execute();
+      }
+    }
+  }
+}
+
+
+
+
+/**
+ * EntityInsert.
+ */
+function clearstone_entity_insert(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'webform_submission') {
+
+    // if (!empty($submitted_data['ipaddress'])) {
+    //     $submitted_data['ipaddress'] = \Drupal::request()->getClientIp();
+    //     $submission->setData($submitted_data);
+    //     $entity->save();
+    // }
+     $submitted_data = $entity->getData();
+    if (!empty($submitted_data['adddrugcov'])) {
+      if ($submitted_data['adddrugcov'] == 'Blank') {
+        $submitted_data['adddrugcov'] = '';
+        $entity->setData($submitted_data);
+        $entity->save();
+      }
+    }
+
+    if (!empty($submitted_data['longtermcare'])) {
+      if ($submitted_data['longtermcare'] == 'Blank') {
+        $submitted_data['longtermcare'] = '';
+        $entity->setData($submitted_data);
+        $entity->save();
+      }
+    }
+
+      $entity2 = \Drupal::entityTypeManager()->getStorage('webform')->load($entity->getWebform()->id());
+     // $submitted_data = $entity->getData();
+
+        if ($entity2) {
+          $component_types = [];
+          $elements = $entity2->getElementsInitializedFlattenedAndHasValue('view');
+          foreach ($elements as $key => $element) {
+            $component_types[$key] = $entity2->getElement($key);
+          }
+          foreach($component_types as $key => $component_type){
+            $type = $component_type['#type'];
+            if ($type == 'checkbox'){
+             if ($submitted_data[$key] == 0) {
+                $submitted_data[$key] = '';
+                $entity->setData($submitted_data);
+                $entity->save();
+             }
+             if ($submitted_data[$key] == 1) {
+                $submitted_data[$key] = 'Y';
+                $entity->setData($submitted_data);
+                $entity->save();
+             }
+            }
+          }
+        }
+
+    $moduleHandler = \Drupal::service('module_handler');
+    // if ($moduleHandler->moduleExists('domain')) {
+      $entity_id = $entity->get('webform_id')->getString();
+      $confirmation_number = \Drupal::state()->get($entity_id);
+      if (isset($confirmation_number) && $confirmation_number == 1) {
+        $node_id = $entity->get('entity_id')->getString();
+        // Find if there is a node exists for this webform.
+        if ($node_id == NULL) {
+          if (db_table_exists('node__webform')) {
+            $connection = \Drupal::database();
+            $node_id = $connection->select('node__webform', 'w')
+              ->fields('w', ['entity_id'])
+              ->condition('webform_target_id', $entity_id)
+              ->range(0, 1)
+              ->execute()->fetchField();
+          }
+        }
+        if ($node_id) {
+          $connection = \Drupal::database();
+          $results = $connection->select('webform_submission', 'w')
+            ->fields('w', ['sid'])
+            ->condition('webform_id', $entity_id)
+            ->orderBy('w.sid', 'DESC')
+            ->range(0, 1)
+            ->execute()->fetchAll();
+          foreach ($results as $result) {
+            $sid = $result->sid;
+          }
+
+          if ($moduleHandler->moduleExists('domain')) {
+            $loader = \Drupal::service('domain.negotiator');
+            $current_domain = $loader->getActiveDomain();
+            $domainID = $current_domain->get('domain_id');
+            $domainkey = $current_domain->get('id');
+            if (db_table_exists('clearstone_domain_record')) {
+              $connection = \Drupal::database();
+              $results = $connection->select('clearstone_domain_record', 'x')
+                ->fields('x',
+                  [
+                    'domain_id',
+                    'prefix_confirmation_number',
+                    'starting_confirmation_number',
+                    'exclude_nodes',
+                  ])
+                ->condition('domain_id', $domainkey)
+                ->execute()->fetchAll();
+              foreach ($results as $result) {
+                $confPrefix = $result->prefix_confirmation_number;
+                $conf = $result->starting_confirmation_number;
+                $conf_exclude = $result->exclude_nodes;
+              }
+              $excludes = $conf_exclude;
+              $excludes = explode(",", $excludes);
+              if (!in_array($node_id, $excludes)) {
+                $secret = md5(rand());
+                if (db_table_exists('clearstone_submission_conf')) {
+                  $conn = \Drupal::database();
+                  $conn->merge('clearstone_submission_conf')
+                  ->insertFields(
+                     [
+                    'sid' => $sid,
+                    'domain_id' => $domainID,
+                    'secret' => $secret,
+                    'conf_number' => $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT),
+                  ]
+                  )
+                  ->updateFields(
+                    [
+                    'domain_id' => $domainID,
+                    'secret' => $secret,
+                    'conf_number' => $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT),
+                    ]
+                   )
+                  ->key('sid', $sid)
+                  ->execute();
+
+                }
+                $_SESSION['conf'] = $secret;
+                $_SESSION['conf_no'] = $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT);
+                $conf++;
+                if (db_table_exists('clearstone_domain_record')) {
+                  $conn = \Drupal::database();
+                  $conn->update('clearstone_domain_record')
+                    ->fields(['starting_confirmation_number' => $conf])
+                    ->condition('domain_id', $domainkey)
+                    ->execute();
+                }
+              }
+              else{
+                $_SESSION['conf_no'] = '';
+              }
+            }
+          }
+          else {
+            $clearstoneConfig = \Drupal::config('clearstone.settings');
+            $confPrefix = $clearstoneConfig->get('prefix_confirm_no');
+            $conf = $clearstoneConfig->get('starting_confirm_no');
+            $conf_exclude = $clearstoneConfig->get('exclude_nodes');
+            $conf_exclude = explode(',', $conf_exclude);
+            $excludes = $conf_exclude;
+            if (!in_array($node_id, $excludes)) {
+              $secret = md5(rand());
+              if (db_table_exists('clearstone_submission_conf')) {
+                $conn = \Drupal::database();
+                $conn->merge('clearstone_submission_conf')
+                ->insertFields(
+                   [
+                  'sid' => $sid,
+                  'secret' => $secret,
+                  'conf_number' => $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT),
+                ]
+                )
+                ->updateFields(
+                  [
+                  'secret' => $secret,
+                  'conf_number' => $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT),
+                  ]
+                 )
+                ->key('sid', $sid)
+                ->execute();
+
+              }
+              $_SESSION['conf'] = $secret;
+              $_SESSION['conf_no'] = $confPrefix.str_pad($conf, 10, '0', STR_PAD_LEFT);
+              $submitted_data = $entity->getData();
+
+              //Saving confirmation number to conf_no webform field
+              if (!empty($submitted_data['conf_number'])) {
+                $submitted_data['conf_number'] = $_SESSION['conf_no'];
+                $entity->setData($submitted_data);
+                $entity->save();
+              }
+
+              $conf++;
+              $clearstoneConfig = \Drupal::configFactory()->getEditable('clearstone.settings');
+              $clearstoneConfig->set('starting_confirm_no', $conf);
+              $clearstoneConfig->save();
+            }
+            else{
+              $_SESSION['conf_no'] = '';
+            }
+          }
+        }
+        else {
+          \Drupal::logger('ClearStone')->info('No webform node exists for %webform_id', ['%webform_id' => $entity_id]);
+        }
+      }
+    // }
+  }
+}
+
+/**
+ * Mail.
+ */
+function clearstone_mail($key, &$message, $params) {
+  $message['body'] = [];
+  $message['headers'] = [
+    'content-type' => 'text/html; charset=UTF-8; format=flowed; delsp=yes',
+    'MIME-Version' => '1.0',
+    'reply-to' => $message['from'],
+    'from' => \Drupal::config('system.site')->get('name') . '<' . \Drupal::config('system.site')->get('mail') . '>',
+    'Return-Path' => \Drupal::config('system.site')->get('mail'),
+  ];
+  switch ($key) {
+    case 'submission_confirmation':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Confirmation Message');
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
+
+/**
+ * Configrationsubmit.
+ */
+function webform_setting_form_submit(array &$form, FormStateInterface $form_state) {
+  if ($entity = $form_state->getFormObject()->getEntity()) {
+    $entity_id = $entity->get('id');
+    \Drupal::state()->set($entity_id, $form_state->getValue('confirmation_no'));
+  }
+}

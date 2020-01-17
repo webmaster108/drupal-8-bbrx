@@ -1,0 +1,7 @@
+agent_validation.settings:
+  path: '/admin/agent-validation'
+  defaults:
+    _form: '\Drupal\agent_validation\Form\AgentValidationForm'
+    _title: 'Agent Validation'
+  requirements:
+    _permission: 'administer site configuration'

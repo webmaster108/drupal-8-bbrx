@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Track_enrollment_referrals.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Hook_form_alter().
+ */
+function track_enrollment_referrals_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $cid = '';
+  $prepare_type = '';
+  $query = \Drupal::database()->select('track_enrollment_referrals', 't')
+    ->fields('t', ['webform_id'])
+    ->execute();
+  $enabled_forms = $query->fetchAll();
+  $request = \Drupal::request();
+  $session = $request->getSession();
+  $npn = $session->get('url_npn');
+
+  if ((isset($npn)) && (!empty($npn))) {
+    if (db_table_exists('agent_validation')) {
+      $query = \Drupal::database()->select('agent_validation', 'a')
+          ->fields('a', ['npn'])
+          ->execute();
+      $npn_result = $query->fetchAll();
+      $npn_arr = [];
+      foreach ($npn_result as $npn_rs => $npn_val) {
+          $npn_arr[] = $npn_val->npn;
+      }
+      if ((in_array($npn, $npn_arr)) && (!empty($enabled_forms))) {
+        foreach ($enabled_forms as $key => $value) {
+          $find_webform = substr($form_id, 0, 18);
+          if ($find_webform == 'webform_submission') {
+            if (strpos($form_id, $value->webform_id) !== FALSE) {
+              $webform_id = substr($form_id, 19, -17);
+              $forms = \Drupal::entityTypeManager()->getStorage('webform')->loadMultiple();
+              foreach ($forms as $entity) {
+                if ($entity->id() == $webform_id) {
+                  $elements = $entity->getElementsDecodedAndFlattened();
+                  if( isset($elements['preparer'])) {
+                  	$prepare_type = $elements['preparer']['#type'];
+                  }
+                  foreach ($elements as $key => $element) {
+                    if ($key == 'agentid_url') {
+                      $cid = $key;
+                    }
+                  }
+                }
+              }
+              if ($cid != '') {
+                if ($prepare_type == 'select') {
+                  $form['#attached']['library'][] = 'track_enrollment_referrals/select';
+                }
+                elseif ($prepare_type == 'radios') {
+                  $form['#attached']['library'][] = 'track_enrollment_referrals/radios';
+                }
+                $form['actions']['submit']['#validate'][] = 'track_enrollment_referrals_form_validate';
+
+              }
+            }
+          }
+        } 
+      }
+    }
+  }
+}
+
+/**
+ * Form validate.
+ */
+function track_enrollment_referrals_form_validate($form, FormStateInterface $form_state) {
+  $request = \Drupal::request();
+  $session = $request->getSession();
+  $npn = $session->get('url_npn');
+  $form_state->setValue('agentid_url', $npn);
+}

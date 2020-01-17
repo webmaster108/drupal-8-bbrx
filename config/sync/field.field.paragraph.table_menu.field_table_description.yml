@@ -1,0 +1,21 @@
+uuid: 7cf35325-626c-456f-b252-058f4a477003
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_table_description
+    - paragraphs.paragraphs_type.table_menu
+  module:
+    - text
+id: paragraph.table_menu.field_table_description
+field_name: field_table_description
+entity_type: paragraph
+bundle: table_menu
+label: 'Table Description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

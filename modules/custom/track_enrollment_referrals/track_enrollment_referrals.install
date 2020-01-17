@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Implementation of hook_schema().
+ */
+
+/**
+ * {@inheritdoc}
+ */
+function track_enrollment_referrals_schema() {
+
+  $schema['track_enrollment_referrals'] = [
+    'description' => 'Stores NPN and form data',
+    'fields' => [
+      'id' => [
+        'description' => '',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'webform_id' => [
+        'description' => '',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'webform' => [
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'row_insert_date' => [
+        'description' => '',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'row_update_date' => [
+        'description' => '',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}

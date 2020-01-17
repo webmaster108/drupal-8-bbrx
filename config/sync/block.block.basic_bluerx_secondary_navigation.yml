@@ -1,0 +1,51 @@
+uuid: b5bec6a9-bc1e-45ed-a041-2715f9c550ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - ctools
+    - system
+    - webform
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: O7A-uYT4BcF9tkPqYJkvtkWTkUlsSYyfZkzYK2F8_1U
+id: basic_bluerx_secondary_navigation
+theme: basic_bluerx
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Secondary navigation'
+  provider: system
+  label_display: '0'
+  level: 2
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: "/form/*\r\n/basic-blue-rx-enroll-2019*\r\n/basic-blue-rx-change-2019*\r\n/search/node*\r\n/node/45\r\n/node/7\r\n/node/53\r\n/node/46\r\n/node/47\r\n/node/48\r\n/node/50\r\n/node/54\r\n/node/51"
+    negate: true
+    context_mapping: {  }
+  webform:
+    id: webform
+    webforms:
+      basic_blue_rx_change_2019: basic_blue_rx_change_2019
+      basic_blue_rx_enroll_2018: basic_blue_rx_enroll_2018
+      basic_blue_rx_enroll_2019: basic_blue_rx_enroll_2019
+      bbrx_change_payment_option: bbrx_change_payment_option
+      bbrx_update_contact_information: bbrx_update_contact_information
+    negate: true
+    context_mapping:
+      node: '@node.node_route_context:node'
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      webform: webform
+    negate: true
+    context_mapping:
+      node: '@node.node_route_context:node'

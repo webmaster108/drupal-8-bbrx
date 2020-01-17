@@ -1,0 +1,15 @@
+track_enrollment_referrals.trackenrollment_referrals:
+  path: 'admin/settings/trackenrollmentreferrals'
+  defaults:
+    _form: '\Drupal\track_enrollment_referrals\Form\TrackEnrollmentReferralsForm'
+    _title: 'Track Enrollment Referrals'
+  requirements:
+    _permission: 'administer site configuration'
+
+track_enrollment_referrals.trackenrollment_delete_referrals:
+  path: 'admin/trackenrollmentreferrals/{cid}/remove'
+  defaults:
+    _form: '\Drupal\track_enrollment_referrals\Form\TrackEnrollmentReferralsDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements:
+    _permission: 'administer site configuration'

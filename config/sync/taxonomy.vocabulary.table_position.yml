@@ -1,0 +1,9 @@
+uuid: 7021d8f8-ef1b-4204-a66e-91f9185137ab
+langcode: en
+status: true
+dependencies: {  }
+name: 'Table Position'
+vid: table_position
+description: ''
+hierarchy: 0
+weight: 0

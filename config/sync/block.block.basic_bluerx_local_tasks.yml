@@ -1,0 +1,22 @@
+uuid: b6974fa8-61c6-4dd1-a9a1-7ea5a22b3273
+langcode: en
+status: true
+dependencies:
+  theme:
+    - basic_bluerx
+_core:
+  default_config_hash: OVRp5t_BY7PcDWK2OK3_ZNcofqdqamiVStxc87lT8dA
+id: basic_bluerx_local_tasks
+theme: basic_bluerx
+region: content
+weight: -9
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

@@ -1,0 +1,38 @@
+uuid: 7af62ac7-fe91-49d0-a51c-c2127f428d1c
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.content_views
+  module:
+    - node
+    - views
+  theme:
+    - basic_bluerx
+id: views_block__content_views_block_1
+theme: basic_bluerx
+region: slider
+weight: 0
+provider: null
+plugin: 'views_block:content_views-block_1'
+settings:
+  id: 'views_block:content_views-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      blog: blog
+      faq: faq
+      page: page
+      resources: resources
+      standard: standard
+      webform: webform
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

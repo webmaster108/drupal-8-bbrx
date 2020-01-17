@@ -1,0 +1,25 @@
+uuid: 94766dc1-1a19-49d5-81a6-468afaf0b27e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:a39064a4-fd78-48ea-8963-ba69cb03dfe5'
+  module:
+    - block_content
+  theme:
+    - basic_bluerx
+id: bottom_text
+theme: basic_bluerx
+region: content_bottom
+weight: -12
+provider: null
+plugin: 'block_content:a39064a4-fd78-48ea-8963-ba69cb03dfe5'
+settings:
+  id: 'block_content:a39064a4-fd78-48ea-8963-ba69cb03dfe5'
+  label: bottom_text
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,31 @@
+uuid: 8e2cf9d5-157b-4381-b22f-d109f16c7189
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:2da1b33c-fcce-4e34-bd35-2ccc12569afa'
+  module:
+    - block_content
+    - system
+  theme:
+    - basic_bluerx
+id: googletagmanagerpart1head
+theme: basic_bluerx
+region: html_head
+weight: -13
+provider: null
+plugin: 'block_content:2da1b33c-fcce-4e34-bd35-2ccc12569afa'
+settings:
+  id: 'block_content:2da1b33c-fcce-4e34-bd35-2ccc12569afa'
+  label: 'Google Tag Manager - part 1 HEAD'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

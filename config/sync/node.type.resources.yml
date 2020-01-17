@@ -1,0 +1,17 @@
+uuid: 32299d50-c096-4a35-8912-4264bbae4e5a
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Resources
+type: resources
+description: 'Use the <em>Resources</em> content type to list downloads and links to a list of resources.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

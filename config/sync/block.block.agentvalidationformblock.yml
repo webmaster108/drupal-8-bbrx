@@ -1,0 +1,30 @@
+uuid: 03e214aa-c64a-462d-844c-91af4aa6374a
+langcode: en
+status: true
+dependencies:
+  module:
+    - agent_validation
+    - block_class
+    - system
+  theme:
+    - basic_bluerx
+third_party_settings:
+  block_class:
+    classes: 'block-agent-validation hidden'
+id: agentvalidationformblock
+theme: basic_bluerx
+region: footer
+weight: 0
+provider: null
+plugin: agent_validation
+settings:
+  id: agent_validation
+  label: 'Agent Validation Form Block'
+  provider: agent_validation
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: "/node/45*\r\n/node/47*"
+    negate: false
+    context_mapping: {  }

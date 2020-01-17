@@ -1,0 +1,46 @@
+uuid: 89c21c88-c497-40c5-935d-f6c5c730c596
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_file_or_link
+    - paragraphs.paragraphs_type.content_section
+    - paragraphs.paragraphs_type.file_or_link
+  module:
+    - entity_reference_revisions
+id: paragraph.content_section.field_file_or_link
+field_name: field_file_or_link
+entity_type: paragraph
+bundle: content_section
+label: 'File or Link'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      file_or_link: file_or_link
+    target_bundles_drag_drop:
+      content_section:
+        weight: 7
+        enabled: false
+      faqs:
+        weight: 8
+        enabled: false
+      file_or_link:
+        enabled: true
+        weight: 9
+      forms:
+        weight: 10
+        enabled: false
+      table_menu:
+        weight: 11
+        enabled: false
+      table_menu_content:
+        weight: 12
+        enabled: false
+field_type: entity_reference_revisions

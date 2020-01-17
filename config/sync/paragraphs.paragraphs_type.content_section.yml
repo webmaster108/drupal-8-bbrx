@@ -1,0 +1,9 @@
+uuid: eca00384-170b-4fcc-b9c0-4ee4d1d44bf4
+langcode: en
+status: true
+dependencies: {  }
+id: content_section
+label: 'Content section'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

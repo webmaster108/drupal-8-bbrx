@@ -1,0 +1,249 @@
+langcode: en
+status: open
+dependencies:
+  enforced:
+    module:
+      - webform
+open: null
+close: null
+weight: 0
+uid: null
+template: false
+archive: false
+id: contact
+title: 'Contact Us'
+description: 'Basic email contact webform.'
+category: ''
+elements: "request_type:\n  '#type': radios\n  '#title': 'I would like to...'\n  '#options':\n    'Rx Customer Service': 'Contact Customer Service'\n    'Rx Order ID Card': 'Order a member ID card'\n    'Rx Pharmacy Directory Request': 'Order a pharmacy directory'\n    'Rx EOC Request': 'Order an Evidence of Coverage (EOC)'\n  '#required': true\nrcptdate:\n  '#type': hidden\n  '#title': 'Receipt date and time'\n  '#default_value': '[current-date:short]'\nfield_display:\n  '#type': fieldset\n  '#title': 'Field Display'\n  '#title_display': invisible\n  '#description_display': invisible\n  '#states':\n    visible:\n      ':input[name=\"request_type\"]':\n        checked: true\n  '#attributes':\n    class:\n      - hide-panel-heading\n  row_1_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    firstname:\n      '#type': textfield\n      '#title': 'First Name'\n      '#maxlength': '15'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n      '#required': true\n    lastname:\n      '#type': textfield\n      '#title': 'Last Name'\n      '#maxlength': '35'\n      '#required': true\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n  row_2_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    address1:\n      '#type': textfield\n      '#title': Address\n      '#maxlength': '40'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#states':\n        optional:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Customer Service'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n    address2:\n      '#type': textfield\n      '#title': 'Address 2'\n      '#maxlength': '40'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n  row_3_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    city:\n      '#type': textfield\n      '#title': City\n      '#maxlength': '19'\n      '#pattern': '^[-a-zA-Z0-9 ]*$'\n      '#pattern_error': 'Special characters are not allowed.'\n      '#states':\n        optional:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Customer Service'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n    stateofresidence:\n      '#type': select\n      '#title': State\n      '#options':\n        AL: Alabama\n        AK: Alaska\n        AZ: Arizona\n        AR: Arkansas\n        CA: California\n        CO: Colorado\n        CT: Connecticut\n        DE: Delaware\n        DC: 'District of Columbia'\n        FL: Florida\n        GA: Georgia\n        HI: Hawaii\n        ID: Idaho\n        IL: Illinois\n        IN: Indiana\n        IA: Iowa\n        KS: Kansas\n        KY: Kentucky\n        LA: Louisiana\n        ME: Maine\n        MD: Maryland\n        MA: Massachusetts\n        MI: Michigan\n        MN: Minnesota\n        MS: Mississippi\n        MO: Missouri\n        MT: Montana\n        NE: Nebraska\n        NV: Nevada\n        NH: 'New Hampshire'\n        NJ: 'New Jersey'\n        NM: 'New Mexico'\n        NY: 'New York'\n        NC: 'North Carolina'\n        ND: 'North Dakota'\n        OH: Ohio\n        OK: Oklahoma\n        OR: Oregon\n        PA: Pennsylvania\n        RI: 'Rhode Island'\n        SC: 'South Carolina'\n        SD: 'South Dakota'\n        TN: Tennessee\n        TX: Texas\n        UT: Utah\n        VT: Vermont\n        VA: Virginia\n        WA: Washington\n        WV: 'West Virginia'\n        WI: Wisconsin\n        WY: Wyoming\n      '#required': true\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n  row_4_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    zip:\n      '#type': textfield\n      '#title': Zip\n      '#maxlength': '5'\n      '#states':\n        optional:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Customer Service'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n    phonenumber:\n      '#type': textfield\n      '#title': 'Phone Number'\n      '#maxlength': '17'\n      '#placeholder': '(___) ___-____'\n      '#input_mask': '(999) 999-9999'\n      '#required': true\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-6 col-md-6'\n  row_5_container:\n    '#type': container\n    '#attributes':\n      class:\n        - row\n    memberidnumber:\n      '#type': textfield\n      '#title': 'Member ID'\n      '#maxlength': '9'\n      '#required': true\n      '#default_value': '204'\n      '#pattern': '^[0-9]*$'\n      '#pattern_error': 'Valid Member ID is required'\n      '#wrapper_attributes':\n        class:\n          - 'col-md-6 col-sm-6'\n    dateofbirth:\n      '#type': date\n      '#title': 'Date of Birth'\n      '#field_prefix': '<div class=\"date_wrap_div\">'\n      '#field_suffix': '</div>'\n      '#required': true\n      '#states':\n        visible:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Order ID Card'\n      '#wrapper_attributes':\n        class:\n          - 'col-md-6 col-sm-6'\n      '#date_date_min': '-110 years'\n      '#date_date_max': '+0 years'\n      '#datepicker': true\n      '#datepicker_button': true\n      '#date_date_format': m/d/Y\n    eocrequest:\n      '#type': select\n      '#title': 'Evidence of Coverage'\n      '#options':\n        BBRx_EOC_Value: 'Value plan'\n        BBRx_EOC_Standard: 'Standard plan'\n      '#empty_option': '- Select -'\n      '#states':\n        visible:\n          ':input[name=\"request_type\"]':\n            value: 'Rx EOC Request'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-12 col-md-12'\n    stateofdirectory:\n      '#type': select\n      '#title': 'Pharmacy Directory'\n      '#options':\n        LA_Value: 'Louisiana Value plan'\n        LA_Standard: 'Louisiana Standard plan'\n        NC_Value: 'North Carolina Value plan'\n        NC_Standard: 'North Carolina Standard plan'\n        PA_Value: 'Pennsylvania Value plan'\n        PA_Standard: 'Pennsylvania Standard plan'\n        WV_Value: 'West Virginia Value plan'\n        WV_Standard: 'West Virginia Standard Plan'\n      '#required': true\n      '#states':\n        visible:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Pharmacy Directory Request'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-12 col-md-12'\n    plan_year:\n      '#type': select\n      '#title': 'Plan Year'\n      '#options':\n        2019: '2019'\n      '#required': true\n      '#states':\n        visible:\n          - ':input[name=\"request_type\"]':\n              value: 'Rx Pharmacy Directory Request'\n          - xor\n          - ':input[name=\"request_type\"]':\n              value: 'Rx EOC Request'\n      '#default_value': '2019'\n      '#wrapper_attributes':\n        class:\n          - col-md-12\n    emailaddress:\n      '#type': email\n      '#title': 'Email Address'\n      '#maxlength': '70'\n      '#states':\n        visible:\n          - ':input[name=\"request_type\"]':\n              value: 'Rx Customer Service'\n          - or\n          - ':input[name=\"request_type\"]':\n              value: 'Rx Order ID Card'\n      '#default_value': '[current-user:mail]'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-12 col-md-12'\n    message:\n      '#type': textarea\n      '#title': Message\n      '#states':\n        visible:\n          ':input[name=\"request_type\"]':\n            value: 'Rx Customer Service'\n      '#wrapper_attributes':\n        class:\n          - 'col-sm-12 col-md-12'\n      '#test': 'Please ignore this email.'\ntimestamp:\n  '#type': hidden\n  '#title': timestamp\n  '#default_value': '[current-date:html_time]'\nconf_number:\n  '#type': hidden\n  '#title': conf_number\n  '#default_value': no_confirmation\nipaddress:\n  '#type': hidden\n  '#title': 'IP Address'\n  '#default_value': UNKNOWN\nactions:\n  '#type': webform_actions\n  '#title': 'Submit button(s)'\n  '#states':\n    visible:\n      ':input[name=\"request_type\"]':\n        checked: true\n  '#submit__label': Submit"
+css: '.hide-panel-heading .panel-heading{display:none}'
+javascript: "  // @see http://api.jqueryui.com/datepicker/\r\n  Drupal.webform = Drupal.webform || {};\r\n  Drupal.webform.datePicker = Drupal.webform.datePicker || {};\r\n  Drupal.webform.datePicker.options = Drupal.webform.datePicker.options || {\r\n          changeYear: true,\r\n          changeMonth: true\r\n  };\r\n\r\n//Just to overrise default date of DOB to 65 year before\r\nif(jQuery && jQuery.fn.datepicker){\r\n  jQuery.datepicker._getDefaultDate = function( inst ) {\r\n\t\tvar defaultDate = this._get( inst, \"defaultDate\" );\r\n\t\tif( jQuery(inst).attr(\"id\") == \"edit-dateofbirth\"){\r\n\t\t\tdefaultDate = defaultDate == null? \"-23725\" : defaultDate;\r\n\t\t}\t\t\r\n\t\treturn this._restrictMinMax( inst,\r\n\t\t\tthis._determineDate( inst, defaultDate, new Date() ) );\r\n\t};\r\n}\r\njQuery.extend(jQuery.validator.messages, { \r\n  minlength: jQuery.validator.format(\"Please enter {0} characters.\"),\r\n});\r\njQuery(\"form.webform-submission-form\").validate({\r\n         rules: {\r\n            zip:{\r\n              minlength: 5, \r\n              digits: true\r\n           },\r\n           memberidnumber: {\r\n              minlength: 9,\r\n              digits: true\r\n           }\r\n      }\r\n});"
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: false
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_admin_theme: false
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_remote_addr: true
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_reset: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  submission_label: ''
+  submission_log: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: "Thank you for your submission.\r\n\r\n<p>Your confirmation number is <?php if(!empty($_SESSION['conf_no'])){ echo $_SESSION['conf_no']; } ?></p>"
+  confirmation_url: '<current>'
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  email_confirmation:
+    id: email
+    label: 'Email confirmation'
+    handler_id: email_confirmation
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:email:raw]'
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+  email_notification:
+    id: email
+    label: 'Email notification'
+    handler_id: email_notification
+    status: true
+    conditions: {  }
+    weight: 1
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      to_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      from_mail: '[webform_submission:values:email:raw]'
+      from_options: {  }
+      from_name: '[webform_submission:values:name:raw]'
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      debug: false
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+uuid: a8935841-e223-4635-921c-ae8cc107bed3
+_core:
+  default_config_hash: Db1CJM6FchEqqeVz5YJThCK0WB599y4NjQ4GkPcGF5g

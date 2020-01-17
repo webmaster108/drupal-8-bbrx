@@ -1,0 +1,25 @@
+uuid: 49243149-23a4-416a-bdde-9d30c54869fa
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node_paths
+label: 'Node Paths'
+type: 'canonical_entities:node'
+pattern: '[node:menu-link:parent]/[node:title]'
+selection_criteria:
+  a428dbe9-2fbf-4f5c-ae89-91b5925361f2:
+    id: node_type
+    bundles:
+      page: page
+      resources: resources
+      standard: standard
+      webform: webform
+    negate: false
+    context_mapping:
+      node: node
+    uuid: a428dbe9-2fbf-4f5c-ae89-91b5925361f2
+selection_logic: and
+weight: -5
+relationships: {  }
